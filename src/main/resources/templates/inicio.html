@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Alquiler de vehiculos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Alquiler de vehiculos - carman</h1>
+
+        <div class="auth-buttons">
+            <button>Iniciar sesión</button>
+            <button>Registrarse</button>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <a href="#" class="active">Cliente</a>
+        <a href="#">Propietarios</a>
+        <a href="#">Conductor</a>
+    </nav>
+
+
+    <aside class="sidebar" id="sidebar">
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <h3>Menú</h3>
+        <a href="#">Reserva activa</a>
+        <a href="#">Historial de reservas</a>
+        <a href="#">Pagos</a>
+        <a href="#">Historial de pagos</a>
+        <a href="#">Comentarios</a>
+        <a href="#">Soporte</a>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <div class="main">
+
+        <section class="busqueda">
+
+            <input type="text" placeholder="Lugar de recogida (Cartagena)">
+            <input type="date">
+            <input type="time">
+
+            <div class="opcion-conductor">
+                <label>
+                    <input type="checkbox">
+                    Agregar conductor (+adicional)
+                </label>
+            </div>
+
+            <button>Buscar</button>
+
+        </section>
+
+        <section class="contenido">
+            <h2>Reserva tu vehiculo</h2>
+            <p>Inicie sesion o registrese para proceder con tu solicitud<button class="menu-btn"
+                    onclick="toggleMenu()">☰</button></p>
+        </section>
+
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("sidebar").classList.toggle("activo");
+        }
+    </script>
+
+</body>
+
+</html>

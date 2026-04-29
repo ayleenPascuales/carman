@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fef6f9;
+}
+
+/* HEADER */
+header {
+    background-color: #cdb4db;
+    padding: 40px;
+    position: relative;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.auth-buttons {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.auth-buttons button {
+    background-color: #ffafcc;
+    color: black;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* TABS */
+.tabs {
+    display: flex;
+    justify-content: center;
+    background-color: #f1faee;
+    padding: 12px;
+    gap: 20px;
+    margin: 140px auto 0 auto;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.tabs a {
+    text-decoration: none;
+    color: #457b9d;
+    padding: 6px 15px;
+    border-radius: 10px;
+}
+
+.tabs .active {
+    background-color: #ffafcc;
+    color: white;
+}
+
+/* BOTÓN MENU */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 220px;
+    height: 100%;
+    background-color: #cdb4db;
+    padding: 20px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.sidebar.activo {
+    left: 0;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 10px;
+    right: -50px;
+    padding: 10px;
+    border: none;
+    background-color: #cdb4db;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.sidebar h3 {
+    color: white;
+    margin-top: 80px;
+}
+
+.sidebar a {
+    display: block;
+    margin: 15px 0;
+    color: white;
+    text-decoration: none;
+}
+
+/* CONTENIDO */
+.main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* BUSQUEDA */
+.busqueda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.busqueda input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.busqueda button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #bde0fe;
+    cursor: pointer;
+}
+
+/* OPCIÓN CONDUCTOR */
+.opcion-conductor {
+    display: flex;
+    align-items: center;
+    background-color: #f1faee;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+/* TEXTO */
+.contenido {
+    margin-top: 30px;
+    text-align: center;
+}
