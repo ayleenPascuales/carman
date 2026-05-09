@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    background: white;
+    width: 420px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.title {
+    color: #2a6df4;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Stepper */
+.steps {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #999;
+}
+
+.circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.active {
+    color: #2a6df4;
+}
+
+.active .circle {
+    background: #2a6df4;
+    color: white;
+    border: none;
+}
+
+.line {
+    flex: 1;
+    height: 2px;
+    background: #ccc;
+    margin: 0 5px;
+}
+
+/* Options */
+.options {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.option {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option:hover {
+    border-color: #2a6df4;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.option.selected {
+    border-color: #2a6df4;
+    background: #eef4ff;
+}
+
+.icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.option-title {
+    font-weight: bold;
+}
+
+.option-desc {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ddd;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #ccc;
+}

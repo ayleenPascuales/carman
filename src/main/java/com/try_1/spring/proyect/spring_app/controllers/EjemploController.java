@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class EjemploController {
     
-    @GetMapping("/inicio")
+    @GetMapping("/Home")
     
     public String info(){
         
-        return "inicio";
+        return "Home";
     }
 }

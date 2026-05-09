@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Carman</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+    <div class="nav-left">
+
+        <!-- MENU ICON -->
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
+
+        <div class="logo">
+            Carman
+        </div>
+
+    </div>
+
+    <nav>
+        <a href="ejemplo.html">Inicio</a>
+        <a class="active" href="buscar.html">Catálogo</a>
+        <a href="#">¿Por qué Carman?</a>
+        <a href="#">Soporte</a>
+    </nav>
+
+    <div class="nav-buttons">
+        <a href="InicioSesion.html">Iniciar sesión</a>
+        <button>Registrarse</button>
+    </div>
+
+</header>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+
+        <h2>Carman</h2>
+
+        <button onclick="toggleMenu()">✕</button>
+
+    </div>
+
+    <!-- CUENTA -->
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-title">CUENTA</p>
+
+        <a href="#">👤 Iniciar sesión</a>
+        <a href="#">📝 Registrarse</a>
+
+        <a class="highlight" href="#">
+            🚘 Hazte anfitrión
+        </a>
+
+    </div>
+
+    <!-- VEHICULOS -->
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-title">VEHÍCULOS</p>
+
+        <a href="buscar.html">🔎 Buscar vehículos</a>
+        <a href="#">⭐ Destacados</a>
+        <a href="#">🆕 Nuevos ingresos</a>
+        <a href="#">⚡ Eléctricos</a>
+        <a href="#">🏔️ SUVs & 4x4</a>
+
+    </div>
+
+    <!-- INFORMACION -->
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-title">INFORMACIÓN</p>
+
+        <a href="#">❓ ¿Por qué Carman?</a>
+        <a href="#">📞 Soporte</a>
+        <a href="#">📄 Legal</a>
+
+    </div>
+
+</aside>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Movilidad <br>
+                sin límites
+            </h1>
+
+            <p>
+                Alquila o comparte el vehículo perfecto
+                para cada aventura. Fácil, rápido y seguro.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn">
+                    Explorar vehículos
+                </button>
+
+                <button class="secondary-btn">
+                    Cómo funciona
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- SEARCH CARD -->
+
+        <div class="search-card">
+
+            <div class="tabs">
+
+                <button class="tab active">
+                    Alquilar
+                </button>
+
+               
+
+            </div>
+
+            <div class="search-grid">
+
+                <div class="field">
+                    <label>Ciudad</label>
+                    <input type="text" placeholder="¿Dónde vas?">
+                </div>
+
+                <div class="field">
+                    <label>Recogida</label>
+                    <input type="date">
+                </div>
+
+                <div class="field">
+                    <label>Hora</label>
+                    <input type="time">
+                </div>
+
+                <div class="field">
+                    <label>Devolución</label>
+                    <input type="date">
+                </div>
+
+            </div>
+
+            <button class="search-btn">
+                Buscar vehículos
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- VEHICULOS -->
+
+    <section class="vehicles">
+
+        <div class="section-title">
+
+            <h2>Vehículos destacados</h2>
+
+            <p>
+                Los más elegidos por nuestra comunidad
+            </p>
+
+        </div>
+
+        <div class="vehicle-grid">
+
+            <!-- CARD -->
+
+            <div class="card">
+
+                <img src="https://picsum.photos/500/300?1">
+
+                <div class="card-content">
+
+                    <h3>BMW Serie 3</h3>
+
+                    <span class="type">
+                        Sedán · Automático
+                    </span>
+
+                    <div class="specs">
+                        <span>👥 5 plazas</span>
+                        <span>⛽ Gasolina</span>
+                        <span>❄️ A/C</span>
+                    </div>
+
+                    <div class="card-footer">
+
+                        <div class="price">
+                            $85.000 <span>/día</span>
+                        </div>
+
+                        <button>
+                            Reservar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD -->
+
+            <div class="card">
+
+                <img src="https://picsum.photos/500/300?2">
+
+                <div class="card-content">
+
+                    <h3>Tesla Model 3</h3>
+
+                    <span class="type">
+                        Sedán · Eléctrico
+                    </span>
+
+                    <div class="specs">
+                        <span>👥 5 plazas</span>
+                        <span>⚡ Eléctrico</span>
+                        <span>🅿️ Autopilot</span>
+                    </div>
+
+                    <div class="card-footer">
+
+                        <div class="price">
+                            $110.000 <span>/día</span>
+                        </div>
+
+                        <button>
+                            Reservar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CARD -->
+
+            <div class="card">
+
+                <img src="https://picsum.photos/500/300?3">
+
+                <div class="card-content">
+
+                    <h3>Toyota RAV4</h3>
+
+                    <span class="type">
+                        SUV · Híbrido
+                    </span>
+
+                    <div class="specs">
+                        <span>👥 7 plazas</span>
+                        <span>🔋 Híbrido</span>
+                        <span>🏔️ 4x4</span>
+                    </div>
+
+                    <div class="card-footer">
+
+                        <div class="price">
+                            $95.000 <span>/día</span>
+                        </div>
+
+                        <button>
+                            Reservar
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HOW -->
+
+    <section class="how">
+
+        <div class="section-title">
+
+            <h2>¿Cómo funciona?</h2>
+
+            <p>
+                En tres pasos tienes tu vehículo listo
+            </p>
+
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-circle">
+                    👤
+                </div>
+
+                <h3>Regístrate</h3>
+
+                <p>
+                    Crea tu cuenta fácilmente en pocos minutos.
+                </p>
+
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step">
+
+                <div class="step-circle">
+                    🚗
+                </div>
+
+                <h3>Elige tu auto</h3>
+
+                <p>
+                    Busca entre cientos de vehículos disponibles.
+                </p>
+
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step">
+
+                <div class="step-circle">
+                    ✔️
+                </div>
+
+                <h3>¡A rodar!</h3>
+
+                <p>
+                    Reserva y disfruta tu viaje con tranquilidad.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <h2>Carman</h2>
+
+                <p>
+                    Movilidad compartida para todos.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <div>
+
+                    <h3>Vehículos</h3>
+
+                    <a href="buscar.html">Catálogo</a>
+                    <a href="#">Destacados</a>
+                    <a href="#">Eléctricos</a>
+
+                </div>
+
+                <div>
+
+                    <h3>Empresa</h3>
+
+                    <a href="#">¿Por qué Carman?</a>
+                    <a href="#">Hazte anfitrión</a>
+                    <a href="#">Soporte</a>
+
+                </div>
+
+                <div>
+
+                    <h3>Legal</h3>
+
+                    <a href="#">Términos de uso</a>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Cookies</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Carman
+        </div>
+
+    </footer>
+
+    <script>
+
+        function toggleMenu() {
+
+            document.getElementById("sidebar")
+                .classList.toggle("active");
+
+            document.getElementById("overlay")
+                .classList.toggle("active");
+
+        }
+
+    </script>
+
+</body>
+
+</html>

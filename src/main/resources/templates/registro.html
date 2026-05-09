@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoShare - Registro</title>
+    <link rel="stylesheet" href="registro.css">
+</head>
+<body>
+
+<div class="card">
+    
+    <div class="subtitle">Crea tu cuenta</div>
+
+    <div class="steps">
+        <div class="step active">
+            <div class="circle">1</div> Tipo
+        </div>
+        <div class="line"></div>
+        <div class="step">
+            <div class="circle">2</div> Datos
+        </div>
+        <div class="line"></div>
+        <div class="step">
+            <div class="circle">3</div> Verificación
+        </div>
+    </div>
+
+    <p>¿Cómo quieres usar la plataforma?</p>
+
+    <div class="options">
+        <div class="option" onclick="selectOption(this)">
+            <div class="icon">👤</div>
+            <div class="option-title">Soy cliente</div>
+            <div class="option-desc">Quiero alquilar vehículos</div>
+        </div>
+
+        <div class="option" onclick="selectOption(this)">
+            <div class="icon">🔒</div>
+            <div class="option-title">Soy propietario</div>
+            <div class="option-desc">Quiero poner mi auto</div>
+        </div>
+    </div>
+
+    <button class="btn">Continuar</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
