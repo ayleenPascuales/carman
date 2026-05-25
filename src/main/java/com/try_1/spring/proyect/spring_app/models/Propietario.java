@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,18 +18,18 @@ public class Propietario {
     @Column(name="idPropietario")
     private Integer idPropietario;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idPersona")
     private Persona persona;
 
     @OneToOne
-    @JoinColumn(name="idLicencia")
+    @JoinColumn(name="idLicencia", referencedColumnName = "idLicencia")
     private Licencia licenciaPropietario;
 
     @OneToMany(mappedBy = "propietario")
     private List<Vehiculo> vehiculos;
 
-    @Column(name="tarjetaPropiedad")
+    @Column(name="tarjetaPropiedad", columnDefinition = "VARCHAR(MAX)")
     private String tarjetaPropiedad;
 
     @Column(name="totalPrestamos")

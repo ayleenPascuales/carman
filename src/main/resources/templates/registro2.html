@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registro | Carman</title>
+
+    <link rel="stylesheet" th:href="@{/registro.css}">
+
+</head>
+
+<body>
+
+    <section class="register-page">
+
+        <!-- LEFT -->
+
+        <div class="register-left">
+
+            <div class="left-content">
+
+                <span class="tag">
+                    Bienvenido a Carman
+                    
+                </span>
+
+                <h1>
+                    Empieza tu viaje con nosotros
+                </h1>
+
+                <p>
+                    Alquila vehículos o gana dinero publicando tu auto en la plataforma.
+                </p>
+
+                <div class="benefits">
+
+                    <div class="benefit">
+                        ✔ Vehículos verificados
+                    </div>
+
+                    <div class="benefit">
+                        ✔ Reserva rápida y segura
+                    </div>
+
+                    <div class="benefit">
+                        ✔ Disponible en varias ciudades
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="register-right">
+
+            <div class="register-box">
+
+                <!-- STEP 1 -->
+
+                <div class="form-step" id="step1">
+
+                    <h2>
+                        Crea tu cuenta
+                        
+                    </h2>
+
+                    <div class="steps">
+
+                        <div class="step active">
+                            <span>1</span>
+                            Tipo
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="step">
+                            <span>2</span>
+                            Datos
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="step">
+                            <span>3</span>
+                            Verificación
+                        </div>
+
+                    </div>
+
+                    <h3 class="question">
+                        ¿Cómo quieres usar la plataforma?
+                    </h3>
+
+                    <div class="options">
+
+                        <div class="option-card active">
+
+                            <div class="icon">
+                                🚘
+                            </div>
+
+                            <h4>
+                                Soy cliente
+                            </h4>
+
+                            <p>
+                                Quiero alquilar vehículos
+                            </p>
+
+                        </div>
+
+                        <div class="option-card">
+
+                            <div class="icon">
+                                💰
+                            </div>
+
+                            <h4>
+                                Soy propietario
+                            </h4>
+
+                            <p>
+                                Quiero publicar mi auto
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button class="continue-btn" onclick="nextStep(2)">
+                        Continuar
+                    </button>
+
+                </div>
+
+                <!-- STEP 2 -->
+
+                <div class="form-step" id="step2">
+
+                    <h3 class="question">
+                        Completa tus datos
+                    </h3>
+
+                    <div class="form-grid">
+
+                        <div class="input-group">
+
+                            <label>
+                                Nombre completo
+                            </label>
+
+                            <input 
+                                type="text"
+                                placeholder="Tu nombre"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>
+                                Correo electrónico
+                            </label>
+
+                            <input 
+                                type="email"
+                                placeholder="correo@gmail.com"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>
+                                Teléfono
+                            </label>
+
+                            <input 
+                                type="text"
+                                placeholder="+57 300 000 0000"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>
+                                Ciudad
+                            </label>
+
+                            <select>
+
+                                <option>
+                                    Medellín
+                                </option>
+
+                                <option>
+                                    Bogotá
+                                </option>
+
+                                <option>
+                                    Cali
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="input-group full">
+
+                            <label>
+                                Contraseña
+                            </label>
+
+                            <input 
+                                type="password"
+                                placeholder="********"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+
+                        <button class="back-btn" onclick="prevStep(1)">
+                            Volver
+                        </button>
+
+                        <button class="continue-btn" onclick="nextStep(3)">
+                            Continuar
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- STEP 3 -->
+
+                <div class="form-step" id="step3">
+
+                    <h3 class="question">
+                        Verificación
+                    </h3>
+
+                    <p class="verify-text">
+                        Sube tus documentos para validar tu cuenta.
+                    </p>
+
+                    <div class="upload-grid">
+
+                        <div class="upload-card">
+
+                            <div class="upload-icon">
+                                📄
+                            </div>
+
+                            <h4>
+                                Documento
+                            </h4>
+
+                            <input type="file">
+
+                        </div>
+
+                        <div class="upload-card">
+
+                            <div class="upload-icon">
+                                🚘
+                            </div>
+
+                            <h4>
+                                Licencia
+                            </h4>
+
+                            <input type="file">
+
+                        </div>
+
+                    </div>
+
+                    <div class="buttons">
+
+                        <button class="back-btn" onclick="prevStep(2)">
+                            Volver
+                        </button>
+
+                        <button class="continue-btn" onclick="nextStep(4)">
+                            Finalizar
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- STEP 4 -->
+
+                <div class="form-step success-step" id="step4">
+
+                    <div class="success-icon">
+                        🎉
+                    </div>
+
+                    <h2>
+                        ¡Cuenta creada!
+                    </h2>
+
+                    <p>
+                        Ya puedes comenzar a usar Carman.
+                    </p>
+
+                    <a th:href="@{/buscar}" class="finish-btn">
+                        Ir al catálogo
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="registro2.js"></script>
+
+</body>
+</html>

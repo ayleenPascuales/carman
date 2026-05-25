@@ -2,7 +2,7 @@ package com.try_1.spring.proyect.spring_app.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +41,7 @@ public class Reserva {
     private Ruta ruta;
 
     @Column(name="horaEntrega")
-    private LocalDateTime horaEntrega;
+    private LocalTime horaEntrega;
 
     @Column(name="fechaReserva")
     private LocalDate fechaReserva;
@@ -59,13 +59,14 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Cliente cliente, Conductor conductor, EstadoReserva estado, LocalDate fechaReserva, LocalDate fechaServicio, LocalDateTime horaEntrega, BigDecimal precioEstimado, Ruta ruta, Vehiculo vehiculo) {
+    public Reserva(Cliente cliente, Conductor conductor, EstadoReserva estado, LocalDate fechaReserva, LocalDate fechaServicio, LocalTime horaEntrega, Integer idReserva, BigDecimal precioEstimado, Ruta ruta, Vehiculo vehiculo) {
         this.cliente = cliente;
         this.conductor = conductor;
         this.estado = estado;
         this.fechaReserva = fechaReserva;
         this.fechaServicio = fechaServicio;
         this.horaEntrega = horaEntrega;
+        this.idReserva = idReserva;
         this.precioEstimado = precioEstimado;
         this.ruta = ruta;
         this.vehiculo = vehiculo;
@@ -111,11 +112,11 @@ public class Reserva {
         this.ruta = ruta;
     }
 
-    public LocalDateTime getHoraEntrega() {
+    public LocalTime getHoraEntrega() {
         return horaEntrega;
     }
 
-    public void setHoraEntrega(LocalDateTime horaEntrega) {
+    public void setHoraEntrega(LocalTime horaEntrega) {
         this.horaEntrega = horaEntrega;
     }
 
@@ -151,9 +152,6 @@ public class Reserva {
         this.precioEstimado = precioEstimado;
     }
 
-    
-
-
-    
+   
     
 }

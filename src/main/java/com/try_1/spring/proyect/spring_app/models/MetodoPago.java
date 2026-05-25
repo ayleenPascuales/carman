@@ -16,7 +16,7 @@ public class MetodoPago {
     @Column(name="idMetodo")
     private Integer idMetodo;
 
-    @Column(name="tipo",length=50)
+    @Column(name="tipo",length=50, unique=true)
     private String tipo;
 
     @Column(name="descripcion",length=100)

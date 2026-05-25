@@ -36,7 +36,7 @@ public class LicenciaServiceImpl implements LicenciaService{
     }
     @Override
     public Licencia buscarPorNumero(String Numero){
-        return licenciaRepository.findbyNumero(Numero);
+        return licenciaRepository.findByNumero(Numero);
     }
     @Override
     public void eliminarPorNumero(String Numero){

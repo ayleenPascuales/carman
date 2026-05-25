@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -15,12 +16,12 @@ public class Cliente {
     @Column(name="idCliente")
     private Integer idCliente;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idPersona")
     private Persona persona;
 
     @OneToOne
-    @JoinColumn(name="idLicencia")
+    @JoinColumn(name="idLicencia", referencedColumnName = "idLicencia")
     private Licencia licenciaCliente;
 
     public Cliente() {

@@ -24,15 +24,15 @@ public class Pago {
     private Integer idPago;
 
     @ManyToOne
-    @JoinColumn(name="idReserva")
+    @JoinColumn(name="idReserva", referencedColumnName = "idReserva")
     private Reserva reserva;
 
     @ManyToOne
-    @JoinColumn(name="idOrdenPago")
+    @JoinColumn(name="idOrdenPago", referencedColumnName = "idOrdenPago")
     private OrdenPago ordenPago;
 
     @ManyToOne
-    @JoinColumn(name="Metodo")
+    @JoinColumn(name="idMetodo", referencedColumnName = "idMetodo")
     private MetodoPago metodo;
 
     @Column(name="monto", precision=10, scale=2)

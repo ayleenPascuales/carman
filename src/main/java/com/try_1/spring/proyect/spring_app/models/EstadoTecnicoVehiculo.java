@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="EstadoTecnicoVehiculo")
+@Table(name="estado_tecnico_vehiculo")
 public class EstadoTecnicoVehiculo {
     
     @Id

@@ -15,7 +15,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="OrdenPago")
+@Table(name="OrdenDePago")
 public class OrdenPago {
 
     @Id
@@ -40,6 +40,7 @@ public class OrdenPago {
     private String rutaPdf;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "estado", length = 20)
     private EstadoOrdenPago estado;
 
     public OrdenPago() {

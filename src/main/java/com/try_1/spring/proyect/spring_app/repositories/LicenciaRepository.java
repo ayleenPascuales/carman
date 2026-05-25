@@ -7,7 +7,7 @@ import com.try_1.spring.proyect.spring_app.models.Licencia;
 
 public interface LicenciaRepository extends JpaRepository<Licencia, Integer>{
 
-    Licencia findbyNumero(String Numero);
+    Licencia findByNumero(String Numero);
     
     void deleteByNumero(String Numero);
 

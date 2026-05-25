@@ -1,0 +1,11 @@
+tipo,descripcion,activo
+TARJETA,Pago con tarjeta de credito o debito,1
+PSE,Transferencia bancaria PSE,1
+NEQUI,Pago movil Nequi,1
+DAVIPLATA,Pago movil Daviplata,1
+EFECTIVO,Pago presencial en efectivo,1
+PAYPAL,Pago mediante PayPal,0
+WOMPI,Pasarela Wompi,0
+TRANSFERENCIA,Transferencia bancaria directa,1
+APPLE_PAY,Pago con Apple Pay,0
+GOOGLE_PAY,Pago con Google Pay,0

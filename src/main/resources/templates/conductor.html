@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conductor | Carman</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/conductor.css}">
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══════════════════════════════════════════ -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-dot"></div>
+        <span>Carman</span>
+    </div>
+
+    <ul class="menu">
+        <li class="active" onclick="showSection('inicio', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </li>
+        <li onclick="showSection('servicio', this)">
+            <i class="fa-solid fa-car-side"></i>
+            <span>Servicio activo</span>
+        </li>
+        <li onclick="showSection('proximos', this)">
+            <i class="fa-solid fa-calendar"></i>
+            <span>Próximos servicios</span>
+        </li>
+        <li onclick="showSection('historial', this)">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Historial</span>
+        </li>
+        <li onclick="showSection('ganancias', this)">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Ganancias</span>
+        </li>
+        <li onclick="showSection('calificaciones', this)">
+            <i class="fa-solid fa-star"></i>
+            <span>Calificaciones</span>
+        </li>
+        <li onclick="showSection('perfil', this)">
+            <i class="fa-solid fa-user"></i>
+            <span>Perfil</span>
+        </li>
+        <li onclick="showSection('incidencias', this)">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Incidencias</span>
+            <span class="menu-badge">1</span>
+        </li>
+        <li onclick="showSection('notificaciones', this)">
+            <i class="fa-solid fa-bell"></i>
+            <span>Notificaciones</span>
+            <span class="menu-badge">3</span>
+        </li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-avatar">CR</div>
+        <div class="sidebar-footer-info">
+            <div class="sidebar-footer-name">Carlos Ramírez</div>
+            <div class="sidebar-footer-role">Conductor activo</div>
+        </div>
+    </div>
+
+</aside>
+
+<!-- ═══ MAIN ═══════════════════════════════════════════════ -->
+<main class="main-content">
+
+    <!-- ── INICIO ──────────────────────────────── -->
+    <section id="inicio" class="section active">
+
+        <div class="topbar">
+            <div>
+                <h1>Hola, Carlos 👋</h1>
+                <p>Lunes, 25 de mayo · Bienvenido nuevamente</p>
+            </div>
+            <div class="top-actions">
+                <div class="status-pill" id="statusPill">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusLabel">Disponible</span>
+                </div>
+                <button class="toggle-btn" id="toggleBtn" onclick="toggleStatus()">Desactivarse</button>
+                <div class="notif-btn" onclick="showSection('notificaciones', document.querySelectorAll('.menu li')[8])">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-badge">3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cards-grid">
+            <div class="stat-card">
+                <div class="stat-card-top">
+                    <div class="stat-icon blue"><i class="fa-solid fa-route"></i></div>
+                    <span class="stat-trend up">+8%</span>
+                </div>
+                <div class="stat-label">Servicios completados</div>
+                <div class="stat-value">124</div>
+                <div class="stat-sub">Este mes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-top">
+                    <div class="stat-icon green"><i class="fa-solid fa-wallet"></i></div>
+                    <span class="stat-trend up">+12%</span>
+                </div>
+                <div class="stat-label">Ganancias netas</div>
+                <div class="stat-value">$2.2M</div>
+                <div class="stat-sub">Comisión: $250.000</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-top">
+                    <div class="stat-icon amber"><i class="fa-solid fa-star"></i></div>
+                </div>
+                <div class="stat-label">Calificación</div>
+                <div class="stat-value">4.9 ⭐</div>
+                <div class="stat-sub">Basado en 124 viajes</div>
+            </div>
+        </div>
+
+        <!-- Hero: servicio activo -->
+        <div class="hero-card">
+            <div class="hero-left">
+                <span class="badge badge-green"><span class="dot"></span> En camino</span>
+                <div class="hero-title">Servicio en curso</div>
+                <div class="service-info-grid">
+                    <div class="info-item">
+                        <label>Cliente</label>
+                        <span>María Gómez</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Vehículo</label>
+                        <span>Mazda CX-5</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Origen</label>
+                        <span>El Poblado</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Destino</label>
+                        <span>Laureles</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i class="fa-solid fa-map-location-dot"></i> Ver ruta</button>
+                    <button class="btn btn-success"><i class="fa-solid fa-check"></i> Llegué</button>
+                    <button class="btn btn-danger"><i class="fa-solid fa-triangle-exclamation"></i> Reportar</button>
+                </div>
+            </div>
+            <div class="hero-map">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div class="map-label">Vista de mapa</div>
+            </div>
+        </div>
+
+        <!-- Bottom grid -->
+        <div class="bottom-grid">
+
+            <div class="next-service-card">
+                <div class="next-service-top">
+                    <div>
+                        <div class="next-service-label">Próximo servicio</div>
+                        <div class="next-service-name">Juan Pérez</div>
+                        <div class="next-service-dest"><i class="fa-solid fa-location-dot" style="font-size:11px"></i> 5:00 PM · El Centro</div>
+                    </div>
+                    <div class="timer-badge" id="countdown">00:42</div>
+                </div>
+                <div class="next-service-actions">
+                    <button class="btn btn-white"><i class="fa-solid fa-check"></i> Aceptar</button>
+                    <button class="btn btn-transparent">Rechazar</button>
+                </div>
+            </div>
+
+            <div class="stat-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+                <div>
+                    <div class="stat-icon amber" style="margin-bottom:12px"><i class="fa-solid fa-star"></i></div>
+                    <div class="stat-label">Última calificación</div>
+                    <div style="font-size:22px;font-weight:700;margin-top:6px">⭐ 5.0</div>
+                    <div style="font-size:13px;color:var(--muted);margin-top:4px">"Excelente conductor, muy puntual."</div>
+                </div>
+                <div style="font-size:12px;color:var(--muted);margin-top:12px">— Laura Gómez · Hace 2h</div>
+            </div>
+
+            <div class="license-card">
+                <div class="license-icon"><i class="fa-solid fa-id-card"></i></div>
+                <div>
+                    <div class="license-title">Licencia por vencer</div>
+                    <div class="license-sub">Vence en 5 días · Renueva para seguir operando</div>
+                </div>
+                <button class="license-renew">Renovar</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ── SERVICIO ACTIVO ────────────────────── -->
+    <section id="servicio" class="section">
+        <div class="topbar">
+            <div><h1>Servicio activo</h1><p>Detalle del viaje en curso</p></div>
+        </div>
+        <div class="hero-card">
+            <div class="hero-left">
+                <span class="badge badge-green"><span class="dot"></span> En camino</span>
+                <div class="hero-title">Servicio en curso</div>
+                <div class="service-info-grid">
+                    <div class="info-item"><label>Cliente</label><span>María Gómez</span></div>
+                    <div class="info-item"><label>Teléfono</label><span>+57 301 234 5678</span></div>
+                    <div class="info-item"><label>Origen</label><span>El Poblado</span></div>
+                    <div class="info-item"><label>Destino</label><span>Laureles</span></div>
+                    <div class="info-item"><label>Vehículo</label><span>Mazda CX-5</span></div>
+                    <div class="info-item"><label>Placa</label><span>ABC-123</span></div>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary"><i class="fa-solid fa-map-location-dot"></i> Ver ruta</button>
+                    <button class="btn btn-ghost"><i class="fa-solid fa-phone"></i> Llamar cliente</button>
+                    <button class="btn btn-success"><i class="fa-solid fa-check"></i> Llegué al destino</button>
+                    <button class="btn btn-danger"><i class="fa-solid fa-triangle-exclamation"></i> Reportar incidencia</button>
+                </div>
+            </div>
+            <div class="hero-map">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div class="map-label">Vista de mapa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PRÓXIMOS SERVICIOS ─────────────────── -->
+    <section id="proximos" class="section">
+        <div class="topbar">
+            <div><h1>Próximos servicios</h1><p>Servicios programados de hoy</p></div>
+        </div>
+        <div class="section-box">
+            <div class="section-header">
+                <h2>Hoy, 25 de mayo</h2>
+                <span class="badge badge-blue">2 pendientes</span>
+            </div>
+            <div class="service-card">
+                <div>
+                    <h3>Ana Martínez</h3>
+                    <p><i class="fa-solid fa-location-dot" style="font-size:11px;color:var(--muted)"></i> Centro Comercial Santa Fe → El Poblado</p>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <span class="badge badge-amber">6:30 PM</span>
+                    <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px">Ver detalles</button>
+                </div>
+            </div>
+            <div class="service-card">
+                <div>
+                    <h3>David Ruiz</h3>
+                    <p><i class="fa-solid fa-location-dot" style="font-size:11px;color:var(--muted)"></i> Aeropuerto José María Córdova → Envigado</p>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                    <span class="badge badge-green">8:00 PM</span>
+                    <button class="btn btn-ghost" style="padding:8px 14px;font-size:12px">Ver detalles</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HISTORIAL ──────────────────────────── -->
+    <section id="historial" class="section">
+        <div class="topbar">
+            <div><h1>Historial</h1><p>Registro de todos tus servicios</p></div>
+        </div>
+        <div class="section-box">
+            <div class="section-header">
+                <h2>Historial de servicios</h2>
+                <button class="btn btn-ghost" style="font-size:13px;padding:9px 14px"><i class="fa-solid fa-filter"></i> Filtrar</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Ruta</th>
+                            <th>Estado</th>
+                            <th>Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Laura Torres</strong></td>
+                            <td>12 Mayo</td>
+                            <td style="color:var(--muted);font-size:13px">El Poblado → Laureles</td>
+                            <td><span class="tag tag-green">Completado</span></td>
+                            <td><strong>$48.000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Andrés Ruiz</strong></td>
+                            <td>11 Mayo</td>
+                            <td style="color:var(--muted);font-size:13px">Envigado → Centro</td>
+                            <td><span class="tag tag-red">Cancelado</span></td>
+                            <td>$0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Camila Soto</strong></td>
+                            <td>10 Mayo</td>
+                            <td style="color:var(--muted);font-size:13px">Bello → El Poblado</td>
+                            <td><span class="tag tag-green">Completado</span></td>
+                            <td><strong>$62.000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Jorge Mendez</strong></td>
+                            <td>9 Mayo</td>
+                            <td style="color:var(--muted);font-size:13px">Laureles → Aeropuerto</td>
+                            <td><span class="tag tag-green">Completado</span></td>
+                            <td><strong>$85.000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valentina Cruz</strong></td>
+                            <td>8 Mayo</td>
+                            <td style="color:var(--muted);font-size:13px">Santa Fe → Envigado</td>
+                            <td><span class="tag tag-amber">En disputa</span></td>
+                            <td style="color:var(--muted)">Pendiente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GANANCIAS ──────────────────────────── -->
+    <section id="ganancias" class="section">
+        <div class="topbar">
+            <div><h1>Ganancias</h1><p>Resumen financiero de tu actividad</p></div>
+        </div>
+        <div class="earnings-hero">
+            <div class="earnings-hero-label">Ganancias del mes · Mayo 2026</div>
+            <div class="earnings-hero-amount">$2.450.000</div>
+            <div class="earnings-commission">Comisión Carman: $250.000</div>
+            <div class="earnings-neto">Neto: $2.200.000 ↑ +12% vs mes anterior</div>
+        </div>
+        <div class="earnings-grid">
+            <div class="earning-card">
+                <h3>Hoy</h3>
+                <h1>$180K</h1>
+                <p style="font-size:12px;color:var(--muted);margin-top:6px">3 servicios</p>
+            </div>
+            <div class="earning-card">
+                <h3>Esta semana</h3>
+                <h1>$920K</h1>
+                <p style="font-size:12px;color:var(--muted);margin-top:6px">18 servicios</p>
+            </div>
+            <div class="earning-card">
+                <h3>Este mes</h3>
+                <h1>$2.4M</h1>
+                <p style="font-size:12px;color:var(--muted);margin-top:6px">124 servicios</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CALIFICACIONES ─────────────────────── -->
+    <section id="calificaciones" class="section">
+        <div class="topbar">
+            <div><h1>Calificaciones</h1><p>Lo que tus clientes dicen de ti</p></div>
+        </div>
+        <div class="section-box">
+            <div class="rating-summary">
+                <div class="rating-big">4.9</div>
+                <div>
+                    <div class="stars-row">⭐⭐⭐⭐⭐</div>
+                    <div class="rating-count">Basado en 124 viajes</div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-top">
+                    <div>
+                        <div class="reviewer-name">Laura Gómez</div>
+                        <div class="review-date">Hace 2 horas</div>
+                    </div>
+                    <span>⭐ 5.0</span>
+                </div>
+                <div class="review-body">Excelente conductor, muy puntual y amable. El vehículo estaba impecable.</div>
+            </div>
+            <div class="review-card">
+                <div class="review-top">
+                    <div>
+                        <div class="reviewer-name">Santiago Ruiz</div>
+                        <div class="review-date">Ayer</div>
+                    </div>
+                    <span>⭐ 4.8</span>
+                </div>
+                <div class="review-body">Muy amable y cumplido. Llegó exactamente a tiempo.</div>
+            </div>
+            <div class="review-card">
+                <div class="review-top">
+                    <div>
+                        <div class="reviewer-name">Camila Herrera</div>
+                        <div class="review-date">Hace 3 días</div>
+                    </div>
+                    <span>⭐ 5.0</span>
+                </div>
+                <div class="review-body">Servicio excelente, muy profesional y con buen conocimiento de las rutas.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PERFIL ─────────────────────────────── -->
+    <section id="perfil" class="section">
+        <div class="topbar">
+            <div><h1>Mi perfil</h1><p>Administra tu información personal</p></div>
+        </div>
+        <div class="section-box">
+            <div class="profile-header">
+                <div class="profile-avatar">CR</div>
+                <div>
+                    <div class="profile-name">Carlos Ramírez</div>
+                    <div class="profile-id">ID conductor: #CR-2891</div>
+                </div>
+            </div>
+            <div class="profile-grid">
+                <div class="input-box">
+                    <label>Nombre completo</label>
+                    <input type="text" value="Carlos Ramírez">
+                </div>
+                <div class="input-box">
+                    <label>Correo electrónico</label>
+                    <input type="email" value="carlos@gmail.com">
+                </div>
+                <div class="input-box">
+                    <label>Teléfono</label>
+                    <input type="tel" value="+57 301 234 5678">
+                </div>
+                <div class="input-box">
+                    <label>Número de licencia</label>
+                    <input type="text" value="LIC-2891-COL">
+                </div>
+                <div class="input-box">
+                    <label>Vehículo</label>
+                    <input type="text" value="Mazda CX-5 2022">
+                </div>
+                <div class="input-box">
+                    <label>Placa</label>
+                    <input type="text" value="ABC-123">
+                </div>
+            </div>
+            <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios</button>
+        </div>
+    </section>
+
+    <!-- ── INCIDENCIAS ────────────────────────── -->
+    <section id="incidencias" class="section">
+        <div class="topbar">
+            <div><h1>Incidencias</h1><p>Reportes y situaciones registradas</p></div>
+        </div>
+        <div class="section-box">
+            <div class="section-header">
+                <h2>Incidencias registradas</h2>
+                <button class="btn btn-primary" style="font-size:13px;padding:9px 14px"><i class="fa-solid fa-plus"></i> Nueva incidencia</button>
+            </div>
+            <div class="incident-item">
+                <div class="incident-icon"><i class="fa-solid fa-clock"></i></div>
+                <div>
+                    <div class="incident-title">Retraso reportado</div>
+                    <div class="incident-sub">Tráfico pesado en autopista Norte · 11 Mayo · En revisión</div>
+                </div>
+                <span class="badge badge-amber" style="margin-left:auto;align-self:center">En revisión</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── NOTIFICACIONES ─────────────────────── -->
+    <section id="notificaciones" class="section">
+        <div class="topbar">
+            <div><h1>Notificaciones</h1><p>Novedades de tu cuenta</p></div>
+        </div>
+        <div class="section-box">
+            <div class="section-header">
+                <h2>Recientes</h2>
+                <button class="btn btn-ghost" style="font-size:13px;padding:9px 14px">Marcar todo como leído</button>
+            </div>
+            <div class="notification-item unread">
+                <div class="notif-icon blue"><i class="fa-solid fa-car-side"></i></div>
+                <div>
+                    <div class="notif-title">Nuevo servicio asignado</div>
+                    <div class="notif-body">Recogida en El Poblado para Juan Pérez</div>
+                </div>
+                <span class="notif-time">Ahora</span>
+            </div>
+            <div class="notification-item unread">
+                <div class="notif-icon green"><i class="fa-solid fa-money-bill-wave"></i></div>
+                <div>
+                    <div class="notif-title">Pago recibido</div>
+                    <div class="notif-body">Se acreditaron $48.000 a tu cuenta</div>
+                </div>
+                <span class="notif-time">Hace 1h</span>
+            </div>
+            <div class="notification-item unread">
+                <div class="notif-icon" style="background:#fff7ed;color:#b45309"><i class="fa-solid fa-id-card"></i></div>
+                <div>
+                    <div class="notif-title">Licencia próxima a vencer</div>
+                    <div class="notif-body">Tu licencia vence en 5 días. Renueva para seguir operando.</div>
+                </div>
+                <span class="notif-time">Hace 3h</span>
+            </div>
+            <div class="notification-item">
+                <div class="notif-icon blue"><i class="fa-solid fa-star"></i></div>
+                <div>
+                    <div class="notif-title">Nueva calificación recibida</div>
+                    <div class="notif-body">Laura Gómez te calificó con ⭐ 5.0</div>
+                </div>
+                <span class="notif-time">Ayer</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="conductor.js"></script>
+</body>
+</html>

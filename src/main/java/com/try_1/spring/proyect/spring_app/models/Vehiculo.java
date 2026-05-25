@@ -27,7 +27,7 @@ public class Vehiculo {
     @JoinColumn(name="idPropietario")
     private Propietario propietario;
 
-    @Column(name="placa",length=20)
+    @Column(name="placa",length=20, unique=true)
     private String placa;
 
     @Column(name="marca",length=50)

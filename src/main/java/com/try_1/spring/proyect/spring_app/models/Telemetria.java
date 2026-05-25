@@ -21,7 +21,7 @@ public class Telemetria {
     private Integer idTelemetria;
 
     @ManyToOne
-    @JoinColumn(name = "idVehiculo")
+    @JoinColumn(name = "idVehiculo", referencedColumnName = "idVehiculo")
     private Vehiculo vehiculo;
 
     @Column(name="latitud", precision=10, scale=6)

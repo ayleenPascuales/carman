@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Cliente</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" th:href="@{/cliente.css}">
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-dot"></span> Carman
+    </div>
+    <nav>
+      <button class="menu-btn active" onclick="showSection('inicio', this)">
+        <i class="fa-solid fa-house"></i> Inicio
+      </button>
+      <button class="menu-btn" onclick="showSection('reservas', this)">
+        <i class="fa-solid fa-calendar"></i> Reservas
+      </button>
+      <button class="menu-btn" onclick="showSection('pagos', this)">
+        <i class="fa-solid fa-credit-card"></i> Pagos
+        <span class="notif-badge">1</span>
+      </button>
+      <button class="menu-btn" onclick="showSection('historial', this)">
+        <i class="fa-solid fa-clock-rotate-left"></i> Historial
+      </button>
+      <button class="menu-btn" onclick="showSection('perfil', this)">
+        <i class="fa-solid fa-user"></i> Perfil
+      </button>
+      <button class="menu-btn" onclick="showSection('notificaciones', this)">
+        <i class="fa-solid fa-bell"></i> Notificaciones
+        <span class="notif-badge" id="notif-count">3</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">M</div>
+        <div>
+          <p class="sidebar-name">María García</p>
+          <p class="sidebar-role">Cliente</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- CONTENIDO -->
+  <main class="content">
+
+    <!-- INICIO -->
+    <section id="inicio" class="section active">
+      <div class="top-bar">
+        <h1>Bienvenida, María 👋</h1>
+        <p>Aquí tienes el resumen de tu cuenta</p>
+      </div>
+
+      <div class="cards">
+        <div class="card card-blue">
+          <div class="card-icon"><i class="fa-solid fa-car"></i></div>
+          <span class="card-label">Reserva activa</span>
+          <h2>Honda Civic 2024</h2>
+          <p>Estado: En curso</p>
+        </div>
+
+        <div class="card card-green">
+          <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <span class="card-label">Próxima reserva</span>
+          <h2>20 Mayo</h2>
+          <p>BMW X5 · 10:00 AM</p>
+        </div>
+
+        <div class="card card-warn">
+          <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <span class="card-label">Pago pendiente</span>
+
+          <h2>$120.000</h2>
+          <p>Toca aquí para completar el pago</p>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <h2>Ubicación del vehículo</h2>
+        <div class="fake-map">
+          <i class="fa-solid fa-location-dot"></i>
+          Vehículo en camino — El Poblado, Medellín
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVAS -->
+    <section id="reservas" class="section">
+      <p class="section-heading">Nueva reserva</p>
+      <p class="section-sub">Completa los campos para calcular el precio y confirmar</p>
+
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Origen</label>
+            <input type="text" id="origen" placeholder="¿Dónde estás?">
+            <span class="error-msg" id="err-origen">Este campo es obligatorio</span>
+          </div>
+
+          <div class="input-group">
+            <label>Destino</label>
+            <input type="text" id="destino" placeholder="¿A dónde vas?">
+            <span class="error-msg" id="err-destino">Este campo es obligatorio</span>
+          </div>
+
+          <div class="input-group">
+            <label>Fecha</label>
+            <input type="date" id="fecha" onchange="calcularPrecio()">
+            <span class="error-msg" id="err-fecha">Selecciona una fecha</span>
+          </div>
+
+          <div class="input-group">
+            <label>Hora</label>
+            <input type="time" id="hora" onchange="calcularPrecio()">
+            <span class="error-msg" id="err-hora">Selecciona una hora</span>
+          </div>
+
+          <div class="input-group">
+            <label>Tipo de servicio</label>
+            <select id="tipo" onchange="calcularPrecio()">
+              <option value="sin">Sin conductor — $75.000 base</option>
+              <option value="con">Con conductor — $110.000 base</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Duración (días)</label>
+            <input type="number" id="dias" value="1" min="1" max="30" onchange="calcularPrecio()">
+          </div>
+        </div>
+
+        <div class="price-preview">
+          <div>
+            <p class="price-label">Precio estimado</p>
+            <p class="price-num" id="precio-estimado">$75.000</p>
+            <p class="price-note">IVA incluido · puede variar según disponibilidad</p>
+          </div>
+          <i class="fa-solid fa-calculator price-calc-icon"></i>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary-btn" onclick="confirmarReserva()">
+            <i class="fa-solid fa-check"></i> Confirmar reserva
+          </button>
+
+          <span class="toast" id="toast-reserva">
+            <i class="fa-solid fa-circle-check"></i> ¡Reserva confirmada!
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGOS -->
+    <section id="pagos" class="section">
+      <p class="section-heading">Pagos</p>
+      <p class="section-sub">Gestiona tus métodos de pago y saldos pendientes</p>
+
+      <div class="payment-grid">
+        <div class="payment-card">
+          <h3><i class="fa-solid fa-wallet"></i> Método de pago</h3>
+          <div class="payment-method">
+            <i class="fa-brands fa-cc-visa"></i>
+            Visa terminada en 2045
+          </div>
+
+          <div class="payment-method payment-method--alt">
+            <i class="fa-solid fa-mobile-alt"></i>
+            Nequi · 300 000 0000
+          </div>
+
+          <button class="outline-btn">
+            <i class="fa-solid fa-plus"></i> Agregar método
+          </button>
+        </div>
+
+        <div class="payment-card payment-card--warn">
+          <h3><i class="fa-solid fa-triangle-exclamation"></i> Pago pendiente</h3>
+          <p>Reserva Honda Civic 2024</p>
+
+          <div class="amount-big">$120.000</div>
+          <p class="due-note">Vence el 22 de mayo · 3 días restantes</p>
+          <button class="primary-btn primary-btn--warn">
+            <i class="fa-solid fa-credit-card"></i> Pagar ahora
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORIAL -->
+    <section id="historial" class="section">
+      <p class="section-heading">Historial de viajes</p>
+      <p class="section-sub">Tus reservas anteriores · puedes volver a reservar el mismo auto</p>
+
+      <div class="history-list">
+        <div class="history-item">
+          <div class="history-info">
+            <h3><i class="fa-solid fa-car"></i> Mazda CX-3</h3>
+            <p>12 Abril 2026 · 3 días · $225.000</p>
+          </div>
+
+          <div class="history-actions">
+            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
+            <button class="repeat-btn" onclick="repetirReserva('Mazda CX-3')">
+              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
+            </button>
+          </div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-info">
+            <h3><i class="fa-solid fa-car"></i> Toyota Yaris</h3>
+            <p>30 Marzo 2026 · 1 día · $75.000</p>
+          </div>
+
+          <div class="history-actions">
+            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
+            <button class="repeat-btn" onclick="repetirReserva('Toyota Yaris')">
+              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
+            </button>
+          </div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-info">
+            <h3><i class="fa-solid fa-car"></i> Renault Sandero</h3>
+            <p>14 Febrero 2026 · 2 días · $150.000</p>
+          </div>
+          
+          <div class="history-actions">
+            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
+            <button class="repeat-btn" onclick="repetirReserva('Renault Sandero')">
+              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="perfil" class="section">
+      <p class="section-heading">Mi perfil</p>
+      <p class="section-sub">Actualiza tu información personal</p>
+
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-photo">M</div>
+          <div class="profile-meta">
+            <h2>María García</h2>
+            <p>Conductor · Miembro desde enero 2025</p>
+          </div>
+        </div>
+
+        <div class="profile-fields">
+          <div class="input-group">
+            <label>Nombre completo</label>
+            <input type="text" id="p-nombre" value="María García">
+          </div>
+
+          <div class="input-group">
+            <label>Correo electrónico</label>
+            <input type="email" id="p-email" value="maria@gmail.com">
+          </div>
+
+          <div class="input-group">
+            <label>Teléfono</label>
+            <input type="text" id="p-tel" value="+57 300 000 0000">
+          </div>
+
+          <div class="input-group">
+            <label>Ciudad</label>
+            <input type="text" id="p-ciudad" value="Medellín">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary-btn" onclick="guardarPerfil()">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+          </button>
+          <span class="toast" id="toast-perfil">
+            <i class="fa-solid fa-circle-check"></i> Cambios guardados
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTIFICACIONES -->
+    <section id="notificaciones" class="section">
+      <div class="notif-header">
+        <div>
+          <p class="section-heading">Notificaciones</p>
+          <p class="section-sub" id="notif-sub">3 sin leer</p>
+        </div>
+        
+        <button class="text-btn" onclick="marcarTodasLeidas()">
+          Marcar todas como leídas
+        </button>
+      </div>
+
+      <div class="notif-list">
+        <div class="notif-item notif-item--unread" id="n1">
+          <div class="notif-dot"></div>
+          <div class="notif-icon notif-icon--blue"><i class="fa-solid fa-user-check"></i></div>
+          
+          <div class="notif-text">
+            <p>Tu conductor fue asignado para el Honda Civic</p>
+            <span class="notif-time">Hace 5 minutos</span>
+          </div>
+          <button class="mark-read-btn" onclick="marcarLeida('n1')">Leído</button>
+        </div>
+
+        <div class="notif-item notif-item--unread" id="n2">
+          <div class="notif-dot"></div>
+          <div class="notif-icon notif-icon--green"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="notif-text">
+            <p>Tu pago de $75.000 fue procesado correctamente</p>
+            <span class="notif-time">Hace 1 hora</span>
+          </div>
+          <button class="mark-read-btn" onclick="marcarLeida('n2')">Leído</button>
+        </div>
+
+        <div class="notif-item notif-item--unread" id="n3">
+          <div class="notif-dot"></div>
+          <div class="notif-icon notif-icon--amber"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="notif-text">
+            <p>El vehículo está en camino · ETA 8 minutos</p>
+            <span class="notif-time">Hace 3 horas</span>
+          </div>
+          <button class="mark-read-btn" onclick="marcarLeida('n3')">Leído</button>
+        </div>
+
+        <div class="notif-item" id="n4">
+          <div class="notif-icon notif-icon--blue"><i class="fa-solid fa-calendar"></i></div>
+          <div class="notif-text">
+            <p>Tu reserva del BMW X5 fue confirmada para el 20 de mayo</p>
+            <span class="notif-time">Ayer · 4:15 PM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="cliente.js"></script>
+</body>
+</html>

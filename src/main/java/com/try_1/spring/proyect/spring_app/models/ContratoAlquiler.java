@@ -27,19 +27,19 @@ public class ContratoAlquiler {
     private Reserva reserva;
 
     @ManyToOne
-    @JoinColumn(name="idCliente")
+    @JoinColumn(name="idCliente", referencedColumnName = "idCliente")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name="idVehiculo")
+    @JoinColumn(name="idVehiculo", referencedColumnName = "idVehiculo")
     private Vehiculo vehiculo;
 
     @ManyToOne
-    @JoinColumn(name="idPropietario")
+    @JoinColumn(name="idPropietario", referencedColumnName = "idPropietario")
     private Propietario propietario;
 
     @ManyToOne
-    @JoinColumn(name="idConductor")
+    @JoinColumn(name="idConductor", referencedColumnName = "idConductor")
     private Conductor conductor;
 
     @Column(name="fechaInicio")
