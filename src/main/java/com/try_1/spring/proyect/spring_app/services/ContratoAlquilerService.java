@@ -1,6 +1,7 @@
 package com.try_1.spring.proyect.spring_app.services;
 
 import java.util.List;
+
 import com.try_1.spring.proyect.spring_app.models.ContratoAlquiler;
 
 public interface ContratoAlquilerService {
@@ -8,4 +9,8 @@ public interface ContratoAlquilerService {
     ContratoAlquiler guardar(ContratoAlquiler contratoAlquiler);
     ContratoAlquiler buscarPorId(Integer id);
     void eliminar(Integer id);
+    ContratoAlquiler actualizar(Integer id,ContratoAlquiler contrato);
+    public void activarContrato(Integer id);
+    public void finalizarContrato(Integer id);
+    public byte[] generarPdf(Integer idContrato);
 }

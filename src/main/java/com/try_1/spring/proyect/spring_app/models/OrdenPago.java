@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,14 +36,23 @@ public class OrdenPago {
     @Column(name="detalles", length=255)
     private String detalles;
 
+    @Column(name = "rutaPdf", length = 500)
+    private String rutaPdf;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoOrdenPago estado;
+
     public OrdenPago() {
     }
 
-    public OrdenPago(Reserva reserva, LocalDate fechaEmision, BigDecimal total, String detalles) {
-        this.reserva = reserva;
-        this.fechaEmision = fechaEmision;
-        this.total = total;
+    public OrdenPago(String detalles, EstadoOrdenPago estado, LocalDate fechaEmision, Integer idOrdenPago, Reserva reserva, String rutaPdf, BigDecimal total) {
         this.detalles = detalles;
+        this.estado = estado;
+        this.fechaEmision = fechaEmision;
+        this.idOrdenPago = idOrdenPago;
+        this.reserva = reserva;
+        this.rutaPdf = rutaPdf;
+        this.total = total;
     }
 
     public Integer getIdOrdenPago() {
@@ -84,8 +95,24 @@ public class OrdenPago {
         this.detalles = detalles;
     }
 
-    
+    public String getRutaPdf() {
+        return rutaPdf;
+    }
+
+    public void setRutaPdf(String rutaPdf) {
+        this.rutaPdf = rutaPdf;
+    }
+
+    public EstadoOrdenPago getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoOrdenPago estado) {
+        this.estado = estado;
+    }
+
     
 
+    
 
 }

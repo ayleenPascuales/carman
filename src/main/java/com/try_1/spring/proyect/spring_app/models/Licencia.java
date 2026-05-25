@@ -20,7 +20,7 @@ public class Licencia {
     @Column(name="idLicencia")
     private Integer idLicencia;
 
-    @Column(name="numero", length=50)
+    @Column(name="numero", length=50, unique=true)
     private String numero;
 
     @Column(name="fechaExpiracion")
@@ -33,17 +33,19 @@ public class Licencia {
     @Column(name="tipoLicencia", length=50)
     private String tipoLicencia;
 
+    @Column(name="foto", length=500)
+    private String foto;
+
     public Licencia() {
     }
 
-    public Licencia(String numero, LocalDate fechaExpiracion, EstadoLicencia estado, String tipoLicencia) {
-        this.numero = numero;
-        this.fechaExpiracion = fechaExpiracion;
+    public Licencia(EstadoLicencia estado, LocalDate fechaExpiracion, String foto, String numero, String tipoLicencia) {
         this.estado = estado;
+        this.fechaExpiracion = fechaExpiracion;
+        this.foto = foto;
+        this.numero = numero;
         this.tipoLicencia = tipoLicencia;
     }
-
-
 
     public Integer getIdLicencia() {
         return idLicencia;
@@ -85,5 +87,14 @@ public class Licencia {
         this.tipoLicencia = tipoLicencia;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    
   
 }

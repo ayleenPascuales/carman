@@ -1,5 +1,6 @@
 package com.try_1.spring.proyect.spring_app.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -52,20 +53,22 @@ public class Reserva {
     @Column(name="estado")
     private EstadoReserva estado;
 
+    @Column(name="precioEstimado", precision=10, scale=2)
+    private BigDecimal precioEstimado;
+
     public Reserva() {
     }
 
-    public Reserva(Integer idReserva, Cliente cliente, Vehiculo vehiculo, Conductor conductor, Ruta ruta,
-            LocalDateTime horaEntrega, LocalDate fechaReserva, LocalDate fechaServicio, EstadoReserva estado) {
-        this.idReserva = idReserva;
+    public Reserva(Cliente cliente, Conductor conductor, EstadoReserva estado, LocalDate fechaReserva, LocalDate fechaServicio, LocalDateTime horaEntrega, BigDecimal precioEstimado, Ruta ruta, Vehiculo vehiculo) {
         this.cliente = cliente;
-        this.vehiculo = vehiculo;
         this.conductor = conductor;
-        this.ruta = ruta;
-        this.horaEntrega = horaEntrega;
+        this.estado = estado;
         this.fechaReserva = fechaReserva;
         this.fechaServicio = fechaServicio;
-        this.estado = estado;
+        this.horaEntrega = horaEntrega;
+        this.precioEstimado = precioEstimado;
+        this.ruta = ruta;
+        this.vehiculo = vehiculo;
     }
 
     public Integer getIdReserva() {
@@ -140,7 +143,17 @@ public class Reserva {
         this.estado = estado;
     }
 
+    public BigDecimal getPrecioEstimado() {
+        return precioEstimado;
+    }
+
+    public void setPrecioEstimado(BigDecimal precioEstimado) {
+        this.precioEstimado = precioEstimado;
+    }
+
     
 
+
+    
     
 }

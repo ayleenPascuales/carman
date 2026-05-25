@@ -28,7 +28,7 @@ public class Propietario {
     @OneToMany(mappedBy = "propietario")
     private List<Vehiculo> vehiculos;
 
-    @Column(name="tarjetaPropiedad", length=100)
+    @Column(name="tarjetaPropiedad")
     private String tarjetaPropiedad;
 
     @Column(name="totalPrestamos")

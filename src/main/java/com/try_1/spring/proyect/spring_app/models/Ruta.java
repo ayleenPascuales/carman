@@ -22,8 +22,20 @@ public class Ruta {
     @Column(name="origen",length=100)
     private String origen;
 
+    @Column(name="origenLon", precision=10, scale=6)
+    private BigDecimal origenLon;
+
+    @Column(name="origenLat", precision=10, scale=6)
+    private BigDecimal origenLat;
+
     @Column(name="destino",length=100)
     private String destino;
+
+    @Column(name="destinoLon", precision=10, scale=6)
+    private BigDecimal destinoLon;
+
+    @Column(name="destinoLat", precision=10, scale=6)
+    private BigDecimal destinoLat;
 
     @Column(name="distancia", precision=10, scale=2)
     private BigDecimal distancia;
@@ -37,13 +49,22 @@ public class Ruta {
     public Ruta() {
     }
 
-    public Ruta(String origen, String destino, BigDecimal distancia, Integer duracion,
-            LocalDate fecha) {
-        this.origen = origen;
+    public Ruta(BigDecimal distancia, Integer duracion){
+        this.distancia = distancia;
+        this.duracion = duracion;
+    }
+
+    public Ruta(String destino, BigDecimal destinoLat, BigDecimal destinoLon, BigDecimal distancia, Integer duracion, LocalDate fecha, Integer idRuta, String origen, BigDecimal origenLat, BigDecimal origenLon) {
         this.destino = destino;
+        this.destinoLat = destinoLat;
+        this.destinoLon = destinoLon;
         this.distancia = distancia;
         this.duracion = duracion;
         this.fecha = fecha;
+        this.idRuta = idRuta;
+        this.origen = origen;
+        this.origenLat = origenLat;
+        this.origenLon = origenLon;
     }
 
     public Integer getIdRuta() {
@@ -62,12 +83,44 @@ public class Ruta {
         this.origen = origen;
     }
 
+    public BigDecimal getOrigenLon() {
+        return origenLon;
+    }
+
+    public void setOrigenLon(BigDecimal origenLon) {
+        this.origenLon = origenLon;
+    }
+
+    public BigDecimal getOrigenLat() {
+        return origenLat;
+    }
+
+    public void setOrigenLat(BigDecimal origenLat) {
+        this.origenLat = origenLat;
+    }
+
     public String getDestino() {
         return destino;
     }
 
     public void setDestino(String destino) {
         this.destino = destino;
+    }
+
+    public BigDecimal getDestinoLon() {
+        return destinoLon;
+    }
+
+    public void setDestinoLon(BigDecimal destinoLon) {
+        this.destinoLon = destinoLon;
+    }
+
+    public BigDecimal getDestinoLat() {
+        return destinoLat;
+    }
+
+    public void setDestinoLat(BigDecimal destinoLat) {
+        this.destinoLat = destinoLat;
     }
 
     public BigDecimal getDistancia() {
@@ -93,6 +146,8 @@ public class Ruta {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+
+
 
     
 }

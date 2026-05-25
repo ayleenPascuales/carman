@@ -1,6 +1,8 @@
 package com.try_1.spring.proyect.spring_app.services;
 
+import java.time.LocalDate;
 import java.util.List;
+
 import com.try_1.spring.proyect.spring_app.models.Reserva;
 
 public interface ReservaService {
@@ -8,4 +10,6 @@ public interface ReservaService {
     Reserva guardar(Reserva reserva);
     Reserva buscarPorId(Integer id);
     void eliminar(Integer id);
+    List<Reserva> buscarPorFechaServicio(LocalDate fechaServicio);
+    Reserva actualizar(Integer id, Reserva reserva);
 }

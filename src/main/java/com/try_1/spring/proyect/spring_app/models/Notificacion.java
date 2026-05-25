@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,8 +30,9 @@ public class Notificacion {
     @JoinColumn(name="idPago")
     private Pago pago;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="tipo", length=50)
-    private String tipo;
+    private TipoNotificacion tipo;
 
     @Column(name="mensaje", length=255)
     private String mensaje;
@@ -37,15 +40,20 @@ public class Notificacion {
     @Column(name="fechaHoraEnvio")
     private LocalDateTime fechaHoraEnvio;
 
+    @Column(name="leida")
+    private Boolean leida;
+
     public Notificacion() {
     }
 
-    public Notificacion(Reserva reserva, Pago pago, String tipo, String mensaje, LocalDateTime fechaHoraEnvio) {
-        this.reserva = reserva;
-        this.pago = pago;
-        this.tipo = tipo;
-        this.mensaje = mensaje;
+    public Notificacion(LocalDateTime fechaHoraEnvio, Integer idNotificacion, Boolean leida, String mensaje, Pago pago, Reserva reserva, TipoNotificacion tipo) {
         this.fechaHoraEnvio = fechaHoraEnvio;
+        this.idNotificacion = idNotificacion;
+        this.leida = leida;
+        this.mensaje = mensaje;
+        this.pago = pago;
+        this.reserva = reserva;
+        this.tipo = tipo;
     }
 
     public Integer getIdNotificacion() {
@@ -72,11 +80,11 @@ public class Notificacion {
         this.pago = pago;
     }
 
-    public String getTipo() {
+    public TipoNotificacion getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoNotificacion tipo) {
         this.tipo = tipo;
     }
 
@@ -96,6 +104,13 @@ public class Notificacion {
         this.fechaHoraEnvio = fechaHoraEnvio;
     }
 
-    
+    public Boolean getLeida() {
+        return leida;
+    }
 
+    public void setLeida(Boolean leida) {
+        this.leida = leida;
+    }
+
+    
 }

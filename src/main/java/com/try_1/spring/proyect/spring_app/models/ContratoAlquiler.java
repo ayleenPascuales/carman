@@ -3,6 +3,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,19 +51,36 @@ public class ContratoAlquiler {
     @Column(name="condiciones", length=255)
     private String condiciones;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="estado", length=50)
+    private EstadoContrato estado;
+
+    @Column(name="archivoPdf", length=500)
+    private String archivoPdf;
+
+    @Column(name="firmaCliente", length=500)
+    private String firmaCliente;
+
+    @Column(name="fechaGeneracion")
+    private LocalDate fechaGeneracion;
+
     public ContratoAlquiler() {
     }
 
-    public ContratoAlquiler(Reserva reserva, Cliente cliente, Vehiculo vehiculo, Propietario propietario,
-            Conductor conductor, LocalDate fechaInicio, LocalDate fechaFin, String condiciones) {
-        this.reserva = reserva;
+    public ContratoAlquiler(String archivoPdf, Cliente cliente, String condiciones, Conductor conductor, EstadoContrato estado, LocalDate fechaFin, LocalDate fechaGeneracion, LocalDate fechaInicio, String firmaCliente, Integer idContratoAlquiler, Propietario propietario, Reserva reserva, Vehiculo vehiculo) {
+        this.archivoPdf = archivoPdf;
         this.cliente = cliente;
-        this.vehiculo = vehiculo;
-        this.propietario = propietario;
-        this.conductor = conductor;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.condiciones = condiciones;
+        this.conductor = conductor;
+        this.estado = estado;
+        this.fechaFin = fechaFin;
+        this.fechaGeneracion = fechaGeneracion;
+        this.fechaInicio = fechaInicio;
+        this.firmaCliente = firmaCliente;
+        this.idContratoAlquiler = idContratoAlquiler;
+        this.propietario = propietario;
+        this.reserva = reserva;
+        this.vehiculo = vehiculo;
     }
 
     public Integer getIdContratoAlquiler() {
@@ -136,9 +155,38 @@ public class ContratoAlquiler {
         this.condiciones = condiciones;
     }
 
+    public EstadoContrato getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoContrato estado) {
+        this.estado = estado;
+    }
+
+    public String getArchivoPdf() {
+        return archivoPdf;
+    }
+
+    public void setArchivoPdf(String archivoPdf) {
+        this.archivoPdf = archivoPdf;
+    }
+
+    public String getFirmaCliente() {
+        return firmaCliente;
+    }
+
+    public void setFirmaCliente(String firmaCliente) {
+        this.firmaCliente = firmaCliente;
+    }
+
+    public LocalDate getFechaGeneracion() {
+        return fechaGeneracion;
+    }
+
+    public void setFechaGeneracion(LocalDate fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
+    }
+
     
-
-
-
-
+   
 }

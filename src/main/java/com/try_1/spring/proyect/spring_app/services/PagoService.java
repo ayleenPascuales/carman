@@ -1,6 +1,9 @@
 package com.try_1.spring.proyect.spring_app.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.try_1.spring.proyect.spring_app.models.OrdenPago;
 import com.try_1.spring.proyect.spring_app.models.Pago;
 
 public interface PagoService {
@@ -8,4 +11,7 @@ public interface PagoService {
     Pago guardar(Pago pago);
     Pago buscarPorId(Integer id);
     void eliminar(Integer id);
+    List<Pago> buscarPorFechaHoraPago(LocalDateTime fechaHoraPago);
+    public Pago crearPagoDesdeOrden(OrdenPago orden);
+    public Pago procesarPago(Integer idPago);
 }
