@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión | Carman</title>
 
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" th:href="@{/login.css}">
 
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -89,7 +89,7 @@
 
         <p class="register-text">
             ¿No tienes cuenta?
-            <a href="registro.html">
+            <a th:href="@{/InicioSesion}">
                 Regístrate
             </a>
         </p>

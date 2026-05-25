@@ -1,75 +1,40 @@
-function loadSection(section){
-
-    const content = document.getElementById("content");
-
-    if(section === "inicio"){
-
-        alert("Inicio");
-
-    }
-
-    if(section === "servicio"){
-
-        alert("Servicio activo");
-
-    }
-
-    if(section === "proximos"){
-
-        alert("Próximos servicios");
-
-    }
-
-    if(section === "historial"){
-
-        alert("Historial");
-
-    }
-
-    if(section === "ganancias"){
-
-        alert("Ganancias");
-
-    }
-
-    if(section === "calificaciones"){
-
-        alert("Calificaciones");
-
-    }
-
-    if(section === "perfil"){
-
-        alert("Perfil");
-
-    }
-
-    if(section === "incidencias"){
-
-        alert("Incidencias");
-
-    }
-
-    if(section === "notificaciones"){
-
-        alert("Notificaciones");
-
-    }
-
+// ── Navegación entre secciones
+function showSection(id, element) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (element) element.classList.add('active');
 }
 
-/* ACTIVAR MENU */
+// ── Toggle disponibilidad
+let activo = true;
 
-const items = document.querySelectorAll(".menu li");
+function toggleStatus() {
+    activo = !activo;
+    const btn   = document.getElementById('toggleBtn');
+    const dot   = document.getElementById('statusDot');
+    const label = document.getElementById('statusLabel');
 
-items.forEach(item => {
+    if (activo) {
+        btn.textContent = 'Desactivarse';
+        btn.classList.remove('inactive');
+        dot.classList.remove('offline');
+        label.textContent = 'Disponible';
+    } else {
+        btn.textContent = 'Activarse';
+        btn.classList.add('inactive');
+        dot.classList.add('offline');
+        label.textContent = 'No disponible';
+    }
+}
 
-    item.addEventListener("click", () => {
+// ── Countdown timer (próximo servicio)
+let seconds = 42;
+const countdownEl = document.getElementById('countdown');
 
-        items.forEach(i => i.classList.remove("active"));
-
-        item.classList.add("active");
-
-    });
-
-});
+setInterval(() => {
+    if (seconds > 0) seconds--;
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    if (countdownEl) countdownEl.textContent = `${m}:${s}`;
+}, 1000);

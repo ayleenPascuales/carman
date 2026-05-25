@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
     <title>Registro | Carman</title>
 
-    <link rel="stylesheet" href="registro2.css">
+    <link rel="stylesheet" th:href="@{/registro.css}">
 
 </head>
 
@@ -314,7 +314,7 @@
                         Ya puedes comenzar a usar Carman.
                     </p>
 
-                    <a href="catalogo.html" class="finish-btn">
+                    <a th:href="@{/buscar}" class="finish-btn">
                         Ir al catálogo
                     </a>
 

@@ -77,25 +77,18 @@ body{
 .nav-buttons a{
     color:white;
     text-decoration:none;
-    transition:0.2s;
 }
 
-.nav-buttons a:hover{
-    opacity:0.8;
-}
-
-.nav-buttons button{
+.register-btn{
     background:#2563eb;
-    color:white;
-    border:none;
     padding:12px 20px;
     border-radius:12px;
     font-size:0.95rem;
-    cursor:pointer;
+    font-weight:600;
     transition:0.2s;
 }
 
-.nav-buttons button:hover{
+.register-btn:hover{
     background:#1d4ed8;
 }
 

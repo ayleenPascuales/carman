@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Propietario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="mainPropietario.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-dot"></span>
+            Carman
+        </div>
+
+        <nav>
+
+            <button class="menu-btn active" onclick="showSection('inicio', this)">
+                <i class="fa-solid fa-house"></i>
+                Inicio
+            </button>
+
+            <button class="menu-btn" onclick="showSection('vehiculos', this)">
+                <i class="fa-solid fa-car"></i>
+                Vehículos
+            </button>
+
+            <button class="menu-btn" onclick="showSection('reservas', this)">
+                <i class="fa-solid fa-calendar-check"></i>
+                Reservas
+                
+            </button>
+
+            <button class="menu-btn" onclick="showSection('ingresos', this)">
+                <i class="fa-solid fa-dollar-sign"></i>
+                Ingresos
+            </button>
+
+            <button class="menu-btn" onclick="showSection('documentos', this)">
+                <i class="fa-solid fa-file-lines"></i>
+                Documentos
+                
+            </button>
+
+            <button class="menu-btn" onclick="showSection('incidencias', this)">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                Incidencias
+            </button>
+
+            <button class="menu-btn" onclick="showSection('perfil', this)">
+                <i class="fa-solid fa-user"></i>
+                Perfil
+            </button>
+
+            <button class="menu-btn" onclick="showSection('notificaciones', this)">
+                <i class="fa-solid fa-bell"></i>
+                Notificaciones
+                
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="sidebar-user">
+
+                <div class="sidebar-avatar">
+                    C
+                </div>
+
+                <div>
+                    <p class="sidebar-name">
+                        Carlos Ramírez
+                    </p>
+
+                    <p class="sidebar-role">
+                        Propietario
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <!-- INICIO -->
+
+        <section id="inicio" class="section active">
+
+            <div class="top-bar">
+
+                <h1>
+                    Hola, Carlos 👋
+                </h1>
+
+                <p>
+                    Aquí tienes el resumen general de tus vehículos e ingresos
+                </p>
+
+            </div>
+
+            <!-- CARDS -->
+
+            <div class="cards">
+
+                <div class="card card-blue">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+
+                    <span class="card-label">
+                        Vehículos registrados
+                    </span>
+
+                    <h2>
+                        12
+                    </h2>
+
+                    <p>
+                        8 disponibles actualmente
+                    </p>
+
+                </div>
+
+                <div class="card card-green">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+
+                    <span class="card-label">
+                        Ingresos del mes
+                    </span>
+
+                    <h2>
+                        $4.500.000
+                    </h2>
+
+                    <p>
+                        +12% respecto al mes pasado
+                    </p>
+
+                </div>
+
+                <div class="card card-warn">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-file-circle-exclamation"></i>
+                    </div>
+
+                    <span class="card-label">
+                        Documentos por vencer
+                    </span>
+
+                    <h2>
+                        1 vehículo
+                    </h2>
+
+                    <p>
+                        SOAT vence en 5 días
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- INGRESOS -->
+
+            <div class="income-box">
+
+                <div class="income-info">
+
+                    <h2>
+                        Resumen financiero
+                    </h2>
+
+                    <h1>
+                        $4.050.000
+                    </h1>
+
+                    <p>
+                        Comisión plataforma:
+                        <span class="red-text">
+                            -$450.000
+                        </span>
+                    </p>
+
+                    <p>
+                        Ganancia neta:
+                        <span class="green-text">
+                            $4.050.000
+                        </span>
+                    </p>
+
+                </div>
+
+                <div class="chart-placeholder">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>
+                        Gráfico de ingresos
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- TABLA -->
+
+            <div class="table-box">
+
+                <div class="table-header">
+
+                    <h2>
+                        Estado de tus vehículos
+                    </h2>
+
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Vehículo</th>
+                            <th>Estado</th>
+                            <th>Documentos</th>
+                            <th>Próximo servicio</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>Toyota Corolla 2024</td>
+
+                            <td>
+                                <span class="badge available">
+                                    Disponible
+                                </span>
+                            </td>
+
+                            <td>Al día</td>
+
+                            <td>15 Jun 2026</td>
+
+                            <td>
+                                <button class="table-btn">
+                                    Ver detalle
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Mazda CX-5</td>
+
+                            <td>
+                                <span class="badge warning">
+                                    SOAT por vencer
+                                </span>
+                            </td>
+
+                            <td>Vence en 5 días</td>
+
+                            <td>20 Mayo 2026</td>
+
+                            <td>
+                                <button class="table-btn">
+                                    Ver detalle
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>BMW X3</td>
+
+                            <td>
+                                <span class="badge maintenance">
+                                    Mantenimiento
+                                </span>
+                            </td>
+
+                            <td>Al día</td>
+
+                            <td>10 Mayo 2026</td>
+
+                            <td>
+                                <button class="table-btn">
+                                    Ver detalle
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- VEHICULOS -->
+
+        <section id="vehiculos" class="section">
+
+            <p class="section-heading">
+                Vehículos
+            </p>
+
+            <p class="section-sub">
+                Gestiona todos tus vehículos registrados
+            </p>
+
+            <button class="primary-btn">
+                        <i class="fa-solid fa-plus"></i>
+                        Registrar vehículo
+                    </button>
+
+            <div class="vehicle-grid">
+
+                <div class="vehicle-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200"
+                        alt=""
+                    >
+
+                    <div class="vehicle-content">
+
+                        <h3>
+                            Toyota Corolla
+                        </h3>
+
+                        <p>
+                            ABC-123
+                        </p>
+
+                        <span class="badge available">
+                            Disponible
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="vehicle-card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1200"
+                        alt=""
+                    >
+
+                    <div class="vehicle-content">
+
+                        <h3>
+                            BMW X3
+                        </h3>
+
+                        <p>
+                            DEF-456
+                        </p>
+
+                        <span class="badge maintenance">
+                            Mantenimiento
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RESERVAS -->
+
+        <section id="reservas" class="section">
+
+            <p class="section-heading">
+                Reservas pendientes
+            </p>
+
+            <p class="section-sub">
+                Vehículos esperando aprobación
+            </p>
+
+            <div class="reservation-card">
+
+                <div>
+
+                    <h3>
+                        Reserva #2045
+                    </h3>
+
+                    <p>
+                        Cliente: María González
+                    </p>
+
+                    <p>
+                        Toyota Corolla 2024
+                    </p>
+
+                </div>
+
+                <div class="reservation-actions">
+
+                    <button class="approve-btn">
+                        Aprobar
+                    </button>
+
+                    <button class="reject-btn">
+                        Rechazar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- INGRESOS -->
+
+        <section id="ingresos" class="section">
+
+            <p class="section-heading">
+                Ingresos por vehículo
+            </p>
+
+            <p class="section-sub">
+                Historial financiero de tu flota
+            </p>
+
+            <div class="table-box">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Vehículo</th>
+                            <th>Ingreso</th>
+                            <th>Comisión</th>
+                            <th>Ganancia</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Toyota Corolla</td>
+                            <td>$1.800.000</td>
+                            <td>-$180.000</td>
+                            <td class="green-text">$1.620.000</td>
+                        </tr>
+
+                        <tr>
+                            <td>Mazda CX-5</td>
+                            <td>$1.200.000</td>
+                            <td>-$120.000</td>
+                            <td class="green-text">$1.080.000</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- DOCUMENTOS -->
+
+        <section id="documentos" class="section">
+
+            <p class="section-heading">
+                Documentos
+            </p>
+
+            <p class="section-sub">
+                Controla vencimientos y seguros
+            </p>
+
+            <div class="document-card warning-border">
+
+                <h3>
+                    SOAT Mazda CX-5
+                </h3>
+
+                <p>
+                    Vence en 5 días
+                </p>
+
+            </div>
+
+            <div class="document-card">
+
+                <h3>
+                    Seguro Toyota Corolla
+                </h3>
+
+                <p>
+                    Vigente
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- INCIDENCIAS -->
+
+        <section id="incidencias" class="section">
+
+            <p class="section-heading">
+                Incidencias
+            </p>
+
+            <p class="section-sub">
+                Reportes realizados en tus vehículos
+            </p>
+
+            <div class="incident-card">
+
+                <h3>
+                    BMW X3
+                </h3>
+
+                <p>
+                    Rayón reportado en puerta lateral
+                </p>
+
+                <span>
+                    Reserva #2040
+                </span>
+
+            </div>
+
+        </section>
+
+        <!-- PERFIL -->
+
+        <section id="perfil" class="section">
+
+            <p class="section-heading">
+                Perfil
+            </p>
+
+            <p class="section-sub">
+                Actualiza tu información personal
+            </p>
+
+            <div class="profile-card">
+
+                <div class="profile-header">
+
+                    <div class="profile-photo">
+                        C
+                    </div>
+
+                    <div class="profile-meta">
+
+                        <h2>
+                            Carlos Ramírez
+                        </h2>
+
+                        <p>
+                            Propietario · Miembro desde 2025
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="profile-fields">
+
+                    <div class="input-group">
+
+                        <label>
+                            Nombre completo
+                        </label>
+
+                        <input
+                            type="text"
+                            value="Carlos Ramírez"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            value="carlos@gmail.com"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button class="primary-btn">
+                        Guardar cambios
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- NOTIFICACIONES -->
+
+        <section id="notificaciones" class="section">
+
+            <p class="section-heading">
+                Notificaciones
+            </p>
+
+            <p class="section-sub">
+                Actividad reciente de tus vehículos
+            </p>
+
+            <div class="notif-list">
+
+                <div class="notif-item notif-item--unread">
+
+                    <div class="notif-icon notif-icon--amber">
+                        <i class="fa-solid fa-file-circle-exclamation"></i>
+                    </div>
+
+                    <div class="notif-text">
+
+                        <p>
+                            El SOAT del Mazda CX-5 vence en 5 días
+                        </p>
+
+                        <span class="notif-time">
+                            Hace 2 horas
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="notif-item">
+
+                    <div class="notif-icon notif-icon--blue">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+
+                    <div class="notif-text">
+
+                        <p>
+                            Tu vehículo fue asignado a una reserva
+                        </p>
+
+                        <span class="notif-time">
+                            Hace 1 día
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="notif-item">
+
+                    <div class="notif-icon notif-icon--green">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+
+                    <div class="notif-text">
+
+                        <p>
+                            Nuevo ingreso generado correctamente
+                        </p>
+
+                        <span class="notif-time">
+                            Hace 3 días
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="mainPropietario.js"></script>
+
+</body>
+</html>

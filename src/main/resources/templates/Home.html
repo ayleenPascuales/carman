@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,101 +7,172 @@
 
     <title>Carman</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
+
     <header class="navbar">
 
-    <div class="nav-left">
+        <div class="nav-left">
 
-        <!-- MENU ICON -->
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
 
-        <div class="menu-icon" onclick="toggleMenu()">
-            ☰
+            <div class="logo">
+                Carman
+            </div>
+
         </div>
 
-        <div class="logo">
-            Carman
+        <nav>
+
+            <a th:href="@{/Home}">Inicio</a>
+
+            <a class="active" th:href="@{/buscar}">
+                Catálogo
+            </a>
+
+            <a href="#">
+                Para propietarios
+            </a>
+
+            <a href="#">
+                Soporte
+            </a>
+
+        </nav>
+
+        <div class="nav-buttons">
+
+            <a th:href="@{/InicioSesion}">
+                Iniciar sesión
+            </a>
+
+            <a th:href="@{/registro2}" class="register-btn">
+                Registrarse
+            </a>
+
         </div>
 
-    </div>
+    </header>
 
-    <nav>
-        <a href="Home.html">Inicio</a>
-        <a class="active" href="buscar.html">Catálogo</a>
-        <a href="#">Para propietarios</a>
-        <a href="#">Soporte</a>
-    </nav>
+    <!-- OVERLAY -->
 
-    <div class="nav-buttons">
-        <a href="InicioSesion.html">Iniciar sesión</a>
-        <a href="registro2.html" class="register-btn">
-    Registrarse
-</a>
-    </div>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-</header>
+    <!-- SIDEBAR -->
 
-<!-- OVERLAY -->
+    <aside class="sidebar" id="sidebar">
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+        <div class="sidebar-top">
 
-<!-- SIDEBAR -->
+            <h2>Carman</h2>
 
-<aside class="sidebar" id="sidebar">
+            <button onclick="toggleMenu()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-    <div class="sidebar-top">
+        </div>
 
-        <h2>Carman</h2>
+        <!-- CUENTA -->
 
-        <button onclick="toggleMenu()">✕</button>
+        <div class="sidebar-section">
 
-    </div>
+            <p class="sidebar-title">
+                CUENTA
+            </p>
 
-    <!-- CUENTA -->
+            <a href="#">
+                <i class="fa-regular fa-user"></i>
+                Iniciar sesión
+            </a>
 
-    <div class="sidebar-section">
+            <a href="#">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Registrarse
+            </a>
 
-        <p class="sidebar-title">CUENTA</p>
+            <a class="highlight" href="#">
+                <i class="fa-solid fa-car-side"></i>
+                Hazte anfitrión
+            </a>
 
-        <a href="#">👤 Iniciar sesión</a>
-        <a href="#">📝 Registrarse</a>
+        </div>
 
-        <a class="highlight" href="#">
-            🚘 Hazte anfitrión
-        </a>
+        <!-- VEHÍCULOS -->
 
-    </div>
+        <div class="sidebar-section">
 
-    <!-- VEHICULOS -->
+            <p class="sidebar-title">
+                VEHÍCULOS
+            </p>
 
-    <div class="sidebar-section">
+            <a th:href="@{/buscar}">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Buscar vehículos
+            </a>
 
-        <p class="sidebar-title">VEHÍCULOS</p>
+            <a href="#">
+                <i class="fa-solid fa-star"></i>
+                Destacados
+            </a>
 
-        <a href="buscar.html">🔎 Buscar vehículos</a>
-        <a href="#">⭐ Destacados</a>
-        <a href="#">🆕 Nuevos ingresos</a>
-        <a href="#">⚡ Eléctricos</a>
-        <a href="#">🏔️ SUVs & 4x4</a>
+            <a href="#">
+                <i class="fa-solid fa-bolt"></i>
+                Nuevos ingresos
+            </a>
 
-    </div>
+            <a href="#">
+                <i class="fa-solid fa-charging-station"></i>
+                Eléctricos
+            </a>
 
-    <!-- INFORMACION -->
+            <a href="#">
+                <i class="fa-solid fa-mountain"></i>
+                SUVs & 4x4
+            </a>
 
-    <div class="sidebar-section">
+        </div>
 
-        <p class="sidebar-title">INFORMACIÓN</p>
+        <!-- INFORMACIÓN -->
 
-        <a href="#">❓ ¿Por qué Carman?</a>
-        <a href="#">📞 Soporte</a>
-        <a href="#">📄 Legal</a>
+        <div class="sidebar-section">
 
-    </div>
+            <p class="sidebar-title">
+                INFORMACIÓN
+            </p>
 
-</aside>
+            <a href="#">
+                <i class="fa-regular fa-circle-question"></i>
+                ¿Por qué Carman?
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-headset"></i>
+                Soporte
+            </a>
+
+            <a href="#">
+                <i class="fa-regular fa-file-lines"></i>
+                Legal
+            </a>
+
+        </div>
+
+    </aside>
 
     <!-- HERO -->
 
@@ -143,30 +214,48 @@
                     Alquilar
                 </button>
 
-               
-
             </div>
 
             <div class="search-grid">
 
                 <div class="field">
-                    <label>Ciudad</label>
+
+                    <label>
+                        Ciudad
+                    </label>
+
                     <input type="text" placeholder="¿Dónde vas?">
+
                 </div>
 
                 <div class="field">
-                    <label>Recogida</label>
+
+                    <label>
+                        Recogida
+                    </label>
+
                     <input type="date">
+
                 </div>
 
                 <div class="field">
-                    <label>Hora</label>
+
+                    <label>
+                        Hora
+                    </label>
+
                     <input type="time">
+
                 </div>
 
                 <div class="field">
-                    <label>Devolución</label>
+
+                    <label>
+                        Devolución
+                    </label>
+
                     <input type="date">
+
                 </div>
 
             </div>
@@ -179,13 +268,15 @@
 
     </section>
 
-    <!-- VEHICULOS -->
+    <!-- VEHÍCULOS -->
 
     <section class="vehicles">
 
         <div class="section-title">
 
-            <h2>Vehículos destacados</h2>
+            <h2>
+                Vehículos destacados
+            </h2>
 
             <p>
                 Los más elegidos por nuestra comunidad
@@ -203,16 +294,31 @@
 
                 <div class="card-content">
 
-                    <h3>BMW Serie 3</h3>
+                    <h3>
+                        BMW Serie 3
+                    </h3>
 
                     <span class="type">
                         Sedán · Automático
                     </span>
 
                     <div class="specs">
-                        <span>👥 5 plazas</span>
-                        <span>⛽ Gasolina</span>
-                        <span>❄️ A/C</span>
+
+                        <span>
+                            <i class="fa-solid fa-users"></i>
+                            5 plazas
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-gas-pump"></i>
+                            Gasolina
+                        </span>
+
+                        <span>
+                            <i class="fa-regular fa-snowflake"></i>
+                            A/C
+                        </span>
+
                     </div>
 
                     <div class="card-footer">
@@ -239,16 +345,31 @@
 
                 <div class="card-content">
 
-                    <h3>Tesla Model 3</h3>
+                    <h3>
+                        Tesla Model 3
+                    </h3>
 
                     <span class="type">
                         Sedán · Eléctrico
                     </span>
 
                     <div class="specs">
-                        <span>👥 5 plazas</span>
-                        <span>⚡ Eléctrico</span>
-                        <span>🅿️ Autopilot</span>
+
+                        <span>
+                            <i class="fa-solid fa-users"></i>
+                            5 plazas
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-bolt"></i>
+                            Eléctrico
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-car"></i>
+                            Autopilot
+                        </span>
+
                     </div>
 
                     <div class="card-footer">
@@ -275,16 +396,31 @@
 
                 <div class="card-content">
 
-                    <h3>Toyota RAV4</h3>
+                    <h3>
+                        Toyota RAV4
+                    </h3>
 
                     <span class="type">
                         SUV · Híbrido
                     </span>
 
                     <div class="specs">
-                        <span>👥 7 plazas</span>
-                        <span>🔋 Híbrido</span>
-                        <span>🏔️ 4x4</span>
+
+                        <span>
+                            <i class="fa-solid fa-users"></i>
+                            7 plazas
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-battery-half"></i>
+                            Híbrido
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-road"></i>
+                            4x4
+                        </span>
+
                     </div>
 
                     <div class="card-footer">
@@ -311,9 +447,11 @@
 
     <section class="how">
 
-        <div class="section-title">
+        <div class="section-title center">
 
-            <h2>¿Cómo funciona?</h2>
+            <h2>
+                ¿Cómo funciona?
+            </h2>
 
             <p>
                 En tres pasos tienes tu vehículo listo
@@ -326,10 +464,12 @@
             <div class="step">
 
                 <div class="step-circle">
-                    👤
+                    <i class="fa-regular fa-user"></i>
                 </div>
 
-                <h3>Regístrate</h3>
+                <h3>
+                    Regístrate
+                </h3>
 
                 <p>
                     Crea tu cuenta fácilmente en pocos minutos.
@@ -342,10 +482,12 @@
             <div class="step">
 
                 <div class="step-circle">
-                    🚗
+                    <i class="fa-solid fa-car"></i>
                 </div>
 
-                <h3>Elige tu auto</h3>
+                <h3>
+                    Elige tu auto
+                </h3>
 
                 <p>
                     Busca entre cientos de vehículos disponibles.
@@ -358,10 +500,12 @@
             <div class="step">
 
                 <div class="step-circle">
-                    ✔️
+                    <i class="fa-solid fa-check"></i>
                 </div>
 
-                <h3>¡A rodar!</h3>
+                <h3>
+                    ¡A rodar!
+                </h3>
 
                 <p>
                     Reserva y disfruta tu viaje con tranquilidad.
@@ -372,71 +516,94 @@
         </div>
 
     </section>
-      <!-- WHAT DO YOU WANT -->
 
-<section class="action-section">
+    <!-- WHAT DO YOU WANT -->
 
-    <div class="action-header">
+    <section class="action-section">
 
-        <h2>
-            ¿Qué quieres hacer hoy?
-        </h2>
+        <div class="action-header">
 
-        <p>
-            La plataforma funciona para los dos lados del viaje
-        </p>
-
-    </div>
-
-    <div class="action-grid">
-
-        <!-- ALQUILAR -->
-
-        <div class="action-card rent">
-
-            <div class="action-icon">
-                🚘
-            </div>
-
-            <h3>
-                Quiero alquilar un auto
-            </h3>
+            <h2>
+                ¿Qué quieres hacer hoy?
+            </h2>
 
             <p>
-                Encuentra autos cerca de ti, reserva en minutos y recógelo donde quieras.
+                Elige cómo quieres usar la plataforma
             </p>
-
-            <a href="buscar.html">
-                Buscar autos ↗
-            </a>
 
         </div>
 
-        <!-- PUBLICAR -->
+        <div class="action-grid">
 
-        <div class="action-card host">
+            <!-- ALQUILAR -->
 
-            <div class="action-icon">
-                🚗
+            <div class="action-card rent">
+
+                <div class="action-icon">
+                    <i class="fa-solid fa-car-side"></i>
+                </div>
+
+                <h3>
+                    Quiero alquilar un auto
+                </h3>
+
+                <p>
+                    Encuentra autos cerca de ti, reserva en minutos y disfruta el viaje.
+                </p>
+
+                <a th:href="@{/buscar}">
+                    Buscar autos
+                </a>
+
             </div>
 
-            <h3>
-                Quiero publicar mi auto
-            </h3>
+            <!-- PUBLICAR -->
 
-            <p>
-                Gana dinero con tu vehículo cuando no lo usas. Tú pones las reglas.
-            </p>
+            <div class="action-card host">
 
-            <a href="registro2.html">
-                Publicar auto ↗
-            </a>
+                <div class="action-icon">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+
+                <h3>
+                    Quiero publicar mi auto
+                </h3>
+
+                <p>
+                    Gana dinero con tu vehículo cuando no lo uses y administra tus reservas.
+                </p>
+
+                <a th:href="@{/registro2}">
+                    Publicar auto
+                </a>
+
+            </div>
+
+            <!-- CONDUCTOR -->
+
+            <div class="action-card driver">
+
+                <div class="action-icon">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+
+                <h3>
+                    Quiero ser conductor
+                </h3>
+
+                <p>
+                    Conduce vehículos registrados y genera ingresos realizando viajes seguros.
+                </p>
+
+                <a th:href="@{/registro2}">
+                    Ser conductor
+                </a>
+
+            </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
     <!-- FOOTER -->
 
@@ -446,7 +613,9 @@
 
             <div class="footer-brand">
 
-                <h2>Carman</h2>
+                <h2>
+                    Carman
+                </h2>
 
                 <p>
                     Movilidad compartida para todos.
@@ -458,31 +627,61 @@
 
                 <div>
 
-                    <h3>Vehículos</h3>
+                    <h3>
+                        Vehículos
+                    </h3>
 
-                    <a href="buscar.html">Catálogo</a>
-                    <a href="#">Destacados</a>
-                    <a href="#">Eléctricos</a>
+                    <a th:href="@{/buscar}">
+                        Catálogo
+                    </a>
+
+                    <a href="#">
+                        Destacados
+                    </a>
+
+                    <a href="#">
+                        Eléctricos
+                    </a>
 
                 </div>
 
                 <div>
 
-                    <h3>Empresa</h3>
+                    <h3>
+                        Empresa
+                    </h3>
 
-                    <a href="#">¿Por qué Carman?</a>
-                    <a href="#">Hazte anfitrión</a>
-                    <a href="#">Soporte</a>
+                    <a href="#">
+                        ¿Por qué Carman?
+                    </a>
+
+                    <a href="#">
+                        Hazte anfitrión
+                    </a>
+
+                    <a href="#">
+                        Soporte
+                    </a>
 
                 </div>
 
                 <div>
 
-                    <h3>Legal</h3>
+                    <h3>
+                        Legal
+                    </h3>
 
-                    <a href="#">Términos de uso</a>
-                    <a href="#">Privacidad</a>
-                    <a href="#">Cookies</a>
+                    <a href="#">
+                        Términos de uso
+                    </a>
+
+                    <a href="#">
+                        Privacidad
+                    </a>
+
+                    <a href="#">
+                        Cookies
+                    </a>
 
                 </div>
 

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${vehiculo.marca} + ' ' + ${vehiculo.modelo}">
+        Vehículo
+    </title>
+
+    <link rel="stylesheet" th:href="@{/vehiculo.css}">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            Carman
+        </div>
+
+        <nav>
+
+            <a th:href="@{/Home}">
+                Inicio
+            </a>
+
+            <a th:href="@{/buscar}">
+                Catálogo
+            </a>
+
+            <a href="#">
+                Soporte
+            </a>
+
+        </nav>
+
+    </header>
+
+    <!-- MAIN -->
+
+    <main class="vehiculo-container">
+
+        <!-- GALERÍA -->
+
+        <section class="gallery">
+
+            <div class="main-image">
+
+                <img
+                    th:src="${vehiculo.imagen}"
+                    alt="Vehículo"
+                >
+
+            </div>
+
+            <div class="mini-gallery">
+
+                <img th:src="${vehiculo.imagen}">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200">
+                <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1200">
+
+            </div>
+
+        </section>
+
+        <!-- INFO -->
+
+        <section class="vehiculo-info">
+
+            <div class="top-info">
+
+                <div>
+
+                    <h1>
+                        <span th:text="${vehiculo.marca}"></span>
+                        <span th:text="${vehiculo.modelo}"></span>
+                    </h1>
+
+                    <p class="subtitle">
+                        Vehículo verificado · Disponible ahora
+                    </p>
+
+                </div>
+
+                <div class="price-box">
+
+                    <h2>
+                        $
+                        <span th:text="${vehiculo.precio}"></span>
+                    </h2>
+
+                    <span>
+                        /día
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- SPECS -->
+
+            <div class="specs-grid">
+
+                <div class="spec-card">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <div>
+
+                        <h4>
+                            Pasajeros
+                        </h4>
+
+                        <p>
+                            5 personas
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="spec-card">
+
+                    <i class="fa-solid fa-gas-pump"></i>
+
+                    <div>
+
+                        <h4>
+                            Combustible
+                        </h4>
+
+                        <p>
+                            Gasolina
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="spec-card">
+
+                    <i class="fa-solid fa-gears"></i>
+
+                    <div>
+
+                        <h4>
+                            Transmisión
+                        </h4>
+
+                        <p>
+                            Automática
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="spec-card">
+
+                    <i class="fa-solid fa-snowflake"></i>
+
+                    <div>
+
+                        <h4>
+                            Aire acondicionado
+                        </h4>
+
+                        <p>
+                            Incluido
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+
+            <div class="description-box">
+
+                <h3>
+                    Descripción
+                </h3>
+
+                <p th:text="${vehiculo.descripcion}">
+
+                    Vehículo cómodo, moderno y perfecto para viajes urbanos
+                    o carretera. Excelente consumo y muy buen estado.
+
+                </p>
+
+            </div>
+
+            <!-- FEATURES -->
+
+            <div class="features-box">
+
+                <h3>
+                    Características
+                </h3>
+
+                <div class="features-grid">
+
+                    <span>
+                        Bluetooth
+                    </span>
+
+                    <span>
+                        Cámara reversa
+                    </span>
+
+                    <span>
+                        GPS
+                    </span>
+
+                    <span>
+                        USB
+                    </span>
+
+                    <span>
+                        Apple CarPlay
+                    </span>
+
+                    <span>
+                        Android Auto
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- OWNER -->
+
+            <div class="owner-box">
+
+                <img
+                    src="https://i.pravatar.cc/100"
+                    alt=""
+                >
+
+                <div>
+
+                    <h4>
+                        Carlos Ramírez
+                    </h4>
+
+                    <p>
+                        Propietario verificado ⭐
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="actions">
+
+                <button class="reserve-btn">
+                    Reservar ahora
+                </button>
+
+                <button class="message-btn">
+                    Contactar propietario
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
