@@ -45,6 +45,9 @@ public class Vehiculo {
     @Column(name="tipoVehiculo",length=50)
     private String tipoVehiculo;
 
+     @Column(name="foto",length=500)
+    private String foto;
+
     @Enumerated(EnumType.STRING)
     @Column(name="estado")
     private EstadoVehiculo estado;
@@ -55,8 +58,10 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
-    public Vehiculo(Propietario propietario, String placa, String marca, String modelo,
-            Integer anio, Integer capacidad, String tipoVehiculo, EstadoVehiculo estado, List<Telemetria> telemetrias) {
+    public Vehiculo(Integer idVehiculo, Propietario propietario, String placa, String marca, String modelo,
+            Integer anio, Integer capacidad, String tipoVehiculo, String foto, EstadoVehiculo estado,
+            List<Telemetria> telemetrias) {
+        this.idVehiculo = idVehiculo;
         this.propietario = propietario;
         this.placa = placa;
         this.marca = marca;
@@ -64,6 +69,7 @@ public class Vehiculo {
         this.anio = anio;
         this.capacidad = capacidad;
         this.tipoVehiculo = tipoVehiculo;
+        this.foto = foto;
         this.estado = estado;
         this.telemetrias = telemetrias;
     }
@@ -130,6 +136,14 @@ public class Vehiculo {
 
     public void setTipoVehiculo(String tipoVehiculo) {
         this.tipoVehiculo = tipoVehiculo;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public EstadoVehiculo getEstado() {

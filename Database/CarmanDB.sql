@@ -16,6 +16,9 @@ CREATE TABLE Persona (
 );
 ALTER TABLE Persona
 ADD edad INT; 
+ALTER TABLE Persona
+ADD ciudad VARCHAR(50); 
+EXEC sp_rename 'Persona.contraseña', 'contrasena', 'COLUMN';
 
 GO
 
@@ -30,6 +33,9 @@ ALTER TABLE Licencia
 ADD foto VARCHAR(500);
 ALTER TABLE Licencia
 ADD CONSTRAINT uk_licencia_numero UNIQUE (numero);
+EXEC sp_rename 'Licencia.foto', 'fotoLicencia', 'COLUMN';
+ALTER TABLE Licencia
+DROP COLUMN foto;
 
 GO
 
@@ -87,7 +93,10 @@ CREATE TABLE Vehiculo (
 );
 ALTER TABLE Vehiculo
 ADD CONSTRAINT placa UNIQUE(placa);
+ALTER TABLE Vehiculo
+ADD foto VARCHAR(500); 
 GO
+
 
 CREATE TABLE estado_tecnico_vehiculo (
     idEstado INT PRIMARY KEY IDENTITY(1,1),
@@ -262,7 +271,7 @@ CREATE TABLE #TempMetodoPago (
 );
 go
 BULK INSERT #TempMetodoPago
-FROM 'C:\Users\aylee\Desktop\PROYECTO_CARMAN\metodos_pago_bulk.csv'
+FROM 'C:\PROYECTO_CARMAN\metodos_pago_bulk.csv'
 WITH (
     FIRSTROW = 2,
     FIELDTERMINATOR = ',',

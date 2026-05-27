@@ -56,7 +56,7 @@
 
         </nav>
 
-        <div class="nav-buttons">
+        <div class="nav-buttons" id="nav-guest">
 
             <a th:href="@{/InicioSesion}">
                 Iniciar sesión
@@ -65,6 +65,20 @@
             <a th:href="@{/registro2}" class="register-btn">
                 Registrarse
             </a>
+
+        </div>
+
+        <div class="nav-buttons nav-auth" id="nav-user" style="display: none;">
+
+            <span class="nav-user-chip" id="nav-user-name">Usuario</span>
+
+            <a href="#" class="nav-panel-btn" id="nav-panel-link">
+                Mi panel
+            </a>
+
+            <button type="button" class="nav-logout-btn" onclick="cerrarSesion()">
+                Salir
+            </button>
 
         </div>
 
@@ -96,14 +110,24 @@
                 CUENTA
             </p>
 
-            <a th:href="@{/InicioSesion}">
+            <a th:href="@{/InicioSesion}" id="sidebar-login">
                 <i class="fa-regular fa-user"></i>
                 Iniciar sesión
             </a>
 
-            <a th:href="@{/registro2}">
+            <a th:href="@{/registro2}" id="sidebar-register">
                 <i class="fa-regular fa-pen-to-square"></i>
                 Registrarse
+            </a>
+
+            <a href="#" id="sidebar-panel" style="display: none;">
+                <i class="fa-solid fa-user-gear"></i>
+                Mi panel
+            </a>
+
+            <a href="#" onclick="cerrarSesion()" id="sidebar-logout" style="display: none;">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Cerrar sesión
             </a>
 
             <a class="highlight" href="#">
@@ -664,18 +688,70 @@
 
     </footer>
 
+    <script th:src="@{/auth.js}"></script>
     <script>
-
         function toggleMenu() {
-
             document.getElementById("sidebar")
                 .classList.toggle("active");
-
             document.getElementById("overlay")
                 .classList.toggle("active");
-
         }
 
+        document.addEventListener("DOMContentLoaded", async () => {
+            await cargarSesion(false);
+            aplicarNavbarSesion();
+            aplicarSidebarSesion();
+        });
+
+        function aplicarNavbarSesion() {
+            const guest = document.getElementById("nav-guest");
+            const user = document.getElementById("nav-user");
+            const sesion = getSesion();
+
+            if (!guest || !user) return;
+
+            if (sesion) {
+                guest.style.display = "none";
+                user.style.display = "flex";
+                const nombre = sesion.nombre ? sesion.nombre.trim() : "Usuario";
+                const navName = document.getElementById("nav-user-name");
+                if (navName) navName.textContent = nombre;
+
+                const panelLink = document.getElementById("nav-panel-link");
+                if (panelLink) {
+                    panelLink.href = urlPanelPorRol(sesion.rol);
+                    panelLink.textContent = sesion.rol === "CLIENTE" ? "Mis reservas" : "Mi panel";
+                }
+            } else {
+                guest.style.display = "flex";
+                user.style.display = "none";
+            }
+        }
+
+        function aplicarSidebarSesion() {
+            const loginLink = document.getElementById("sidebar-login");
+            const registerLink = document.getElementById("sidebar-register");
+            const panelLink = document.getElementById("sidebar-panel");
+            const logoutLink = document.getElementById("sidebar-logout");
+            const sesion = getSesion();
+
+            if (!loginLink || !registerLink) return;
+
+            if (sesion) {
+                loginLink.style.display = "none";
+                registerLink.style.display = "none";
+                if (panelLink) {
+                    panelLink.style.display = "flex";
+                    panelLink.href = urlPanelPorRol(sesion.rol);
+                }
+                if (logoutLink) logoutLink.style.display = "flex";
+            } else {
+                loginLink.style.display = "flex";
+                registerLink.style.display = "flex";
+                if (panelLink) panelLink.style.display = "none";
+                if (logoutLink) logoutLink.style.display = "none";
+            }
+        }
     </script>
 
 </body>

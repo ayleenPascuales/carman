@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservas — Carman</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" th:href="@{/vendor/leaflet/leaflet.css}">
   <link rel="stylesheet" th:href="@{/reserva.css}">
 </head>
 <body>
@@ -20,6 +20,12 @@
       <button class="menu-btn active" data-section="resumen" onclick="showSection('resumen', this)">
         <i class="fa-solid fa-chart-pie"></i> Resumen
       </button>
+      <button class="menu-btn" data-section="autos-disponibles" onclick="showSection('autos-disponibles', this)">
+        <i class="fa-solid fa-car"></i> Autos disponibles
+      </button>
+      <button class="menu-btn" data-section="conductores-disponibles" onclick="showSection('conductores-disponibles', this)">
+        <i class="fa-solid fa-user-tie"></i> Conductores
+      </button>
       <button class="menu-btn" data-section="nueva-reserva" onclick="showSection('nueva-reserva', this)">
         <i class="fa-solid fa-calendar-plus"></i> Nueva reserva
       </button>
@@ -28,6 +34,9 @@
       </button>
       <button class="menu-btn" data-section="pagos" onclick="showSection('pagos', this)">
         <i class="fa-solid fa-credit-card"></i> Pagos y métodos
+      </button>
+      <button class="menu-btn" data-section="opciones" onclick="showSection('opciones', this)">
+        <i class="fa-solid fa-gear"></i> Opciones
       </button>
       <button class="menu-btn" data-section="contrato" onclick="showSection('contrato', this)">
         <i class="fa-solid fa-file-contract"></i> Contrato
@@ -87,6 +96,36 @@
       <div class="panel-card">
         <h3 style="margin-bottom:14px;font-size:16px;">Últimas reservas</h3>
         <div id="resumen-reservas-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+      </div>
+    </section>
+
+    <!-- AUTOS DISPONIBLES -->
+    <section id="autos-disponibles" class="section">
+      <p class="section-heading">Autos disponibles</p>
+      <p class="section-sub">Explora el catálogo completo de vehículos disponibles para alquilar</p>
+
+      <div class="filter-bar" style="margin-bottom: 20px;">
+        <input type="text" id="filtro-autos" placeholder="Buscar por marca, modelo..." style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1;">
+        <select id="filtro-tipo-auto" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+          <option value="">Todos los tipos</option>
+          <option value="Carro">Carro</option>
+          <option value="Moto">Moto</option>
+          <option value="SUV">SUV</option>
+        </select>
+      </div>
+
+      <div id="autos-disponibles-grid" class="loading">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando vehículos...
+      </div>
+    </section>
+
+    <!-- CONDUCTORES DISPONIBLES -->
+    <section id="conductores-disponibles" class="section">
+      <p class="section-heading">Conductores disponibles</p>
+      <p class="section-sub">Conductores disponibles para acompañar tus viajes</p>
+
+      <div id="conductores-disponibles-grid" class="loading">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando conductores...
       </div>
     </section>
 
@@ -225,6 +264,74 @@
       </div>
     </section>
 
+    <!-- OPCIONES -->
+    <section id="opciones" class="section">
+      <p class="section-heading">Opciones y configuración</p>
+      <p class="section-sub">Personaliza tu experiencia de reservas</p>
+
+      <div class="panel-card">
+        <h3 style="margin-bottom:14px;font-size:15px;"><i class="fa-solid fa-bell"></i> Notificaciones</h3>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="notif-email" checked>
+            <span>Recibir notificaciones por email</span>
+          </label>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="notif-sms" checked>
+            <span>Recibir notificaciones por SMS</span>
+          </label>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="notif-push" checked>
+            <span>Notificaciones push en navegador</span>
+          </label>
+        </div>
+        <button class="primary-btn" onclick="guardarOpcionesNotificacion()">
+          <i class="fa-solid fa-save"></i> Guardar preferencias
+        </button>
+      </div>
+
+      <div class="panel-card" style="margin-top: 16px;">
+        <h3 style="margin-bottom:14px;font-size:15px;"><i class="fa-solid fa-sliders"></i> Preferencias de reserva</h3>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label>Tipo de servicio preferido</label>
+          <select id="pref-tipo-servicio">
+            <option value="sin">Sin conductor</option>
+            <option value="con">Con conductor</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label>Duración preferida (días)</label>
+          <input type="number" id="pref-duracion" value="1" min="1" max="30">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" id="pref-auto-confirmar">
+            <span>Confirmar reserva automáticamente</span>
+          </label>
+        </div>
+        <button class="primary-btn" onclick="guardarPreferenciasReserva()">
+          <i class="fa-solid fa-save"></i> Guardar preferencias
+        </button>
+      </div>
+
+      <div class="panel-card" style="margin-top: 16px;">
+        <h3 style="margin-bottom:14px;font-size:15px;"><i class="fa-solid fa-credit-card"></i> Método de pago predeterminado</h3>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label>Método predeterminado</label>
+          <select id="pref-metodo-pago">
+            <option value="">Seleccionar método</option>
+          </select>
+        </div>
+        <button class="primary-btn" onclick="guardarMetodoPredeterminado()">
+          <i class="fa-solid fa-save"></i> Guardar método
+        </button>
+      </div>
+    </section>
+
     <!-- CONTRATO -->
     <section id="contrato" class="section">
       <p class="section-heading">Contrato de alquiler</p>
@@ -268,7 +375,7 @@
 </div>
 
 <script th:src="@{/auth.js}"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script th:src="@{/vendor/leaflet/leaflet.js}"></script>
 <script th:src="@{/reserva.js}"></script>
 </body>
 </html>

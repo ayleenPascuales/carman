@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
 
                 <span class="tag">
                     Bienvenido a Carman
-                    
+
                 </span>
 
                 <h1>
@@ -60,273 +61,661 @@
 
             <div class="register-box">
 
+                <div th:if="${error}" class="register-alert register-alert--error" th:text="${error}"></div>
+                <div th:if="${param.success}" class="register-alert register-alert--success">
+                    ¡Cuenta creada! Ya puedes iniciar sesión.
+                </div>
+
                 <!-- STEP 1 -->
+                <form th:action="@{/registro}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+                    <div class="form-step active" id="step1">
 
-                <div class="form-step" id="step1">
+                        <h2>
+                            Crea tu cuenta
 
-                    <h2>
-                        Crea tu cuenta
-                        
-                    </h2>
+                        </h2>
 
-                    <div class="steps">
+                        <div class="steps">
 
-                        <div class="step active">
-                            <span>1</span>
-                            Tipo
+                            <div class="step active">
+                                <span>1</span>
+                                Tipo
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div class="step">
+                                <span>2</span>
+                                Datos
+                            </div>
+
+                            <div class="line"></div>
+
+                            <div class="step">
+                                <span>3</span>
+                                Verificación
+                            </div>
+
                         </div>
 
-                        <div class="line"></div>
+                        <h3 class="question">
+                            ¿Cómo quieres usar la plataforma?
+                        </h3>
 
-                        <div class="step">
-                            <span>2</span>
-                            Datos
+                        <div class="options">
+
+                            <div class="option-card active" onclick="seleccionarRol(this, 'cliente')">
+
+                                <div class="icon">
+                                    🚘
+                                </div>
+
+                                <h4>
+                                    Soy cliente
+                                </h4>
+
+                                <p>
+                                    Quiero alquilar vehículos
+                                </p>
+
+                            </div>
+
+                            <div class="option-card" onclick="seleccionarRol(this, 'propietario')">
+
+                                <div class="icon">
+                                    💰
+                                </div>
+
+                                <h4>
+                                    Soy propietario
+                                </h4>
+
+                                <p>
+                                    Quiero publicar mi auto
+                                </p>
+
+                            </div>
+                            <div class="option-card" onclick="seleccionarRol(this, 'conductor')">
+
+                                <div class="icon">
+                                    🧑‍✈️
+                                </div>
+
+                                <h4>
+                                    Soy conductor
+                                </h4>
+
+                                <p>
+                                    Quiero ofrecer servicios de conducción
+                                </p>
+
+                            </div>
                         </div>
-
-                        <div class="line"></div>
-
-                        <div class="step">
-                            <span>3</span>
-                            Verificación
-                        </div>
-
+                        <input type="hidden" name="tipoUsuario" id="tipoUsuario">
+                        <button type="button" class="continue-btn" onclick="mostrarFormularioRol()">
+                            Continuar
+                        </button>
                     </div>
+                    <!-- STEP 2 -->
+                    <!-- cliente -->
 
-                    <h3 class="question">
-                        ¿Cómo quieres usar la plataforma?
-                    </h3>
+                    <div class="form-step" id="step2-cliente">
 
-                    <div class="options">
+                        <h3 class="question">
+                            Completa tus datos
+                        </h3>
 
-                        <div class="option-card active">
+                        <div class="form-grid">
 
-                            <div class="icon">
+                            <div class="input-group">
+
+                                <label>
+                                    Nombre
+                                </label>
+
+                                <input type="text" name="nombre" placeholder="Tu nombre" required minlength="3"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    Apellido
+                                </label>
+
+                                <input type="text" name="apellido" placeholder="Tu apellido" required minlength="3"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    Edad
+                                </label>
+
+                                <input type="number" name="edad" placeholder="Tu edad" required min="18" max="100">
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Correo electrónico
+                                </label>
+
+                                <input type="email" name="email" placeholder="correo@gmail.com" required>
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Teléfono
+                                </label>
+
+                                <input type="text" name="telefono" placeholder="3001234567" required
+                                    pattern="[0-9]{10}">
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Ciudad
+                                </label>
+
+                                <select name="ciudad" required>
+
+                                    <option value="Medellín">
+                                        Medellín
+                                    </option>
+
+                                    <option value="Bogotá">
+                                        Bogotá
+                                    </option>
+
+                                    <option value="Cartagena">
+                                        Cartagena
+                                    </option>
+
+                                    <option value="Cali">
+                                        Cali
+                                    </option>
+
+                                    <option value="Barranquilla">
+                                        Barranquilla
+                                    </option>
+
+                                    <option value="Santa Marta">
+                                        Santa Marta
+                                    </option>
+
+                                </select>
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    usuario
+                                </label>
+
+                                <input type="text" name="usuario" placeholder="Tu usuario" required minlength="4">
+
+                            </div>
+
+                            <div class="input-group ">
+
+                                <label>
+                                    Contraseña
+                                </label>
+
+                                <input type="password" name="contrasena" placeholder="********" required minlength="8"
+                                    pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{8,}">
+
+                            </div>
+
+                        </div>
+
+                        <div class="buttons">
+
+                            <button type="button" class="back-btn" onclick="prevStep(1)">
+                                volver
+                            </button>
+
+                            <button type="button" class="continue-btn" onclick="validarFormulario('step2-cliente')">
+                                Continuar
+                            </button>
+                        </div>
+                    </div>
+                    <!-- propietario -->
+                    <div class="form-step" id="step2-propietario">
+
+                        <h3 class="question">
+                            Completa tus datos
+                        </h3>
+
+                        <div class="form-grid">
+
+                            <div class="input-group">
+
+                                <label>
+                                    Nombre
+                                </label>
+
+                                <input type="text" name="nombre" placeholder="Tu nombre" required minlength="3"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    Apellido
+                                </label>
+
+                                <input type="text" name="apellido" placeholder="Tu apellido" required minlength="3"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    Edad
+                                </label>
+
+                                <input type="number" name="edad" placeholder="Tu edad" required min="18" max="100">
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Correo electrónico
+                                </label>
+
+                                <input type="email" name="email" placeholder="correo@gmail.com" required>
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Teléfono
+                                </label>
+
+                                <input type="text" name="telefono" placeholder="3001234567" required
+                                    pattern="[0-9]{10}">
+
+                            </div>
+
+                            <div class="input-group">
+
+                                <label>
+                                    Ciudad
+                                </label>
+
+                                <select name="ciudad" required>
+
+                                    <option value="Medellín">
+                                        Medellín
+                                    </option>
+
+                                    <option value="Bogotá">
+                                        Bogotá
+                                    </option>
+
+                                    <option value="Cartagena">
+                                        Cartagena
+                                    </option>
+
+                                    <option value="Cali">
+                                        Cali
+                                    </option>
+
+                                    <option value="Barranquilla">
+                                        Barranquilla
+                                    </option>
+
+                                    <option value="Santa Marta">
+                                        Santa Marta
+                                    </option>
+
+                                </select>
+
+                            </div>
+                            <div class="input-group">
+
+                                <label>
+                                    usuario
+                                </label>
+
+                                <input type="text" name="usuario" placeholder="Tu usuario" required minlength="4">
+
+                            </div>
+
+                            <div class="input-group ">
+
+                                <label>
+                                    Contraseña
+                                </label>
+
+                                <input type="password" name="contrasena" placeholder="********" required minlength="8"
+                                    pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{8,}">
+
+                            </div>
+
+                        </div>
+                        <div class="input-group">
+                            <h3>Datos del vehiculo</h3><br>
+                            <label>Placa del vehículo</label>
+                            <input type="text" name="placa" placeholder="ABC123" required pattern="[A-Z]{3}[0-9]{3}"
+                                style="text-transform:uppercase">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Modelo del vehículo</label>
+                            <input type="text" name="modelo" placeholder="Mazda 3" required minlength="3">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Marca</label>
+                            <input type="text" name="marca" placeholder="Mazda" required minlength="3">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Año</label>
+                            <input type="number" name="anio" placeholder="2022" required>
+                        </div>
+                        <div class="input-group">
+                            <label>capacidad</label>
+                            <input type="text" name="capacidad" placeholder="2 - 4 puestos" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Tipo de vehiculo</label>
+                            <input type="text" name="tipoVehiculo" placeholder="Carro - Moto" required minlength="3">
+                        </div>
+                        <div class="upload-card">
+
+                            <div class="upload-icon">
                                 🚘
                             </div>
 
                             <h4>
-                                Soy cliente
+                                Fotos del vehiculo
                             </h4>
 
-                            <p>
-                                Quiero alquilar vehículos
+                            <input type="file" name="foto" id="fotosVehiculo" multiple accept="image/*"
+                                onchange="mostrarFotos('fotosVehiculo','cantidadFotos','previewContainer')" required>
+                            <p id="cantidadFotos">
+                                Ninguna foto seleccionada
                             </p>
 
+                            <div class="preview-container" id="previewContainer"></div>
                         </div>
+                        <div class="upload-card">
 
-                        <div class="option-card">
-
-                            <div class="icon">
-                                💰
+                            <div class="upload-icon">
+                                📘
                             </div>
 
                             <h4>
-                                Soy propietario
+                                Tarjeta de propiedad
                             </h4>
 
-                            <p>
-                                Quiero publicar mi auto
+                            <input type="file" name="tarjetaPropiedad" id="tarjetaPropiedad" multiple accept="image/*"
+                                onchange="mostrarFotos('tarjetaPropiedad', 'textoTarjeta', 'previewTarjeta')" required>
+                            <p id="textoTarjeta">
+                                Ningún archivo seleccionado
                             </p>
-
+                            <div class="preview-container" id="previewTarjeta">
+                            </div>
                         </div>
+
+                        <div class="buttons">
+
+                            <button type="button" class="back-btn" onclick="prevStep(1)">
+                                volver
+                            </button>
+
+                            <button type="button" class="continue-btn" onclick="validarFormulario('step2-propietario')">
+                                Continuar
+                            </button>
+                        </div>
+                    </div>
+            <!-- conductor -->
+            <div class="form-step" id="step2-conductor">
+
+                <h3 class="question">
+                    Completa tus datos
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>
+                            Nombre
+                        </label>
+
+                        <input type="text" name="nombre" placeholder="Tu nombre" required minlength="3"
+                            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                    </div>
+                    <div class="input-group">
+
+                        <label>
+                            Apellido
+                        </label>
+
+                        <input type="text" name="apellido" placeholder="Tu apellido" required minlength="3"
+                            pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ ]+">
+
+                    </div>
+                    <div class="input-group">
+
+                        <label>
+                            Edad
+                        </label>
+
+                        <input type="number" name="edad" placeholder="Tu edad" required min="18" max="100">
 
                     </div>
 
-                    <button class="continue-btn" onclick="nextStep(2)">
+                    <div class="input-group">
+
+                        <label>
+                            Correo electrónico
+                        </label>
+
+                        <input type="email" name="email" placeholder="correo@gmail.com" required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Teléfono
+                        </label>
+
+                        <input type="text" name="telefono" placeholder="3001234567" required pattern="[0-9]{10}">
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Ciudad
+                        </label>
+
+                        <select name="ciudad" required>
+
+                            <option value="Medellín">
+                                Medellín
+                            </option>
+
+                            <option value="Bogotá">
+                                Bogotá
+                            </option>
+
+                            <option value="Cartagena">
+                                Cartagena
+                            </option>
+
+                            <option value="Cali">
+                                Cali
+                            </option>
+
+                            <option value="Barranquilla">
+                                Barranquilla
+                            </option>
+
+                            <option value="Santa Marta">
+                                Santa Marta
+                            </option>
+
+                        </select>
+
+                    </div>
+                    <div class="input-group">
+
+                        <label>
+                            usuario
+                        </label>
+
+                        <input type="text" name="usuario" placeholder="Tu usuario" required minlength="4">
+
+                    </div>
+
+                    <div class="input-group ">
+
+                        <label>
+                            Contraseña
+                        </label>
+
+                        <input type="password" name="contrasena" placeholder="********" required minlength="8"
+                            pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[\W]).{8,}">
+
+                    </div>
+
+                </div>
+                <div class="buttons">
+
+                    <button type="button" class="back-btn" onclick="prevStep(1)">
+                        volver
+                    </button>
+
+                    <button type="button" class="continue-btn" onclick="validarFormulario('step2-conductor')">
                         Continuar
+                    </button>
+                </div>
+            </div>
+            <!-- STEP 3 -->
+
+            <div class="form-step" id="step3">
+
+                <h3 class="question">
+                    Verificación
+                </h3>
+
+                <p class="verify-text">
+                    Sube tus documentos para validar tu cuenta.
+                </p>
+
+                <div class="upload-grid">
+
+                    <!-- DOCUMENTO -->
+
+                    <div class="upload-card">
+
+                        <div class="upload-icon">
+                            📄
+                        </div>
+
+                        <h4>
+                            Documento de identidad
+                        </h4>
+
+                        <input type="file" name="idPersona" id="documentoInput" multiple accept="image/*"
+                            onchange="mostrarFotos('documentoInput','textoDocumento','previewDocumento')" required>
+
+                        <p id="textoDocumento">
+                            Ningún archivo seleccionado
+                        </p>
+
+                        <div class="preview-container" id="previewDocumento"></div>
+
+                    </div>
+
+                    <!-- LICENCIA -->
+
+                    <div class="upload-card">
+
+                        <div class="upload-icon">
+                            🚘
+                        </div>
+
+                        <h4>
+                            Licencia de conducción
+                        </h4>
+
+                        <input type="file" name="fotoLicencia" id="licenciaInput" multiple accept="image/*"
+                            onchange="mostrarFotos('licenciaInput','textoLicencia','previewLicencia')" required>
+                        <p id="textoLicencia">
+                            Ningún archivo seleccionado
+                        </p>
+                        <div class="preview-container" id="previewLicencia"></div>
+                        <label>Tipo de licencia</label>
+                        <input type="text" name="tipoLicencia" placeholder="B1, A2, etc" required>
+                        <label>Número de licencia</label>
+                        <input type="text" name="numeroLicencia" placeholder="123456789" required>
+
+                    </div>
+
+                </div>
+
+                <div class="buttons">
+
+                    <button type="button" class="back-btn" onclick="volverFormularioRol()">
+                        Volver
+                    </button>
+
+                    <button type="submit" class="continue-btn">
+                        Finalizar
                     </button>
 
                 </div>
+            </div>
 
-                <!-- STEP 2 -->
 
-                <div class="form-step" id="step2">
+            <!-- STEP 4 -->
 
-                    <h3 class="question">
-                        Completa tus datos
-                    </h3>
+            <div class="form-step success-step" id="step4">
 
-                    <div class="form-grid">
-
-                        <div class="input-group">
-
-                            <label>
-                                Nombre completo
-                            </label>
-
-                            <input 
-                                type="text"
-                                placeholder="Tu nombre"
-                            >
-
-                        </div>
-
-                        <div class="input-group">
-
-                            <label>
-                                Correo electrónico
-                            </label>
-
-                            <input 
-                                type="email"
-                                placeholder="correo@gmail.com"
-                            >
-
-                        </div>
-
-                        <div class="input-group">
-
-                            <label>
-                                Teléfono
-                            </label>
-
-                            <input 
-                                type="text"
-                                placeholder="+57 300 000 0000"
-                            >
-
-                        </div>
-
-                        <div class="input-group">
-
-                            <label>
-                                Ciudad
-                            </label>
-
-                            <select>
-
-                                <option>
-                                    Medellín
-                                </option>
-
-                                <option>
-                                    Bogotá
-                                </option>
-
-                                <option>
-                                    Cali
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="input-group full">
-
-                            <label>
-                                Contraseña
-                            </label>
-
-                            <input 
-                                type="password"
-                                placeholder="********"
-                            >
-
-                        </div>
-
-                    </div>
-
-                    <div class="buttons">
-
-                        <button class="back-btn" onclick="prevStep(1)">
-                            Volver
-                        </button>
-
-                        <button class="continue-btn" onclick="nextStep(3)">
-                            Continuar
-                        </button>
-
-                    </div>
-
+                <div class="success-icon">
+                    🎉
                 </div>
 
-                <!-- STEP 3 -->
+                <h2>
+                    ¡Cuenta creada!
+                </h2>
 
-                <div class="form-step" id="step3">
+                <p>
+                    Ya puedes comenzar a usar Carman.
+                </p>
 
-                    <h3 class="question">
-                        Verificación
-                    </h3>
-
-                    <p class="verify-text">
-                        Sube tus documentos para validar tu cuenta.
-                    </p>
-
-                    <div class="upload-grid">
-
-                        <div class="upload-card">
-
-                            <div class="upload-icon">
-                                📄
-                            </div>
-
-                            <h4>
-                                Documento
-                            </h4>
-
-                            <input type="file">
-
-                        </div>
-
-                        <div class="upload-card">
-
-                            <div class="upload-icon">
-                                🚘
-                            </div>
-
-                            <h4>
-                                Licencia
-                            </h4>
-
-                            <input type="file">
-
-                        </div>
-
-                    </div>
-
-                    <div class="buttons">
-
-                        <button class="back-btn" onclick="prevStep(2)">
-                            Volver
-                        </button>
-
-                        <button class="continue-btn" onclick="nextStep(4)">
-                            Finalizar
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- STEP 4 -->
-
-                <div class="form-step success-step" id="step4">
-
-                    <div class="success-icon">
-                        🎉
-                    </div>
-
-                    <h2>
-                        ¡Cuenta creada!
-                    </h2>
-
-                    <p>
-                        Ya puedes comenzar a usar Carman.
-                    </p>
-
-                    <a th:href="@{/buscar}" class="finish-btn">
-                        Ir al catálogo
-                    </a>
-
-                </div>
+                <a th:href="@{/buscar}" class="finish-btn" id="finish-catalogo">
+                    Ir al catálogo
+                </a>
+                <p class="finish-hint">Al continuar iniciarás sesión automáticamente.</p>
 
             </div>
+            </form>
+
+        </div>
 
         </div>
 
     </section>
-
-    <script src="registro2.js"></script>
-
+    <script th:src="@{/registro2.js}"></script>
 </body>
+
 </html>

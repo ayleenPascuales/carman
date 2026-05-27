@@ -1,284 +1,251 @@
-const vehiculos = [
-
-{
-    placa: "ABC123",
-    marca: "Toyota",
-    modelo: "Yaris",
-    anio: 2022,
-    capacidad: 5,
-    tipoVehiculo: "Sedán",
-    estado: "Activo",
-
-    nombre: "Toyota Yaris",
-    precio: "42.000",
-    transmision: "Manual",
-
-    descripcion:
-    "Vehículo económico, cómodo y perfecto para ciudad.",
-
-    imagenes: [
-       "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200",
-        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200",
-        "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200"
-    ]
-},
-
-{
-    placa: "DEF456",
-    marca: "Honda",
-    modelo: "Civic",
-    anio: 2023,
-    capacidad: 5,
-    tipoVehiculo: "Sedán",
-    estado: "Activo",
-
-    nombre: "Honda Civic",
-    precio: "52.000",
-    transmision: "Automático",
-
-    descripcion:
-    "Diseño deportivo y excelente rendimiento.",
-
-    imagenes: [
-       "https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=1200",
-        "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1200",
-        "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200"
-    ]
-},
-
-{
-    placa: "GHI789",
-    marca: "Mazda",
-    modelo: "CX-3",
-    anio: 2021,
-    capacidad: 5,
-    tipoVehiculo: "SUV",
-    estado: "Activo",
-
-    nombre: "Mazda CX-3",
-    precio: "58.000",
-    transmision: "Automático",
-
-    descripcion:
-    "SUV moderna ideal para viajes largos.",
-
-    imagenes: [
-       
-        "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200",
-        "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?q=80&w=1200",
-        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200"
-    ]
-},
-
-{
-    placa: "JKL321",
-    marca: "BMW",
-    modelo: "X5",
-    anio: 2024,
-    capacidad: 7,
-    tipoVehiculo: "SUV",
-    estado: "Activo",
-
-    nombre: "BMW X5",
-    precio: "80.000",
-    transmision: "Automático",
-
-    descripcion:
-    "SUV premium con gran potencia y lujo.",
-
-    imagenes: [
-        
-        "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200",
-        "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?q=80&w=1200",
-        "https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=1200"
-    ]
-},
-
-{
-    placa: "MNO654",
-    marca: "Kia",
-    modelo: "Sportage",
-    anio: 2020,
-    capacidad: 5,
-    tipoVehiculo: "SUV",
-    estado: "Activo",
-
-    nombre: "Kia Sportage",
-    precio: "55.000",
-    transmision: "Manual",
-
-    descripcion:
-    "Espaciosa y perfecta para carretera.",
-
-    imagenes: [
-         "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200",
-        "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?q=80&w=1200",
-        "https://images.unsplash.com/photo-1504215680853-026ed2a45def?q=80&w=1200"
-    ]
-},
-
-{
-    placa: "PQR987",
-    marca: "Tesla",
-    modelo: "Model 3",
-    anio: 2025,
-    capacidad: 5,
-    tipoVehiculo: "Eléctrico",
-    estado: "Activo",
-
-    nombre: "Tesla Model 3",
-    precio: "110.000",
-    transmision: "Eléctrico",
-
-    descripcion:
-    "Tecnología avanzada y conducción eléctrica.",
-
-    imagenes: [
-         "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=1200",
-        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200",
-        "https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1200"
-
-    ]
-}
-
-];
-
+let vehiculos = [];
 let sliderIndex = 0;
 let sliderImagenes = [];
+let vehiculoModalActual = null;
 
 const carsGrid = document.getElementById("carsGrid");
+const modalReserveBtn = document.getElementById("modal-reserve-btn");
 
-vehiculos.forEach((vehiculo, index) => {
+const ROL_UI = {
+    CLIENTE: {
+        titulo: "Modo cliente",
+        desc: "Explora vehículos disponibles y reserva el que prefieras.",
+        cta: "Ir a mis reservas",
+        panel: "/cliente",
+        puedeReservar: true
+    },
+    CONDUCTOR: {
+        titulo: "Modo conductor",
+        desc: "Consulta el catálogo y gestiona tu disponibilidad desde tu panel.",
+        cta: "Ir a mi panel de conductor",
+        panel: "/conductor",
+        puedeReservar: false
+    },
+    PROPIETARIO: {
+        titulo: "Modo propietario",
+        desc: "Revisa los vehículos publicados y administra tus autos desde tu panel.",
+        cta: "Ir a mi panel de propietario",
+        panel: "/mainPropietario",
+        puedeReservar: false
+    }
+};
 
-    carsGrid.innerHTML += `
-
-    <div class="car-card">
-
-        <img src="${vehiculo.imagenes[0]}" 
-        alt="${vehiculo.nombre}">
-
-        <div class="car-content">
-
-            <div class="car-top">
-
-                <h3>${vehiculo.nombre}</h3>
-
-                <div class="price">
-                    $${vehiculo.precio}
-                    <span>/día</span>
-                </div>
-
-            </div>
-
-            <div class="specs">
-
-                <span>
-                    👥 ${vehiculo.capacidad} plazas
-                </span>
-
-                <span>
-                    ⚙️ ${vehiculo.transmision}
-                </span>
-
-            </div>
-
-            <button
-                class="details-btn"
-                onclick="abrirModal(${index})">
-
-                Ver detalles
-
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
+document.addEventListener("DOMContentLoaded", async () => {
+    await cargarSesion(false);
+    aplicarNavbarSesion();
+    aplicarSidebarSesion();
+    mostrarBannerRol();
+    await cargarCatalogoDesdeApi();
 });
 
+function aplicarNavbarSesion() {
+    const guest = document.getElementById("nav-guest");
+    const user = document.getElementById("nav-user");
+    const sesion = getSesion();
+
+    if (!guest || !user) return;
+
+    if (sesion) {
+        guest.style.display = "none";
+        user.style.display = "flex";
+        const nombre = sesion.nombre ? sesion.nombre.trim() : "Usuario";
+        const navName = document.getElementById("nav-user-name");
+        if (navName) navName.textContent = nombre;
+
+        const panelLink = document.getElementById("nav-panel-link");
+        if (panelLink) {
+            panelLink.href = urlPanelPorRol(sesion.rol);
+            panelLink.textContent = sesion.rol === "CLIENTE" ? "Mis reservas" : "Mi panel";
+        }
+    } else {
+        guest.style.display = "flex";
+        user.style.display = "none";
+    }
+}
+
+function aplicarSidebarSesion() {
+    const loginLink = document.getElementById("sidebar-login");
+    const registerLink = document.getElementById("sidebar-register");
+    const panelLink = document.getElementById("sidebar-panel");
+    const logoutLink = document.getElementById("sidebar-logout");
+    const sesion = getSesion();
+
+    if (!loginLink || !registerLink) return;
+
+    if (sesion) {
+        loginLink.style.display = "none";
+        registerLink.style.display = "none";
+        if (panelLink) {
+            panelLink.style.display = "flex";
+            panelLink.href = urlPanelPorRol(sesion.rol);
+        }
+        if (logoutLink) logoutLink.style.display = "flex";
+    } else {
+        loginLink.style.display = "flex";
+        registerLink.style.display = "flex";
+        if (panelLink) panelLink.style.display = "none";
+        if (logoutLink) logoutLink.style.display = "none";
+    }
+}
+
+function mostrarBannerRol() {
+    const banner = document.getElementById("role-banner");
+    const welcome = document.getElementById("catalog-welcome");
+    const sesion = getSesion();
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has("registro") && welcome) {
+        welcome.hidden = false;
+        welcome.textContent = "¡Cuenta creada! Ya iniciaste sesión. Explora el catálogo.";
+        welcome.classList.add("catalog-alert--success");
+    }
+
+    if (!banner || !sesion) return;
+
+    const cfg = ROL_UI[sesion.rol] || ROL_UI.CLIENTE;
+    banner.hidden = false;
+
+    const titulo = document.getElementById("role-banner-title");
+    const desc = document.getElementById("role-banner-desc");
+    const cta = document.getElementById("role-banner-cta");
+
+    if (titulo) titulo.textContent = cfg.titulo + " · " + (sesion.nombre || "").split(" ")[0];
+    if (desc) desc.textContent = cfg.desc;
+    if (cta) {
+        cta.href = cfg.panel;
+        cta.textContent = cfg.cta;
+    }
+}
+
+function urlPanelPorRol(rol) {
+    if (rol === "CONDUCTOR") return "/conductor";
+    if (rol === "PROPIETARIO") return "/mainPropietario";
+    if (rol === "CLIENTE") return "/cliente";
+    return "/buscar";
+}
+
+async function cargarCatalogoDesdeApi() {
+    if (!carsGrid) return;
+
+    carsGrid.innerHTML = "<p class='catalog-loading'>Cargando vehículos...</p>";
+
+    try {
+        const res = await fetch("/api/vehiculos/catalogo");
+        if (!res.ok) throw new Error("No se pudo cargar el catálogo");
+        vehiculos = await res.json();
+        renderizarGrid();
+    } catch (e) {
+        carsGrid.innerHTML = "<p class='catalog-empty'>No hay vehículos disponibles en este momento.</p>";
+    }
+}
+
+function imagenConFallback(marca, modelo, src) {
+    const fallback = referenciaLocal(marca, modelo);
+    const safeSrc = src && src.trim() ? src : fallback;
+    return `src="${safeSrc}" onerror="this.onerror=null;this.src='${fallback}'"`;
+}
+
+function referenciaLocal(marca, modelo) {
+    const t = ((marca || "") + " " + (modelo || "")).toLowerCase();
+    if (t.includes("tesla")) return "/img/cars/tesla.jpg";
+    if (t.includes("bmw")) return "/img/cars/bmw.jpg";
+    if (t.includes("corolla") || t.includes("toyota")) return "/img/cars/toyota-corolla.jpg";
+    if (t.includes("suv") || t.includes("rav4") || t.includes("mazda")) return "/img/cars/suv.jpg";
+    return "/img/cars/generico.jpg";
+}
+
+function renderizarGrid() {
+    if (!vehiculos.length) {
+        carsGrid.innerHTML = "<p class='catalog-empty'>Aún no hay vehículos registrados. Los propietarios pueden publicar autos desde su registro.</p>";
+        return;
+    }
+
+    carsGrid.innerHTML = vehiculos.map((vehiculo, index) => `
+        <div class="car-card">
+            <img ${imagenConFallback(vehiculo.marca, vehiculo.modelo, vehiculo.imagen)} alt="${vehiculo.nombre}" loading="lazy">
+            <div class="car-content">
+                <div class="car-top">
+                    <h3>${vehiculo.nombre}</h3>
+                    <div class="price">
+                        $${vehiculo.precio}
+                        <span>/día</span>
+                    </div>
+                </div>
+                <div class="specs">
+                    <span>👥 ${vehiculo.capacidad || "—"} plazas</span>
+                    <span>⚙️ ${vehiculo.transmision || "Automático"}</span>
+                    <span>🚗 ${vehiculo.tipoVehiculo || "Vehículo"}</span>
+                </div>
+                <button class="details-btn" type="button" onclick="abrirModal(${index})">
+                    Ver detalles
+                </button>
+            </div>
+        </div>
+    `).join("");
+}
+
 function abrirModal(index) {
-
     const vehiculo = vehiculos[index];
+    if (!vehiculo) return;
 
-    sliderImagenes = vehiculo.imagenes;
+    vehiculoModalActual = vehiculo;
+    sliderImagenes = [vehiculo.imagen || referenciaLocal(vehiculo.marca, vehiculo.modelo)];
     sliderIndex = 0;
 
-    document.getElementById("modal-title").innerText =
-    vehiculo.nombre;
+    document.getElementById("modal-title").innerText = vehiculo.nombre;
+    document.getElementById("modal-description").innerText = vehiculo.descripcion;
+    document.getElementById("modal-precio").innerHTML = `$${vehiculo.precio} <span>/día</span>`;
+    document.getElementById("modal-capacidad").innerText = `👥 ${vehiculo.capacidad} plazas`;
+    document.getElementById("modal-transmision").innerText = `⚙️ ${vehiculo.transmision}`;
+    document.getElementById("modal-placa").innerText = `Placa: ${vehiculo.placa}`;
+    document.getElementById("modal-marca").innerText = `Marca: ${vehiculo.marca}`;
+    document.getElementById("modal-modelo").innerText = `Modelo: ${vehiculo.modelo}`;
+    document.getElementById("modal-anio").innerText = `Año: ${vehiculo.anio}`;
+    document.getElementById("modal-tipo").innerText = `🚗 Tipo: ${vehiculo.tipoVehiculo}`;
+    document.getElementById("modal-estado").innerText = `✅ Estado: ${vehiculo.estado}`;
 
-    document.getElementById("modal-description").innerText =
-    vehiculo.descripcion;
-
-    document.getElementById("modal-precio").innerHTML =
-    `$${vehiculo.precio} <span>/día</span>`;
-
-    document.getElementById("modal-capacidad").innerText =
-    `👥 ${vehiculo.capacidad} plazas`;
-
-    document.getElementById("modal-transmision").innerText =
-    `⚙️ ${vehiculo.transmision}`;
-
-    document.getElementById("modal-placa").innerText =
-    `Placa: ${vehiculo.placa}`;
-
-    document.getElementById("modal-marca").innerText =
-    `Marca: ${vehiculo.marca}`;
-
-    document.getElementById("modal-modelo").innerText =
-    `Modelo: ${vehiculo.modelo}`;
-
-    document.getElementById("modal-anio").innerText =
-    `Año: ${vehiculo.anio}`;
-
-    document.getElementById("modal-tipo").innerText =
-    `🚗 Tipo: ${vehiculo.tipoVehiculo}`;
-
-    document.getElementById("modal-estado").innerText =
-    `✅ Estado: ${vehiculo.estado}`;
-
-    
-
+    configurarBotonReserva();
     renderSlider();
-
     document.getElementById("modal").style.display = "flex";
 }
 
+function configurarBotonReserva() {
+    if (!modalReserveBtn) return;
+    const sesion = getSesion();
+    const cfg = sesion ? (ROL_UI[sesion.rol] || ROL_UI.CLIENTE) : null;
+
+    if (cfg && cfg.puedeReservar && sesion.idCliente) {
+        modalReserveBtn.textContent = "Reservar ahora";
+        modalReserveBtn.onclick = () => { window.location.href = "/reserva"; };
+    } else if (sesion) {
+        modalReserveBtn.textContent = cfg.cta;
+        modalReserveBtn.onclick = () => { window.location.href = cfg.panel; };
+    } else {
+        modalReserveBtn.textContent = "Iniciar sesión para reservar";
+        modalReserveBtn.onclick = () => { window.location.href = "/InicioSesion"; };
+    }
+}
+
 function renderSlider() {
+    const track = document.getElementById("slider-track");
+    const dots = document.getElementById("slider-dots");
 
-    const track =
-    document.getElementById("slider-track");
-
-    const dots =
-    document.getElementById("slider-dots");
-
-    track.innerHTML = sliderImagenes
-        .map(src => `<img src="${src}" alt="">`)
-        .join("");
-
+    track.innerHTML = sliderImagenes.map(src => {
+        const fb = referenciaLocal(vehiculoModalActual?.marca, vehiculoModalActual?.modelo);
+        const safe = src || fb;
+        return `<img src="${safe}" alt="" onerror="this.onerror=null;this.src='${fb}'">`;
+    }).join("");
     dots.innerHTML = sliderImagenes
-        .map((_, i) =>
-            `<div class="dot ${i === 0 ? "active" : ""}"
-            onclick="goTo(${i})"></div>`
-        )
+        .map((_, i) => `<div class="dot ${i === 0 ? "active" : ""}" onclick="goTo(${i})"></div>`)
         .join("");
 
     track.style.transform = "translateX(0)";
 }
 
 function goTo(n) {
-
-    sliderIndex =
-    (n + sliderImagenes.length)
-    % sliderImagenes.length;
-
-    document.getElementById("slider-track").style.transform =
-    `translateX(-${sliderIndex * 100}%)`;
-
-    document.querySelectorAll(".dot")
-    .forEach((d, i) =>
-        d.classList.toggle("active", i === sliderIndex)
-    );
+    sliderIndex = (n + sliderImagenes.length) % sliderImagenes.length;
+    document.getElementById("slider-track").style.transform = `translateX(-${sliderIndex * 100}%)`;
+    document.querySelectorAll(".dot").forEach((d, i) => d.classList.toggle("active", i === sliderIndex));
 }
 
 function slideModal(dir) {
@@ -290,24 +257,13 @@ function cerrarModal() {
 }
 
 function toggleMenu() {
-
-    document
-    .getElementById("sidebar")
-    .classList
-    .toggle("active");
-
-    document
-    .getElementById("overlay")
-    .classList
-    .toggle("active");
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
 }
 
-window.onclick = function(event) {
-
-    const modal =
-    document.getElementById("modal");
-
-    if(event.target == modal){
+window.onclick = function (event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
         cerrarModal();
     }
 };

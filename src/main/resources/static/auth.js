@@ -30,6 +30,21 @@ function getSesion() {
   return sesionActual;
 }
 
+function getRol() {
+  return sesionActual ? sesionActual.rol : null;
+}
+
+function urlPanelPorRol(rol) {
+  if (rol === 'CONDUCTOR') return '/conductor';
+  if (rol === 'PROPIETARIO') return '/mainPropietario';
+  if (rol === 'CLIENTE') return '/cliente';
+  return '/buscar';
+}
+
+function redirectSegunRol(sesion) {
+  window.location.href = urlPanelPorRol(sesion?.rol);
+}
+
 function aplicarSesionUI() {
   if (!sesionActual) return;
 

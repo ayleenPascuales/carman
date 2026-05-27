@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpSession;
 
 public interface AuthService {
     SesionUsuarioDTO login(LoginRequest request, HttpSession session);
+    SesionUsuarioDTO iniciarSesionPorEmail(String email, String tipoUsuarioPreferido, HttpSession session);
     SesionUsuarioDTO obtenerSesion(HttpSession session);
     void logout(HttpSession session);
+    String urlPanelPorRol(String rol);
 }

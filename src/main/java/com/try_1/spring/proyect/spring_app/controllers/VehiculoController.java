@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.try_1.spring.proyect.spring_app.dto.VehiculoCatalogoDTO;
 import com.try_1.spring.proyect.spring_app.models.Vehiculo;
 import com.try_1.spring.proyect.spring_app.services.VehiculoService;
 
@@ -25,6 +26,11 @@ public class VehiculoController {
     @GetMapping
     public List<Vehiculo> listar(){
         return vehiculoService.listar();
+    }
+
+    @GetMapping("/catalogo")
+    public List<VehiculoCatalogoDTO> catalogo() {
+        return vehiculoService.listarCatalogo();
     }
     @GetMapping("/{id}")
     public Vehiculo buscarPorId(@PathVariable Integer id){

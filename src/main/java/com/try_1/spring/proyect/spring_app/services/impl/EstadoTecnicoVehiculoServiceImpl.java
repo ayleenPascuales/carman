@@ -62,10 +62,10 @@ public class EstadoTecnicoVehiculoServiceImpl implements EstadoTecnicoVehiculoSe
 
             if(estado.getNecesitaMantenimiento()){
 
-                vehiculo.setEstado(EstadoVehiculo.En_mantenimiento);
+                vehiculo.setEstado(EstadoVehiculo.EN_MANTENIMIENTO);
 
             }else{
-                vehiculo.setEstado(EstadoVehiculo.Activo);
+                vehiculo.setEstado(EstadoVehiculo.ACTIVO);
         }
         return estadoTecnicoVehiculoRepository.save(estado);
         }

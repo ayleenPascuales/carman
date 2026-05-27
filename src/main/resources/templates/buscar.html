@@ -43,15 +43,29 @@
 
     </nav>
 
-    <div class="nav-buttons">
+    <div class="nav-buttons" id="nav-guest">
 
         <a th:href="@{/InicioSesion}">
             Iniciar sesión
         </a>
 
-            <a th:href="@{/registro2}" class="register-btn">
-                Registrarse
-            </a>
+        <a th:href="@{/registro2}" class="register-btn">
+            Registrarse
+        </a>
+
+    </div>
+
+    <div class="nav-buttons nav-auth" id="nav-user" style="display: none;">
+
+        <span class="nav-user-chip" id="nav-user-name">Usuario</span>
+
+        <a href="#" class="nav-panel-btn" id="nav-panel-link">
+            Mi panel
+        </a>
+
+        <button type="button" class="nav-logout-btn" onclick="cerrarSesion()">
+            Salir
+        </button>
 
     </div>
 
@@ -86,14 +100,24 @@
                 CUENTA
             </p>
 
-            <a th:href="@{/InicioSesion}">
+            <a th:href="@{/InicioSesion}" id="sidebar-login">
                 <i class="fa-regular fa-user"></i>
                 Iniciar sesión
             </a>
 
-            <a th:href="@{/registro2}">
+            <a th:href="@{/registro2}" id="sidebar-register">
                 <i class="fa-regular fa-pen-to-square"></i>
                 Registrarse
+            </a>
+
+            <a href="#" id="sidebar-panel" style="display: none;">
+                <i class="fa-solid fa-user-gear"></i>
+                Mi panel
+            </a>
+
+            <a href="#" onclick="cerrarSesion()" id="sidebar-logout" style="display: none;">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Cerrar sesión
             </a>
 
             <a class="highlight" href="#">
@@ -125,6 +149,21 @@
         </div>
 
 </aside>
+
+<!-- ROL / BIENVENIDA -->
+
+<section class="role-banner" id="role-banner" hidden>
+
+    <div class="role-banner-text">
+        <strong id="role-banner-title">Bienvenido</strong>
+        <p id="role-banner-desc">Explora el catálogo según tu perfil en Carman.</p>
+    </div>
+
+    <a href="#" class="role-banner-cta" id="role-banner-cta">Ir a mi panel</a>
+
+</section>
+
+<div class="catalog-alert" id="catalog-welcome" hidden></div>
 
 <!-- SEARCH -->
 
@@ -318,7 +357,8 @@
 
                     <button 
                         class="reserve-btn"
-                        onclick="window.location.href='InicioSesion'">
+                        id="modal-reserve-btn"
+                        type="button">
 
                         Reservar ahora
 
@@ -358,7 +398,8 @@
 
 </div>
 
-<script src="buscar.js"></script>
+<script th:src="@{/auth.js}"></script>
+<script th:src="@{/buscar.js}"></script>
 
 </body>
 

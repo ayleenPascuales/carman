@@ -45,19 +45,25 @@ public class Persona {
     @Column(name="edad")
     private Integer edad;
 
+    @Column(name="ciudad", length=50)
+    private String ciudad;
+
     public Persona() {
     }
 
-    public Persona(String apellido, String contrasena, Integer edad, String email, EstadoPersona estado, LocalDate fechaRegistro, String nombre, String telefono, String usuario) {
-        this.apellido = apellido;
-        this.contrasena = contrasena;
-        this.edad = edad;
-        this.email = email;
-        this.estado = estado;
-        this.fechaRegistro = fechaRegistro;
+    public Persona(Integer idPersona, String nombre, String apellido, String email, String contrasena, String telefono,
+            LocalDate fechaRegistro, EstadoPersona estado, String usuario, Integer edad, String ciudad) {
+        this.idPersona = idPersona;
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.contrasena = contrasena;
         this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
+        this.estado = estado;
         this.usuario = usuario;
+        this.edad = edad;
+        this.ciudad = ciudad;
     }
 
     public Integer getIdPersona() {
@@ -140,6 +146,13 @@ public class Persona {
         this.edad = edad;
     }
 
-    
-    
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+       
 }

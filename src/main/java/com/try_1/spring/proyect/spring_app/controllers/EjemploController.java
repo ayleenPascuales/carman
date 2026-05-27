@@ -34,14 +34,19 @@ public class EjemploController {
     }
 
     @GetMapping("/conductor")
-    public String conductor() {
+    public String conductor(HttpSession session) {
+        SesionUsuarioDTO sesion = authService.obtenerSesion(session);
+        if (sesion == null || sesion.getIdConductor() == null) {
+            return "redirect:/InicioSesion";
+        }
         return "conductor";
     }
 
     @GetMapping("/InicioSesion")
     public String inicioSesion(HttpSession session) {
-        if (esClienteAutenticado(session)) {
-            return "redirect:/cliente";
+        SesionUsuarioDTO sesion = authService.obtenerSesion(session);
+        if (sesion != null) {
+            return "redirect:" + authService.urlPanelPorRol(sesion.getRol());
         }
         return "InicioSesion";
     }
@@ -49,6 +54,15 @@ public class EjemploController {
     @GetMapping("/Propietario")
     public String propietario() {
         return "Propietario";
+    }
+
+    @GetMapping("/mainPropietario")
+    public String mainPropietario(HttpSession session) {
+        SesionUsuarioDTO sesion = authService.obtenerSesion(session);
+        if (sesion == null || sesion.getIdPropietario() == null) {
+            return "redirect:/InicioSesion";
+        }
+        return "mainPropietario";
     }
 
     @GetMapping("/registro2")

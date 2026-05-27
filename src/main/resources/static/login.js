@@ -6,7 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetch('/api/auth/me')
     .then(res => {
-      if (res.ok) window.location.href = '/cliente';
+      if (res.ok) return res.json();
+      return null;
+    })
+    .then(sesion => {
+      if (sesion && typeof redirectSegunRol === 'function') {
+        redirectSegunRol(sesion);
+      }
     })
     .catch(() => {});
 
@@ -38,7 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      window.location.href = '/cliente';
+      const sesion = await res.json();
+      if (typeof redirectSegunRol === 'function') {
+        redirectSegunRol(sesion);
+      } else {
+        window.location.href = '/cliente';
+      }
     } catch (err) {
       errorEl.textContent = 'Error de conexión con el servidor.';
       errorEl.classList.add('show');
