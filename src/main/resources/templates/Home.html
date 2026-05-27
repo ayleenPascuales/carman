@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
+     <!-- Lbreria de Iconos-->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -95,12 +96,12 @@
                 CUENTA
             </p>
 
-            <a href="#">
+            <a th:href="@{/InicioSesion}">
                 <i class="fa-regular fa-user"></i>
                 Iniciar sesión
             </a>
 
-            <a href="#">
+            <a th:href="@{/registro2}">
                 <i class="fa-regular fa-pen-to-square"></i>
                 Registrarse
             </a>
@@ -122,7 +123,7 @@
 
             <a th:href="@{/buscar}">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                Buscar vehículos
+                Catálogo completo
             </a>
 
             <a href="#">
@@ -135,42 +136,8 @@
                 Nuevos ingresos
             </a>
 
-            <a href="#">
-                <i class="fa-solid fa-charging-station"></i>
-                Eléctricos
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-mountain"></i>
-                SUVs & 4x4
-            </a>
-
         </div>
 
-        <!-- INFORMACIÓN -->
-
-        <div class="sidebar-section">
-
-            <p class="sidebar-title">
-                INFORMACIÓN
-            </p>
-
-            <a href="#">
-                <i class="fa-regular fa-circle-question"></i>
-                ¿Por qué Carman?
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-headset"></i>
-                Soporte
-            </a>
-
-            <a href="#">
-                <i class="fa-regular fa-file-lines"></i>
-                Legal
-            </a>
-
-        </div>
 
     </aside>
 
@@ -192,11 +159,11 @@
 
             <div class="hero-buttons">
 
-                <button class="primary-btn">
+                <button class="primary-btn" onclick="window.location.href='/buscar'">
                     Explorar vehículos
                 </button>
 
-                <button class="secondary-btn">
+                <button class="secondary-btn" onclick="location.href='#como-funciona'">
                     Cómo funciona
                 </button>
 
@@ -260,7 +227,7 @@
 
             </div>
 
-            <button class="search-btn">
+            <button class="search-btn" onclick="window.location.href='/buscar'">
                 Buscar vehículos
             </button>
 
@@ -290,7 +257,7 @@
 
             <div class="card">
 
-                <img src="https://picsum.photos/500/300?1">
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1200">
 
                 <div class="card-content">
 
@@ -327,9 +294,10 @@
                             $85.000 <span>/día</span>
                         </div>
 
-                        <button>
-                            Reservar
+                          <button onclick="window.location.href='/InicioSesion'">
+                         Reservar
                         </button>
+
 
                     </div>
 
@@ -341,7 +309,7 @@
 
             <div class="card">
 
-                <img src="https://picsum.photos/500/300?2">
+                <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=1200">
 
                 <div class="card-content">
 
@@ -378,9 +346,10 @@
                             $110.000 <span>/día</span>
                         </div>
 
-                        <button>
-                            Reservar
+                        <button onclick="window.location.href='/InicioSesion'">
+                         Reservar
                         </button>
+
 
                     </div>
 
@@ -392,7 +361,7 @@
 
             <div class="card">
 
-                <img src="https://picsum.photos/500/300?3">
+                <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200">
 
                 <div class="card-content">
 
@@ -428,9 +397,9 @@
                         <div class="price">
                             $95.000 <span>/día</span>
                         </div>
-
-                        <button>
-                            Reservar
+                          
+                        <button onclick="window.location.href='/InicioSesion'">
+                         Reservar
                         </button>
 
                     </div>
@@ -445,7 +414,7 @@
 
     <!-- HOW -->
 
-    <section class="how">
+    <section class="how" id="como-funciona">
 
         <div class="section-title center">
 

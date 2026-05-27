@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Catálogo | Carman</title>
 
     <link rel="stylesheet" th:href="@{/buscar.css}">
+
+    <!-- Libreria de Iconos -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+<!-- NAVBAR -->
 
 <header class="navbar">
 
     <div class="nav-left">
-
-        <!-- MENU ICON -->
 
         <div class="menu-icon" onclick="toggleMenu()">
             ☰
@@ -30,101 +35,120 @@
     </div>
 
     <nav>
+
         <a th:href="@{/Home}">Inicio</a>
         <a class="active" href="#">Catálogo</a>
-        <a href="#">¿Por qué Carman?</a>
-        <a th:href="@{/soporte}">Soporte</a>
+        <a href="#">Para propietarios</a>
+        <a href="soporte.html">Soporte</a>
+
     </nav>
 
     <div class="nav-buttons">
-        <a th:href="@{/InicioSesion}">Iniciar sesión</a>
-         <a th:href="@{/registro2}" class="register-btn">
+
+        <a th:href="@{/InicioSesion}">
+            Iniciar sesión
+        </a>
+
+            <a th:href="@{/registro2}" class="register-btn">
                 Registrarse
             </a>
+
     </div>
 
 </header>
 
 <!-- OVERLAY -->
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="overlay" id="overlay"
+      onclick="toggleMenu()">
+</div>
 
 <!-- SIDEBAR -->
 
 <aside class="sidebar" id="sidebar">
-
+  
     <div class="sidebar-top">
 
-        <h2>Carman</h2>
+            <h2>Carman</h2>
 
-        <button onclick="toggleMenu()">✕</button>
+            <button onclick="toggleMenu()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
 
-    </div>
+        </div>
+    
 
     <!-- CUENTA -->
 
-    <div class="sidebar-section">
+   <div class="sidebar-section">
 
-        <p class="sidebar-title">CUENTA</p>
+            <p class="sidebar-title">
+                CUENTA
+            </p>
 
-        <a href="InicioSesion.html">👤 Iniciar sesión</a>
-        <a href="registro2.html">📝 Registrarse</a>
+            <a th:href="@{/InicioSesion}">
+                <i class="fa-regular fa-user"></i>
+                Iniciar sesión
+            </a>
 
-        <a class="highlight" href="#">
-            🚘 Hazte anfitrión
-        </a>
+            <a th:href="@{/registro2}">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Registrarse
+            </a>
 
-    </div>
+            <a class="highlight" href="#">
+                <i class="fa-solid fa-car-side"></i>
+                Hazte anfitrión
+            </a>
+
+        </div>
 
     <!-- VEHICULOS -->
 
-    <div class="sidebar-section">
+     <div class="sidebar-section">
 
-        <p class="sidebar-title">VEHÍCULOS</p>
+            <p class="sidebar-title">
+                VEHÍCULOS
+            </p>
 
-        <a href="#">🔎 Buscar vehículos</a>
-        <a href="#">📋 Catálogo completo</a>
-        <a href="#">⭐ Destacados</a>
-        <a href="#">🆕 Nuevos ingresos</a>
-        <a href="#">⚡ Eléctricos</a>
-        <a href="#">🏔️ SUVs & 4x4</a>
+            <a th:href="@{/buscar}">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Catálogo completo
+            </a>
 
-    </div>
+            <a href="#">
+                <i class="fa-solid fa-star"></i>
+                Destacados
+            </a>
 
-    <!-- INFORMACION -->
 
-    <div class="sidebar-section">
-
-        <p class="sidebar-title">INFORMACIÓN</p>
-
-        <a href="#">❓ ¿Por qué Carman?</a>
-        <a href="#">📞 Soporte</a>
-        <a href="#">📄 Legal</a>
-
-    </div>
+        </div>
 
 </aside>
 
-    <!-- HERO -->
+<!-- SEARCH -->
 
-   <section class="top-search">
+<section class="top-search">
 
     <div class="search-box">
 
         <div class="search-field">
 
-            <label>Ciudad</label>
+            <label>
+                Ciudad
+            </label>
 
-            <input 
-                type="text" 
-                placeholder="¿Dónde vas?"
-            >
+            <input
+            type="text"
+            placeholder="¿Dónde vas?">
 
         </div>
 
         <div class="search-field">
 
-            <label>Recogida</label>
+            <label>
+                Recogida
+            </label>
 
             <input type="date">
 
@@ -132,7 +156,9 @@
 
         <div class="search-field">
 
-            <label>Devolución</label>
+            <label>
+                Devolución
+            </label>
 
             <input type="date">
 
@@ -146,65 +172,163 @@
 
 </section>
 
-    <!-- TITLE -->
+<!-- TITLE -->
 
-    <section class="catalog-header">
+<section class="catalog-header">
 
-        <div>
+    <div>
 
-            <h1>Catálogo de vehículos</h1>
+        <h1>
+            Catálogo de vehículos
+        </h1>
 
-            <p>
-                Explora los mejores vehículos para tu próximo viaje
-            </p>
+        <p>
+            Explora los mejores vehículos para tu próximo viaje
+        </p>
+
+    </div>
+
+    <div class="filters">
+
+        <select>
+            <option>Precio</option>
+        </select>
+
+        <select>
+            <option>Tipo de vehículo</option>
+        </select>
+
+        <select>
+            <option>Combustible</option>
+        </select>
+
+        <select>
+            <option>Más filtros</option>
+        </select>
+
+    </div>
+
+</section>
+
+<!-- CARS -->
+
+<section class="cars-grid" id="carsGrid">
+
+</section>
+
+<!-- MODAL -->
+
+
+<div class="modal" id="modal">
+
+    <div class="modal-content">
+
+        <!-- SLIDER -->
+
+        <div class="modal-slider">
+
+            <div class="slider-track" id="slider-track"></div>
+
+            <button 
+                class="slider-btn prev"
+                onclick="slideModal(-1)">
+                &#8249;
+            </button>
+
+            <button 
+                class="slider-btn next"
+                onclick="slideModal(1)">
+                &#8250;
+            </button>
+
+            <div class="slider-dots" id="slider-dots"></div>
+
+            <span class="slider-badge">
+                Disponible
+            </span>
 
         </div>
 
-        <div class="filters">
+        <!-- BODY -->
 
-            <select>
-                <option>Precio</option>
-            </select>
+        <div class="modal-body">
 
-            <select>
-                <option>Tipo de vehículo</option>
-            </select>
+            <!-- INFO PRINCIPAL -->
 
-            <select>
-                <option>Combustible</option>
-            </select>
+            <div class="modal-info">
 
-            <select>
-                <option>Más filtros</option>
-            </select>
+                <h2 id="modal-title"></h2>
 
-        </div>
+                <p id="modal-description"></p>
 
-    </section>
-
-    <!-- CARS -->
-
-    <section class="cars-grid">
-
-        <!-- CARD -->
-
-        <div class="car-card">
-
-            <img src="https://picsum.photos/500/300?1">
-
-            <div class="car-content">
-
-                <h3>Toyota New Yaris</h3>
-
-                <div class="price">
-                    $42.000 <span>/día</span>
+                <div 
+                    class="modal-price" 
+                    id="modal-precio">
                 </div>
 
-                <div class="specs">
+                <div class="modal-chips">
 
-                    <span>⚙️ Manual</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 24 MPG</span>
+                    <span id="modal-capacidad"></span>
+
+                    <span id="modal-transmision"></span>
+
+                    <span id="modal-tipo"></span>
+
+                    <span id="modal-estado"></span>
+
+                </div>
+
+            </div>
+
+            <!-- DETALLES -->
+
+            <div class="modal-info modal-info--details">
+
+                <p class="details-label">
+                    DETALLES DEL VEHÍCULO
+                </p>
+
+                <table class="details-table">
+
+                    <tr>
+                        <td>Placa</td>
+                        <td id="modal-placa"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Marca</td>
+                        <td id="modal-marca"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Modelo</td>
+                        <td id="modal-modelo"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Año</td>
+                        <td id="modal-anio"></td>
+                    </tr>
+
+                </table>
+
+                <!-- BUTTONS -->
+
+                <div class="modal-actions">
+
+                    <button 
+                        class="reserve-btn"
+                        onclick="window.location.href='InicioSesion'">
+
+                        Reservar ahora
+
+                    </button>
+
+                    <button class="wishlist-btn">
+
+                        ♡ Guardar en favoritos
+
+                    </button>
 
                 </div>
 
@@ -212,210 +336,29 @@
 
         </div>
 
-        <!-- CARD -->
+        <!-- FOOTER -->
 
-        <div class="car-card">
+        <div class="modal-footer">
 
-            <img src="https://picsum.photos/500/300?2">
+            <span>
+                ✔ Cancelación gratuita hasta 24h antes
+            </span>
 
-            <div class="car-content">
+            <span 
+                class="close"
+                onclick="cerrarModal()">
 
-                <h3>Sport</h3>
+                ✕
 
-                <div class="price">
-                    $46.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Manual</span>
-                    <span>👥 7 plazas</span>
-                    <span>⛽ 34 MPG</span>
-
-                </div>
-
-            </div>
+            </span>
 
         </div>
 
-        <!-- CARD -->
+    </div>
 
-        <div class="car-card">
+</div>
 
-            <img src="https://picsum.photos/500/300?3">
-
-            <div class="car-content">
-
-                <h3>Honda Civic</h3>
-
-                <div class="price">
-                    $52.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Automático</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 28 MPG</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- CARD -->
-
-        <div class="car-card">
-
-            <img src="https://picsum.photos/500/300?4">
-
-            <div class="car-content">
-
-                <h3>Mazda CX-3</h3>
-
-                <div class="price">
-                    $54.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Automático</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 24 MPG</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- CARD -->
-
-        <div class="car-card">
-
-            <img src="https://picsum.photos/500/300?5">
-
-            <div class="car-content">
-
-                <h3>BMW X5</h3>
-
-                <div class="price">
-                    $56.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Automático</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 42 MPG</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- CARD DESTACADA -->
-
-        <div class="car-card featured">
-
-            <img src="https://picsum.photos/500/300?6">
-
-            <div class="car-content">
-
-                <h3>Honda Jazz RS</h3>
-
-                <div class="price">
-                    $58.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Automático</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 32 MPG</span>
-
-                </div>
-
-                <button class="rent-btn">
-                    Reservar ahora →
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- CARD -->
-
-        <div class="car-card">
-
-            <img src="https://picsum.photos/500/300?7">
-
-            <div class="car-content">
-
-                <h3>Aston Martin V12</h3>
-
-                <div class="price">
-                    $60.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Automático</span>
-                    <span>👥 2 plazas</span>
-                    <span>⛽ 24 MPG</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- CARD -->
-
-        <div class="car-card">
-
-            <img src="https://picsum.photos/500/300?8">
-
-            <div class="car-content">
-
-                <h3>Toyota New Yaris</h3>
-
-                <div class="price">
-                    $63.000 <span>/día</span>
-                </div>
-
-                <div class="specs">
-
-                    <span>⚙️ Manual</span>
-                    <span>👥 5 plazas</span>
-                    <span>⛽ 34 MPG</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-    <script>
-
-function toggleMenu(){
-
-    document
-        .getElementById("sidebar")
-        .classList
-        .toggle("active");
-
-    document
-        .getElementById("overlay")
-        .classList
-        .toggle("active");
-
-}
-
-</script>
+<script src="buscar.js"></script>
 
 </body>
 
