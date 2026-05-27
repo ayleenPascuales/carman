@@ -135,6 +135,25 @@ body{
     background:#1d4ed8;
 }
 
+.login-btn:disabled{
+    background:#94a3b8;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+}
+
+.login-error {
+    display: none;
+    color: #e11d48;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.login-error.show {
+    display: block;
+}
+
 /* DIVIDER */
 
 .divider{

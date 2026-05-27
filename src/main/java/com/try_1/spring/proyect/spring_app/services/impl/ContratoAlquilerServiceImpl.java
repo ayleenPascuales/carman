@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.try_1.spring.proyect.spring_app.models.ContratoAlquiler;
 import com.try_1.spring.proyect.spring_app.models.EstadoContrato;
 import com.try_1.spring.proyect.spring_app.models.Notificacion;
+import com.try_1.spring.proyect.spring_app.models.Reserva;
 import com.try_1.spring.proyect.spring_app.models.TipoNotificacion;
 import com.try_1.spring.proyect.spring_app.repositories.ContratoAlquilerRepository;
+import com.try_1.spring.proyect.spring_app.repositories.ReservaRepository;
 import com.try_1.spring.proyect.spring_app.services.ContratoAlquilerService;
 import com.try_1.spring.proyect.spring_app.services.NotificacionService;
 import com.try_1.spring.proyect.spring_app.services.PdfService;
@@ -24,6 +26,8 @@ public class ContratoAlquilerServiceImpl implements ContratoAlquilerService {
     private PdfService pdfService;
     @Autowired
     private NotificacionService notificacionService;
+    @Autowired
+    private ReservaRepository reservaRepository;
 
 
     @Override
@@ -117,6 +121,44 @@ public class ContratoAlquilerServiceImpl implements ContratoAlquilerService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<ContratoAlquiler> buscarPorCliente(Integer idCliente) {
+        return contratoAlquilerRepository.findByCliente_IdCliente(idCliente);
+    }
+
+    @Override
+    public ContratoAlquiler buscarPorReserva(Integer idReserva) {
+        return contratoAlquilerRepository.findByReserva_IdReserva(idReserva);
+    }
+
+    @Override
+    public ContratoAlquiler generarDesdeReserva(Integer idReserva) {
+        Reserva reserva = reservaRepository.findById(idReserva).orElse(null);
+        if (reserva == null) {
+            return null;
+        }
+
+        ContratoAlquiler existente = contratoAlquilerRepository.findByReserva_IdReserva(idReserva);
+        if (existente != null) {
+            return existente;
+        }
+
+        ContratoAlquiler contrato = new ContratoAlquiler();
+        contrato.setReserva(reserva);
+        contrato.setCliente(reserva.getCliente());
+        contrato.setVehiculo(reserva.getVehiculo());
+        contrato.setConductor(reserva.getConductor());
+        if (reserva.getVehiculo() != null && reserva.getVehiculo().getPropietario() != null) {
+            contrato.setPropietario(reserva.getVehiculo().getPropietario());
+        }
+        contrato.setFechaInicio(reserva.getFechaServicio());
+        contrato.setFechaFin(reserva.getFechaServicio());
+        contrato.setCondiciones("Contrato de alquiler generado automáticamente para la reserva #" + idReserva);
+        contrato.setEstado(EstadoContrato.PENDIENTE_FIRMA);
+
+        return guardar(contrato);
     }
 
 }

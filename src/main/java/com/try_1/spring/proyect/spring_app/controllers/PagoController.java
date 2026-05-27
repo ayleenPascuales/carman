@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.try_1.spring.proyect.spring_app.dto.RegistrarPagoRequest;
 import com.try_1.spring.proyect.spring_app.models.OrdenPago;
 import com.try_1.spring.proyect.spring_app.models.Pago;
 import com.try_1.spring.proyect.spring_app.services.PagoService;
@@ -59,5 +60,17 @@ public class PagoController {
     @GetMapping("/fecha")
     public List<Pago> buscarPorFechaHoraPago(@RequestParam LocalDateTime fechaHoraPago){
         return pagoService.buscarPorFechaHoraPago(fechaHoraPago);
+    }
+    @GetMapping("/cliente/{idCliente}")
+    public List<Pago> buscarPorCliente(@PathVariable Integer idCliente) {
+        return pagoService.buscarPorCliente(idCliente);
+    }
+    @GetMapping("/reserva/{idReserva}")
+    public List<Pago> buscarPorReserva(@PathVariable Integer idReserva) {
+        return pagoService.buscarPorReserva(idReserva);
+    }
+    @PostMapping("/registrar")
+    public Pago registrarPago(@RequestBody RegistrarPagoRequest request) {
+        return pagoService.registrarPagoCompleto(request);
     }
 }

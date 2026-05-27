@@ -13,4 +13,7 @@ public interface ContratoAlquilerService {
     public void activarContrato(Integer id);
     public void finalizarContrato(Integer id);
     public byte[] generarPdf(Integer idContrato);
+    List<ContratoAlquiler> buscarPorCliente(Integer idCliente);
+    ContratoAlquiler buscarPorReserva(Integer idReserva);
+    ContratoAlquiler generarDesdeReserva(Integer idReserva);
 }

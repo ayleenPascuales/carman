@@ -10,5 +10,6 @@ import com.try_1.spring.proyect.spring_app.models.Reserva;
 public interface ReservaRepository extends JpaRepository<Reserva, Integer>{
 
     List<Reserva> findByFechaServicio(LocalDate fechaServicio);
+    List<Reserva> findByCliente_IdCliente(Integer idCliente);
 
 }

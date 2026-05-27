@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.try_1.spring.proyect.spring_app.dto.CrearReservaRequest;
+import com.try_1.spring.proyect.spring_app.dto.HistorialItemDTO;
+import com.try_1.spring.proyect.spring_app.dto.ReservaResumenDTO;
+import com.try_1.spring.proyect.spring_app.dto.TarifaRutaRequest;
+import com.try_1.spring.proyect.spring_app.dto.TarifaRutaResponse;
 import com.try_1.spring.proyect.spring_app.models.Reserva;
 import com.try_1.spring.proyect.spring_app.services.ReservaService;
 
@@ -40,13 +45,30 @@ public class ReservaController {
     public Reserva actualizar(@PathVariable Integer id, @RequestBody Reserva reserva){
         return reservaService.actualizar(id, reserva);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Integer id){
         reservaService.eliminar(id);
     }
     @GetMapping("/fecha")
     public List<Reserva> buscarPorFecha(@RequestParam LocalDate fechaServicio){
         return reservaService.buscarPorFechaServicio(fechaServicio);
+    }
+    @GetMapping("/cliente/{idCliente}")
+    public List<ReservaResumenDTO> buscarPorCliente(@PathVariable Integer idCliente) {
+        return reservaService.buscarResumenPorCliente(idCliente);
+    }
+    @PostMapping("/completa")
+    public Reserva crearCompleta(@RequestBody CrearReservaRequest request) {
+        return reservaService.crearConRuta(request);
+    }
+
+    @PostMapping("/tarifa-ruta")
+    public TarifaRutaResponse calcularTarifaRuta(@RequestBody TarifaRutaRequest request) {
+        return reservaService.calcularTarifaRuta(request);
+    }
+    @GetMapping("/cliente/{idCliente}/historial")
+    public List<HistorialItemDTO> historialPorCliente(@PathVariable Integer idCliente) {
+        return reservaService.obtenerHistorialPorCliente(idCliente);
     }
 }
 

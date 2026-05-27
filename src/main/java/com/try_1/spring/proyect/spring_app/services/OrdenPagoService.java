@@ -13,4 +13,6 @@ public interface OrdenPagoService {
     List<OrdenPago> buscarPorFechaEmision(LocalDate fechaEmision);
     public byte[] generarPdf(Integer idOrdenPago);
     public OrdenPago generarOrdenDesdeReserva(Integer idReserva);
+    List<OrdenPago> buscarPorCliente(Integer idCliente);
+    List<OrdenPago> buscarPorReserva(Integer idReserva);
 }

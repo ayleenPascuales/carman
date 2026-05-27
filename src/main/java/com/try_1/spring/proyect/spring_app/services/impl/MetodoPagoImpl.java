@@ -35,4 +35,9 @@ public class MetodoPagoImpl implements MetodoPagoService{
     public List<MetodoPago> buscarPorTipo(String tipo){
         return metodoPagoRepository.findByTipo(tipo);
     }
+
+    @Override
+    public List<MetodoPago> listarActivos() {
+        return metodoPagoRepository.findByActivoTrue();
+    }
 }

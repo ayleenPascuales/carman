@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservas — Carman</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" th:href="@{/reserva.css}">
+</head>
+<body>
+<div class="dashboard">
+
+  <aside class="sidebar">
+    <div class="logo"><span class="logo-dot"></span> Carman</div>
+    <nav>
+      <a class="menu-btn" th:href="@{/cliente}">
+        <i class="fa-solid fa-house"></i> Dashboard
+      </a>
+      <button class="menu-btn active" data-section="resumen" onclick="showSection('resumen', this)">
+        <i class="fa-solid fa-chart-pie"></i> Resumen
+      </button>
+      <button class="menu-btn" data-section="nueva-reserva" onclick="showSection('nueva-reserva', this)">
+        <i class="fa-solid fa-calendar-plus"></i> Nueva reserva
+      </button>
+      <button class="menu-btn" data-section="ordenes-pago" onclick="showSection('ordenes-pago', this)">
+        <i class="fa-solid fa-file-invoice-dollar"></i> Órdenes de pago
+      </button>
+      <button class="menu-btn" data-section="pagos" onclick="showSection('pagos', this)">
+        <i class="fa-solid fa-credit-card"></i> Pagos y métodos
+      </button>
+      <button class="menu-btn" data-section="contrato" onclick="showSection('contrato', this)">
+        <i class="fa-solid fa-file-contract"></i> Contrato
+      </button>
+      <button class="menu-btn" data-section="historial" onclick="showSection('historial', this)">
+        <i class="fa-solid fa-clock-rotate-left"></i> Historial
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar" id="sidebar-avatar">M</div>
+        <div>
+          <p class="sidebar-name" id="sidebar-name">Cliente</p>
+          <p class="sidebar-role">Módulo de reservas</p>
+        </div>
+      </div>
+      <button class="menu-btn logout-btn" onclick="cerrarSesion()">
+        <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- RESUMEN -->
+    <section id="resumen" class="section active">
+      <div class="top-bar">
+        <h1>Reservas y pagos — <span id="welcome-name">Cliente</span></h1>
+        <p>Gestiona reservas, órdenes de pago, contratos e historial en un solo lugar</p>
+      </div>
+      <div class="cards">
+        <div class="card card-blue">
+          <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <span class="card-label">Reservas activas</span>
+          <h2 id="stat-reservas">—</h2>
+          <p>Total registradas</p>
+        </div>
+        <div class="card card-warn">
+          <div class="card-icon"><i class="fa-solid fa-file-invoice"></i></div>
+          <span class="card-label">Órdenes pendientes</span>
+          <h2 id="stat-ordenes">—</h2>
+          <p>Por pagar</p>
+        </div>
+        <div class="card card-green">
+          <div class="card-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <span class="card-label">Pagos completados</span>
+          <h2 id="stat-pagos">—</h2>
+          <p>Procesados correctamente</p>
+        </div>
+        <div class="card card-blue">
+          <div class="card-icon"><i class="fa-solid fa-file-signature"></i></div>
+          <span class="card-label">Contratos</span>
+          <h2 id="stat-contratos">—</h2>
+          <p>Generados</p>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h3 style="margin-bottom:14px;font-size:16px;">Últimas reservas</h3>
+        <div id="resumen-reservas-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+      </div>
+    </section>
+
+    <!-- NUEVA RESERVA -->
+    <section id="nueva-reserva" class="section">
+      <p class="section-heading">Nueva reserva</p>
+      <p class="section-sub">Completa los campos para calcular el precio y confirmar</p>
+
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Vehículo</label>
+            <select id="vehiculo">
+              <option value="">Selecciona un vehículo</option>
+            </select>
+            <span class="error-msg" id="err-vehiculo">Selecciona un vehículo</span>
+          </div>
+          <div class="input-group">
+            <label>Origen (ubicación en tiempo real)</label>
+            <button type="button" class="outline-btn outline-btn--sm" onclick="usarUbicacion()">
+              <i class="fa-solid fa-location-dot"></i> Usar mi ubicación
+            </button>
+            <p id="origen-coords" style="font-size:12px;color:var(--muted);margin-top:6px;">—</p>
+          </div>
+          <div class="input-group">
+            <label>Fecha del servicio</label>
+            <input type="date" id="fecha">
+            <span class="error-msg" id="err-fecha">Selecciona una fecha</span>
+          </div>
+          <div class="input-group">
+            <label>Hora de entrega</label>
+            <input type="time" id="hora">
+            <span class="error-msg" id="err-hora">Selecciona una hora</span>
+          </div>
+          <div class="input-group">
+            <label>Tipo de servicio</label>
+            <select id="tipo">
+              <option value="sin">Sin conductor — $75.000 base</option>
+              <option value="con">Con conductor — $110.000 base</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Duración (días)</label>
+            <input type="number" id="dias" value="1" min="1" max="30">
+          </div>
+
+          <div class="input-group" style="grid-column: 1 / -1;">
+            <label>Destino (marca en el mapa)</label>
+            <p id="destino-coords" style="font-size:12px;color:var(--muted);margin-top:6px;">Haz clic en el mapa para fijar el destino.</p>
+            <span class="error-msg" id="err-destino-mapa">Debes seleccionar un destino en el mapa</span>
+          </div>
+        </div>
+
+        <div class="map-card" style="padding:14px;margin-top:18px;">
+          <div id="ruta-map" style="height:320px;border-radius:12px;overflow:hidden;"></div>
+        </div>
+
+        <div class="price-preview">
+          <div>
+            <p class="price-label">Precio estimado</p>
+            <p class="price-num" id="precio-estimado">—</p>
+            <p class="price-note" id="ruta-note">Selecciona el destino para calcular la tarifa.</p>
+          </div>
+          <i class="fa-solid fa-calculator price-calc-icon"></i>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary-btn" onclick="confirmarReserva()">
+            <i class="fa-solid fa-check"></i> Confirmar reserva
+          </button>
+          <span class="toast" id="toast-reserva">
+            <i class="fa-solid fa-circle-check"></i> ¡Reserva confirmada!
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÓRDENES DE PAGO -->
+    <section id="ordenes-pago" class="section">
+      <p class="section-heading">Órdenes de pago</p>
+      <p class="section-sub">Genera y descarga órdenes vinculadas a tus reservas</p>
+
+      <div class="panel-card">
+        <div class="form-actions" style="margin-top:0;margin-bottom:16px;">
+          <div class="input-group" style="flex:1;min-width:200px;">
+            <label>Generar orden desde reserva</label>
+            <select id="select-reserva-orden">
+              <option value="">Selecciona una reserva</option>
+            </select>
+          </div>
+          <button class="primary-btn primary-btn--sm" style="align-self:flex-end;" onclick="generarOrdenPago()">
+            <i class="fa-solid fa-plus"></i> Generar orden
+          </button>
+        </div>
+        <div id="ordenes-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+      </div>
+    </section>
+
+    <!-- PAGOS Y MÉTODOS -->
+    <section id="pagos" class="section">
+      <p class="section-heading">Pagos y métodos</p>
+      <p class="section-sub">Gestiona métodos de pago y procesa saldos pendientes</p>
+
+      <div class="payment-grid">
+        <div class="panel-card">
+          <h3 style="margin-bottom:14px;font-size:15px;"><i class="fa-solid fa-wallet"></i> Métodos de pago</h3>
+          <div id="metodos-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+        </div>
+
+        <div class="panel-card">
+          <h3 style="margin-bottom:14px;font-size:15px;"><i class="fa-solid fa-money-bill-wave"></i> Pagar orden pendiente</h3>
+          <div class="input-group" style="margin-bottom:12px;">
+            <label>Orden de pago</label>
+            <select id="select-orden-pago">
+              <option value="">Selecciona una orden activa</option>
+            </select>
+          </div>
+          <div class="input-group" style="margin-bottom:16px;">
+            <label>Método de pago</label>
+            <select id="select-metodo-pago">
+              <option value="">Selecciona un método</option>
+            </select>
+          </div>
+          <button class="primary-btn primary-btn--warn" onclick="procesarPago()">
+            <i class="fa-solid fa-credit-card"></i> Pagar ahora
+          </button>
+          <span class="toast" id="toast-pago" style="display:block;margin-top:10px;">
+            <i class="fa-solid fa-circle-check"></i> Pago procesado
+          </span>
+        </div>
+      </div>
+
+      <div class="panel-card" style="margin-top:16px;">
+        <h3 style="margin-bottom:14px;font-size:15px;">Historial de pagos</h3>
+        <div id="pagos-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+      </div>
+    </section>
+
+    <!-- CONTRATO -->
+    <section id="contrato" class="section">
+      <p class="section-heading">Contrato de alquiler</p>
+      <p class="section-sub">Genera, firma y descarga contratos vinculados a reservas</p>
+
+      <div class="panel-card">
+        <div class="form-actions" style="margin-top:0;margin-bottom:16px;">
+          <div class="input-group" style="flex:1;min-width:200px;">
+            <label>Generar contrato desde reserva</label>
+            <select id="select-reserva-contrato">
+              <option value="">Selecciona una reserva</option>
+            </select>
+          </div>
+          <button class="primary-btn primary-btn--sm" style="align-self:flex-end;" onclick="generarContrato()">
+            <i class="fa-solid fa-file-signature"></i> Generar contrato
+          </button>
+        </div>
+        <div id="contratos-list" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</div>
+      </div>
+    </section>
+
+    <!-- HISTORIAL -->
+    <section id="historial" class="section">
+      <p class="section-heading">Historial completo</p>
+      <p class="section-sub">Reservas, órdenes, pagos y contratos en una línea de tiempo</p>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="TODOS" onclick="filtrarHistorial('TODOS', this)">Todos</button>
+        <button class="filter-btn" data-filter="RESERVA" onclick="filtrarHistorial('RESERVA', this)">Reservas</button>
+        <button class="filter-btn" data-filter="ORDEN_PAGO" onclick="filtrarHistorial('ORDEN_PAGO', this)">Órdenes</button>
+        <button class="filter-btn" data-filter="PAGO" onclick="filtrarHistorial('PAGO', this)">Pagos</button>
+        <button class="filter-btn" data-filter="CONTRATO" onclick="filtrarHistorial('CONTRATO', this)">Contratos</button>
+      </div>
+
+      <div id="historial-list" class="history-list loading">
+        <i class="fa-solid fa-spinner fa-spin"></i> Cargando historial...
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script th:src="@{/auth.js}"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script th:src="@{/reserva.js}"></script>
+</body>
+</html>

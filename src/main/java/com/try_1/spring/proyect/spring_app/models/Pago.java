@@ -86,6 +86,10 @@ public class Pago {
         return metodo;
     }
 
+    public void setMetodo(MetodoPago metodo) {
+        this.metodo = metodo;
+    }
+
     public void setMetodos(MetodoPago metodo) {
         this.metodo = metodo;
     }

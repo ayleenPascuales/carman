@@ -25,6 +25,10 @@ public class MetodosPagoController {
     public List<MetodoPago> listar(){
         return metodoPagoService.listar();
     }
+    @GetMapping("/activos")
+    public List<MetodoPago> listarActivos() {
+        return metodoPagoService.listarActivos();
+    }
     @GetMapping("/{id}")
     public MetodoPago buscarPorId(@PathVariable Integer id){
         return metodoPagoService.buscarPorId(id);

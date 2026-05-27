@@ -10,4 +10,5 @@ public interface MetodoPagoService {
     MetodoPago buscarPorId(Integer id);
     void eliminar(Integer id);
     List<MetodoPago> buscarPorTipo(String tipo);
+    List<MetodoPago> listarActivos();
 }

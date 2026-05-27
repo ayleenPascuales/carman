@@ -27,7 +27,7 @@
             Ingresa tus datos para continuar
         </p>
 
-        <form>
+        <form id="login-form">
 
             <div class="input-group">
 
@@ -36,6 +36,7 @@
                 </label>
 
                 <input 
+                    id="login-email"
                     type="email"
                     placeholder="correo@gmail.com"
                     required
@@ -50,12 +51,15 @@
                 </label>
 
                 <input 
+                    id="login-password"
                     type="password"
                     placeholder="********"
                     required
                 >
 
             </div>
+
+            <p id="login-error" class="login-error">Correo o contraseña incorrectos</p>
 
             <div class="extra-options">
 
@@ -98,5 +102,6 @@
 
 </section>
 
+<script th:src="@{/login.js}"></script>
 </body>
 </html>

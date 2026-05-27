@@ -13,4 +13,6 @@ public interface OrdenPagoRepository extends JpaRepository<OrdenPago, Integer> {
 
     List<OrdenPago> findByFechaEmision(LocalDate fechaEmision);
     List<OrdenPago> findByReserva(Reserva reserva);
+    List<OrdenPago> findByReserva_IdReserva(Integer idReserva);
+    List<OrdenPago> findByReserva_Cliente_IdCliente(Integer idCliente);
 }

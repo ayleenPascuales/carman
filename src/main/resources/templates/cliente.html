@@ -20,16 +20,16 @@
       <button class="menu-btn active" onclick="showSection('inicio', this)">
         <i class="fa-solid fa-house"></i> Inicio
       </button>
-      <button class="menu-btn" onclick="showSection('reservas', this)">
+      <a class="menu-btn" th:href="@{/reserva#nueva-reserva}">
         <i class="fa-solid fa-calendar"></i> Reservas
-      </button>
-      <button class="menu-btn" onclick="showSection('pagos', this)">
+      </a>
+      <a class="menu-btn" th:href="@{/reserva#pagos}">
         <i class="fa-solid fa-credit-card"></i> Pagos
-        <span class="notif-badge">1</span>
-      </button>
-      <button class="menu-btn" onclick="showSection('historial', this)">
+        <span class="notif-badge" id="pagos-pendientes-badge" style="display:none;">0</span>
+      </a>
+      <a class="menu-btn" th:href="@{/reserva#historial}">
         <i class="fa-solid fa-clock-rotate-left"></i> Historial
-      </button>
+      </a>
       <button class="menu-btn" onclick="showSection('perfil', this)">
         <i class="fa-solid fa-user"></i> Perfil
       </button>
@@ -40,12 +40,15 @@
     </nav>
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="sidebar-avatar">M</div>
+        <div class="sidebar-avatar">C</div>
         <div>
-          <p class="sidebar-name">María García</p>
+          <p class="sidebar-name">Cliente</p>
           <p class="sidebar-role">Cliente</p>
         </div>
       </div>
+      <button class="menu-btn logout-btn" onclick="cerrarSesion()">
+        <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+      </button>
     </div>
   </aside>
 
@@ -56,7 +59,7 @@
     <!-- INICIO -->
     <section id="inicio" class="section active">
       <div class="top-bar">
-        <h1>Bienvenida, María 👋</h1>
+        <h1>Bienvenida, <span id="welcome-name">Cliente</span> 👋</h1>
         <p>Aquí tienes el resumen de tu cuenta</p>
       </div>
 
@@ -64,24 +67,31 @@
         <div class="card card-blue">
           <div class="card-icon"><i class="fa-solid fa-car"></i></div>
           <span class="card-label">Reserva activa</span>
-          <h2>Honda Civic 2024</h2>
-          <p>Estado: En curso</p>
+          <h2 id="card-reserva-activa">Sin reservas activas</h2>
+          <p id="card-reserva-estado">—</p>
         </div>
 
         <div class="card card-green">
           <div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div>
           <span class="card-label">Próxima reserva</span>
-          <h2>20 Mayo</h2>
-          <p>BMW X5 · 10:00 AM</p>
+          <h2 id="card-proxima-fecha">—</h2>
+          <p id="card-proxima-detalle">—</p>
         </div>
 
-        <div class="card card-warn">
+        <div class="card card-warn" style="cursor:pointer;" onclick="window.location.href='/reserva#pagos'">
           <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
           <span class="card-label">Pago pendiente</span>
-
-          <h2>$120.000</h2>
-          <p>Toca aquí para completar el pago</p>
+          <h2 id="card-pago-pendiente">$0</h2>
+          <p id="card-pago-detalle">Toca aquí para completar el pago</p>
         </div>
+      </div>
+
+      <div class="panel-card" style="background:var(--white);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:24px;">
+        <h2 style="font-size:16px;margin-bottom:8px;">Módulo de reservas</h2>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Gestiona reservas, órdenes de pago, contratos e historial completo</p>
+        <a class="primary-btn" th:href="@{/reserva}" style="text-decoration:none;display:inline-flex;">
+          <i class="fa-solid fa-arrow-right"></i> Ir al módulo de reservas
+        </a>
       </div>
 
       <div class="map-card">
@@ -93,158 +103,6 @@
       </div>
     </section>
 
-    <!-- RESERVAS -->
-    <section id="reservas" class="section">
-      <p class="section-heading">Nueva reserva</p>
-      <p class="section-sub">Completa los campos para calcular el precio y confirmar</p>
-
-      <div class="form-card">
-        <div class="form-grid">
-          <div class="input-group">
-            <label>Origen</label>
-            <input type="text" id="origen" placeholder="¿Dónde estás?">
-            <span class="error-msg" id="err-origen">Este campo es obligatorio</span>
-          </div>
-
-          <div class="input-group">
-            <label>Destino</label>
-            <input type="text" id="destino" placeholder="¿A dónde vas?">
-            <span class="error-msg" id="err-destino">Este campo es obligatorio</span>
-          </div>
-
-          <div class="input-group">
-            <label>Fecha</label>
-            <input type="date" id="fecha" onchange="calcularPrecio()">
-            <span class="error-msg" id="err-fecha">Selecciona una fecha</span>
-          </div>
-
-          <div class="input-group">
-            <label>Hora</label>
-            <input type="time" id="hora" onchange="calcularPrecio()">
-            <span class="error-msg" id="err-hora">Selecciona una hora</span>
-          </div>
-
-          <div class="input-group">
-            <label>Tipo de servicio</label>
-            <select id="tipo" onchange="calcularPrecio()">
-              <option value="sin">Sin conductor — $75.000 base</option>
-              <option value="con">Con conductor — $110.000 base</option>
-            </select>
-          </div>
-
-          <div class="input-group">
-            <label>Duración (días)</label>
-            <input type="number" id="dias" value="1" min="1" max="30" onchange="calcularPrecio()">
-          </div>
-        </div>
-
-        <div class="price-preview">
-          <div>
-            <p class="price-label">Precio estimado</p>
-            <p class="price-num" id="precio-estimado">$75.000</p>
-            <p class="price-note">IVA incluido · puede variar según disponibilidad</p>
-          </div>
-          <i class="fa-solid fa-calculator price-calc-icon"></i>
-        </div>
-
-        <div class="form-actions">
-          <button class="primary-btn" onclick="confirmarReserva()">
-            <i class="fa-solid fa-check"></i> Confirmar reserva
-          </button>
-
-          <span class="toast" id="toast-reserva">
-            <i class="fa-solid fa-circle-check"></i> ¡Reserva confirmada!
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGOS -->
-    <section id="pagos" class="section">
-      <p class="section-heading">Pagos</p>
-      <p class="section-sub">Gestiona tus métodos de pago y saldos pendientes</p>
-
-      <div class="payment-grid">
-        <div class="payment-card">
-          <h3><i class="fa-solid fa-wallet"></i> Método de pago</h3>
-          <div class="payment-method">
-            <i class="fa-brands fa-cc-visa"></i>
-            Visa terminada en 2045
-          </div>
-
-          <div class="payment-method payment-method--alt">
-            <i class="fa-solid fa-mobile-alt"></i>
-            Nequi · 300 000 0000
-          </div>
-
-          <button class="outline-btn">
-            <i class="fa-solid fa-plus"></i> Agregar método
-          </button>
-        </div>
-
-        <div class="payment-card payment-card--warn">
-          <h3><i class="fa-solid fa-triangle-exclamation"></i> Pago pendiente</h3>
-          <p>Reserva Honda Civic 2024</p>
-
-          <div class="amount-big">$120.000</div>
-          <p class="due-note">Vence el 22 de mayo · 3 días restantes</p>
-          <button class="primary-btn primary-btn--warn">
-            <i class="fa-solid fa-credit-card"></i> Pagar ahora
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- HISTORIAL -->
-    <section id="historial" class="section">
-      <p class="section-heading">Historial de viajes</p>
-      <p class="section-sub">Tus reservas anteriores · puedes volver a reservar el mismo auto</p>
-
-      <div class="history-list">
-        <div class="history-item">
-          <div class="history-info">
-            <h3><i class="fa-solid fa-car"></i> Mazda CX-3</h3>
-            <p>12 Abril 2026 · 3 días · $225.000</p>
-          </div>
-
-          <div class="history-actions">
-            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
-            <button class="repeat-btn" onclick="repetirReserva('Mazda CX-3')">
-              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
-            </button>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="history-info">
-            <h3><i class="fa-solid fa-car"></i> Toyota Yaris</h3>
-            <p>30 Marzo 2026 · 1 día · $75.000</p>
-          </div>
-
-          <div class="history-actions">
-            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
-            <button class="repeat-btn" onclick="repetirReserva('Toyota Yaris')">
-              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
-            </button>
-          </div>
-        </div>
-
-        <div class="history-item">
-          <div class="history-info">
-            <h3><i class="fa-solid fa-car"></i> Renault Sandero</h3>
-            <p>14 Febrero 2026 · 2 días · $150.000</p>
-          </div>
-          
-          <div class="history-actions">
-            <span class="badge-completed"><i class="fa-solid fa-check"></i> Completada</span>
-            <button class="repeat-btn" onclick="repetirReserva('Renault Sandero')">
-              <i class="fa-solid fa-rotate-right"></i> Volver a reservar
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- PERFIL -->
     <section id="perfil" class="section">
       <p class="section-heading">Mi perfil</p>
@@ -252,27 +110,27 @@
 
       <div class="profile-card">
         <div class="profile-header">
-          <div class="profile-photo">M</div>
+          <div class="profile-photo sidebar-avatar">C</div>
           <div class="profile-meta">
-            <h2>María García</h2>
-            <p>Conductor · Miembro desde enero 2025</p>
+            <h2>Cliente</h2>
+            <p>Cliente · Miembro Carman</p>
           </div>
         </div>
 
         <div class="profile-fields">
           <div class="input-group">
             <label>Nombre completo</label>
-            <input type="text" id="p-nombre" value="María García">
+            <input type="text" id="p-nombre" value="">
           </div>
 
           <div class="input-group">
             <label>Correo electrónico</label>
-            <input type="email" id="p-email" value="maria@gmail.com">
+            <input type="email" id="p-email" value="">
           </div>
 
           <div class="input-group">
             <label>Teléfono</label>
-            <input type="text" id="p-tel" value="+57 300 000 0000">
+            <input type="text" id="p-tel" value="">
           </div>
 
           <div class="input-group">
@@ -350,6 +208,7 @@
   </main>
 </div>
 
-<script src="cliente.js"></script>
+<script th:src="@{/auth.js}"></script>
+<script th:src="@{/cliente.js}"></script>
 </body>
 </html>

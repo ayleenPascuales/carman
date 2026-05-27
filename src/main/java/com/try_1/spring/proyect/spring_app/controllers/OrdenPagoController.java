@@ -60,6 +60,12 @@ public class OrdenPagoController {
     public OrdenPago generarDesdeReserva(@PathVariable Integer idReserva) {
         return ordenPagoService.generarOrdenDesdeReserva(idReserva);
     }
-
-
+    @GetMapping("/cliente/{idCliente}")
+    public List<OrdenPago> buscarPorCliente(@PathVariable Integer idCliente) {
+        return ordenPagoService.buscarPorCliente(idCliente);
+    }
+    @GetMapping("/reserva/{idReserva}")
+    public List<OrdenPago> buscarPorReserva(@PathVariable Integer idReserva) {
+        return ordenPagoService.buscarPorReserva(idReserva);
+    }
 }

@@ -99,4 +99,14 @@ public class OrdenPagoServiceImpl implements OrdenPagoService {
         return ordenPagoRepository.save(nueva);
     }
 
+    @Override
+    public List<OrdenPago> buscarPorCliente(Integer idCliente) {
+        return ordenPagoRepository.findByReserva_Cliente_IdCliente(idCliente);
+    }
+
+    @Override
+    public List<OrdenPago> buscarPorReserva(Integer idReserva) {
+        return ordenPagoRepository.findByReserva_IdReserva(idReserva);
+    }
+
 }

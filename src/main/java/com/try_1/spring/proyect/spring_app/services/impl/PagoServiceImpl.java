@@ -6,12 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.try_1.spring.proyect.spring_app.dto.RegistrarPagoRequest;
 import com.try_1.spring.proyect.spring_app.models.EstadoOrdenPago;
 import com.try_1.spring.proyect.spring_app.models.EstadoPago;
+import com.try_1.spring.proyect.spring_app.models.MetodoPago;
 import com.try_1.spring.proyect.spring_app.models.Notificacion;
 import com.try_1.spring.proyect.spring_app.models.OrdenPago;
 import com.try_1.spring.proyect.spring_app.models.Pago;
 import com.try_1.spring.proyect.spring_app.models.TipoNotificacion;
+import com.try_1.spring.proyect.spring_app.repositories.MetodoPagoRepository;
 import com.try_1.spring.proyect.spring_app.repositories.OrdenPagoRepository;
 import com.try_1.spring.proyect.spring_app.repositories.PagoRepository;
 import com.try_1.spring.proyect.spring_app.services.NotificacionService;
@@ -29,6 +32,8 @@ public class PagoServiceImpl implements PagoService{
     private OrdenPagoRepository ordenPagoRepository;
     @Autowired
     private NotificacionService notificacionService;
+    @Autowired
+    private MetodoPagoRepository metodoPagoRepository;
 
     @Override
     public List<Pago> listar(){
@@ -56,6 +61,8 @@ public class PagoServiceImpl implements PagoService{
     Pago pago = new Pago();
 
     pago.setOrdenPago(orden);
+    pago.setReserva(orden.getReserva());
+    pago.setMonto(orden.getTotal());
 
     pago.setFechaHoraPago(LocalDateTime.now());
 
@@ -103,5 +110,31 @@ public class PagoServiceImpl implements PagoService{
         notificacionService.guardar(n);
         }
         return pagoRepository.save(pago);
+    }
+
+    @Override
+    public List<Pago> buscarPorCliente(Integer idCliente) {
+        return pagoRepository.findByReserva_Cliente_IdCliente(idCliente);
+    }
+
+    @Override
+    public List<Pago> buscarPorReserva(Integer idReserva) {
+        return pagoRepository.findByReserva_IdReserva(idReserva);
+    }
+
+    @Override
+    public Pago registrarPagoCompleto(RegistrarPagoRequest request) {
+        OrdenPago orden = ordenPagoRepository.findById(request.getIdOrdenPago()).orElse(null);
+        MetodoPago metodo = metodoPagoRepository.findById(request.getIdMetodo()).orElse(null);
+
+        if (orden == null || metodo == null) {
+            return null;
+        }
+
+        Pago pago = crearPagoDesdeOrden(orden);
+        pago.setMetodo(metodo);
+        pagoRepository.save(pago);
+
+        return procesarPago(pago.getIdPago());
     }
 }

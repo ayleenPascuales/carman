@@ -71,5 +71,20 @@ public class ContratoAlquilerController {
 
     return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
+
+    @GetMapping("/cliente/{idCliente}")
+    public List<ContratoAlquiler> buscarPorCliente(@PathVariable Integer idCliente) {
+        return contratoAlquilerService.buscarPorCliente(idCliente);
+    }
+
+    @GetMapping("/reserva/{idReserva}")
+    public ContratoAlquiler buscarPorReserva(@PathVariable Integer idReserva) {
+        return contratoAlquilerService.buscarPorReserva(idReserva);
+    }
+
+    @PostMapping("/desdeReserva/{idReserva}")
+    public ContratoAlquiler generarDesdeReserva(@PathVariable Integer idReserva) {
+        return contratoAlquilerService.generarDesdeReserva(idReserva);
+    }
     
 }
