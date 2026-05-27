@@ -82,6 +82,9 @@ public class VehiculoServiceImpl implements VehiculoService {
             if(vehiculo.getEstado()!= null){
                 vehiculoExistente.setEstado(vehiculo.getEstado());
             }
+            if(vehiculo.getFoto()!= null){
+                vehiculoExistente.setFoto(vehiculo.getFoto());
+            }
             return vehiculoRepository.save(vehiculoExistente);
         }
         return null;
